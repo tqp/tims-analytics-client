@@ -3,7 +3,7 @@ console.log('Adding Build Timestamp...');
 const replace = require('replace-in-file');
 const moment = require('moment');
 
-const buildTimestamp = moment.now();
+const buildTimestamp = moment().format('MM/DD/YYYY hh:mm:ss');
 console.log('buildTimestamp', buildTimestamp);
 
 const options = {

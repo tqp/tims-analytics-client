@@ -84,7 +84,7 @@ export const routes: Routes = [
       },
       {
         path: 'site-admin',
-        loadChildren: () => import('./views/secured-pages/site-admin/site-admin.module').then(m => m.SiteAdminModule),
+        loadChildren: () => import('./views/secured-pages/account/account.module').then(m => m.AccountModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }

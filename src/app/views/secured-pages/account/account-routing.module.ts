@@ -54,5 +54,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SiteAdminRoutingModule {
+export class AccountRoutingModule {
 }

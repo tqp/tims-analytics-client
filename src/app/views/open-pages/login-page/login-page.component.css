@@ -16,7 +16,15 @@
 }
 
 .form-row-button {
-  width: 90%;
+  width: 48%;
+  text-transform: none;
+  font-size: 13px;
+  margin-top: 0;
+}
+
+.counter-number {
+  text-align: center;
+  width: calc(100% / 4);
 }
 
 .btn-brand i + span {

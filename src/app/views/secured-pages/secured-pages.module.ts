@@ -3,9 +3,9 @@ import { AutoTrackerModule } from './apps/auto-tracker/auto-tracker.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CrudModule } from './apps/crud/crud.module';
-import { SiteAdminModule } from './site-admin/site-admin.module';
 import { TestPagesModule } from './test-pages/test-pages.module';
-import {AngularMaterialModule} from '@tqp/modules/angular-material.module';
+import { AngularMaterialModule } from '@tqp/modules/angular-material.module';
+import { AccountModule } from './account/account.module';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import {AngularMaterialModule} from '@tqp/modules/angular-material.module';
     // Custom Modules
     AutoTrackerModule,
     CrudModule,
-    SiteAdminModule,
+    AccountModule,
     TestPagesModule,
     // Other Imports
     CommonModule,
