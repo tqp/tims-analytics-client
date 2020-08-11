@@ -8,11 +8,13 @@ import { environment } from '../../../../../environments/environment';
 })
 export class TestComponent implements OnInit {
   public buildTimestamp: string;
+  public environmentName: string;
 
   constructor() { }
 
   ngOnInit(): void {
     this.buildTimestamp = environment.buildTimestamp;
+    this.environmentName = environment.name;
   }
 
 }
