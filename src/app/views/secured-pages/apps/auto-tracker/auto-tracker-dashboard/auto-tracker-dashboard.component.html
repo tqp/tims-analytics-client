@@ -1,0 +1,100 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>Car Cost Dashboard
+        </div>
+        <div class="card-body">
+          This project began as a debate between my father and me about how much it costs to own a car.
+          I decided to track all of my car-related expenses.
+          More recently, I started working on an app that will let me enter these expenses into a MySQL database.
+          I created a dashboard to show interesting charts and statistics about the data being captured.
+          <br/><br/>
+          Technologies: Angular 9, Angular Material, Java/Spring back-end, MySQL database, Chart.js library.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Dashboard Summary
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <div class="callout callout-success">
+                <small class="text-muted">Current Cost/Mile</small>
+                <br/>
+                <strong class="h4">{{statCostPerMile}}</strong>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="callout callout-info">
+                <small class="text-muted">Longest Time Between Fills</small>
+                <br/>
+                <strong class="h4">{{statLongestTimeBetweenFills}}</strong>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="callout callout-info">
+                <small class="text-muted">Farthest Single-Tank Distance</small>
+                <br/>
+                <strong class="h4">{{statLongestDistance}}</strong>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              <div class="callout callout-warning">
+                <small class="text-muted">Estimated 100k Date</small>
+                <br/>
+                <strong class="h4">{{statEstimated1kDate}}</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <hr class="mt-0">
+
+          <div class="row">
+
+            <div class="col-ms-6 col-lg-6">
+              <div class="chart-wrapper" style="height: 300px; margin-top: 40px;">
+                <canvas baseChart class="chart"
+                        [datasets]="mpgChartData"
+                        [labels]="mpgChartLabels"
+                        [options]="mpgChartOptions"
+                        [colors]="mpgChartColors"
+                        [legend]="mpgChartLegend"
+                        [chartType]="'line'" *ngIf="mpgChartData.length > 0"></canvas>
+              </div>
+            </div>
+
+            <div class="col-ms-6 col-lg-6">
+              <div class="chart-wrapper" style="height: 300px; margin-top: 40px;">
+                <canvas baseChart class="chart"
+                        [datasets]="odometerChartData"
+                        [labels]="odometerChartLabels"
+                        [options]="odometerChartOptions"
+                        [colors]="odometerChartColors"
+                        [legend]="odometerChartLegend"
+                        [chartType]="'line'" *ngIf="odometerChartData.length > 0"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

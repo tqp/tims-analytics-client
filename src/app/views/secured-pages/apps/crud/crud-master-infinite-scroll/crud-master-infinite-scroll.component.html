@@ -1,0 +1,112 @@
+<div class="animated fadeIn">
+
+  <div class="card">
+
+    <div class="card-header">
+      <div class="float-left" style="line-height: 28px;">
+        <i class="fa fa-user-circle-o mr-2"></i>
+        Person List {{loadedFirstPage}}
+        <span class="badge badge-info ml-2" *ngIf="loadedFirstPage">
+          Displaying {{loadedRecords}} of {{totalRecords}} records
+        </span>
+        <span class="badge badge-warning ml-2" style="cursor: pointer" *ngIf="isFilterApplied" (click)="clearFilters()">Clear Filters</span>
+      </div>
+      <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreatePersonPage()">
+        <i class="fa fa-plus mr-1"></i>
+        Create New Person
+      </button>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row mb-3">
+
+        <div class="col-md-5 offset-md-7">
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-search"></i></div>
+            </div>
+            <label for="nameSearchFieldId" *ngIf="false"></label>
+            <input id="nameSearchFieldId" type="text" class="form-control" placeholder="Search by Name"
+                   [formControl]="nameSearchFormControl" #nameSearchElementRef autocomplete="chrome-off"/>
+
+            <div class="input-group-prepend">
+              <div class="input-group-text">State</div>
+            </div>
+            <label for="stateSearchFieldId" *ngIf="false"></label>
+            <select id="stateSearchFieldId" class="form-control col-md-3" [formControl]="stateSearchFormControl">
+              <option value="" selected>All</option>
+              <option *ngFor="let state of this.stateList" [value]="state">{{state}}</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="table-container" #tableContainer>
+
+        <table mat-table [dataSource]="dataSource"
+               matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+               class="table table-striped">
+
+          <ng-container matColumnDef="guid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>GUID</th>
+            <td mat-cell *matCellDef="let row">{{row.guid}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+            <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+            <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Street</th>
+            <td mat-cell *matCellDef="let row">{{row.street}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+            <td mat-cell *matCellDef="let row">{{row.city}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+            <td mat-cell *matCellDef="let row">{{row.state}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row">
+              <i class="fa fa-edit" (click)="openPersonEditDialog(row)" style="cursor: pointer;"></i>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailPage(row);"></tr>
+        </table>
+
+        <mat-card class="spinner-container" *ngIf="isLoading">
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate">
+          </mat-progress-spinner>
+        </mat-card>
+
+        <div style="width: 100%; padding: 8px;" *ngIf="dataSource && dataSource.length <= 0">
+          No records to display.
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

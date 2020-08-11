@@ -1,0 +1,11 @@
+#container {
+  width: 100%;
+}
+
+#list-add-remove-container {
+  height: calc(100vh - 400px);
+}
+
+app-list-add-remove-items-basic {
+  width: 100%;
+}

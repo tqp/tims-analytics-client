@@ -1,0 +1,20 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="float-left" style="line-height: 28px;">
+            <i class="fa fa-info-circle mr-2"></i>Basic Database Information
+          </div>
+          <div class="btn btn-sm btn-primary float-right" (click)="getDatabaseTime()">
+            Re-Run Request
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>Current Database Timestamp</h4>
+          The current database time is {{databaseTime}}
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+</div>
