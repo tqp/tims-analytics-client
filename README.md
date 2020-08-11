@@ -31,6 +31,11 @@ Must install the version that matches the Angular version. By default, it's inst
 
 Unsure about: mini-css-extract-plugin
 
+#### Angular.json Updates
+Add to Styles:  
+"node_modules/ladda/dist/ladda-themeless.min.css"  
+"node_modules/leaflet/dist/leaflet.css"
+
 #### Add-Ons Added To app.module.ts
 - AngularMaterialModule
 - HttpClientModule

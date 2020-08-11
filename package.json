@@ -21,8 +21,10 @@
     "ng": "ng",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "start": "ng serve",
+    "start-dev": "node addBuildTimestamp.js && ng serve --configuration=dev",
     "start-4201": "ng serve --port 4201",
     "build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+    "build-dev": "ng build --configuration=dev --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -100,6 +102,7 @@
     "karma-jasmine": "^3.1.1",
     "karma-jasmine-html-reporter": "^1.5.3",
     "protractor": "^5.4.3",
+    "replace-in-file": "^6.1.0",
     "ts-node": "^8.8.2",
     "tslint": "^6.1.1",
     "typescript": "~3.7.5"
