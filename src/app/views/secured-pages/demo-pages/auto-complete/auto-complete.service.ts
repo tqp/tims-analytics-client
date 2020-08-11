@@ -4,46 +4,64 @@ import { Person } from '@tqp/models/Person';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { HttpService } from '@tqp/services/http.service';
+import { TokenService } from '@tqp/services/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutoCompleteService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private httpService: HttpService,
+              private tokenService: TokenService) {
   }
 
-  retrieveLastNameOptions(filter: string): Observable<Person> {
-    console.log('AutoCompleteService -> retrieveLastNameOptions: filter=' + filter);
-    const url = environment.apiUrl + '/api/v1/person/auto-complete-last-name';
-    return this.http
-      .get<Person>(url, {
-        observe: 'response',
-        params: {
-          filter: filter
-        }
-      })
-      .pipe(
-        map(res => {
-          return res.body;
+  public retrieveLastNameOptions(filter: string): Observable<Person> {
+    const url = environment.apiUrl + '/api/v1/auto-complete/last-name';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http
+        .get<Person>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {
+            filter: filter
+          }
         })
-      );
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
   }
 
-  retrieveAddressOptions(filter: string): Observable<Person> {
-    console.log('AutoCompleteService -> retrieveAddressOptions: filter=' + filter);
-    const url = environment.apiUrl + '/api/v1/person/auto-complete-address';
-    return this.http
-      .get<Person>(url, {
-        observe: 'response',
-        params: {
-          filter: filter
-        }
-      })
-      .pipe(
-        map(res => {
-          return res.body;
-        })
-      );
+  public retrieveAddressOptions(filter: string): Observable<Person> {
+    const url = environment.apiUrl + '/api/v1/auto-complete/address';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http
+        .get<Person>(url,
+          {
+            headers: this.httpService.setHeadersWithToken(),
+            observe: 'response',
+            params: {
+              filter: filter
+            }
+          })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
   }
 }

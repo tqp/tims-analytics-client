@@ -20,9 +20,16 @@ Must install the version that matches the Angular version. By default, it's inst
 #### Packages Added to Template
 - giojs (for interactive-globe) `npm install giojs`
 - leaflet (for maps) `npm install leaflet@^1.4.0`
+- leaflet @types `npm install @types/leaflet@^1.4.3 --save-dev`
 - leaflet.heat `npm install leaflet.heat`
+- leaflet.heat @types `npm install @types/leaflet.heat@0.2.0 --save-dev`
+- ngx-leaflet `npm install @asymmetrik/ngx-leaflet@^5.0.1`
+- highcharts `npm install highcharts`
 - flex-layout `npm install @angular/flex-layout@^9.0.0-beta.31`
 - ngx-toaster `npm install ngx-toastr`'
+- moment `npm install moment`
+
+Unsure about: mini-css-extract-plugin
 
 #### Add-Ons Added To app.module.ts
 - AngularMaterialModule

@@ -22,8 +22,8 @@
       "@tqp": [
         "@tqp/"
       ],
-      "@environment/*": [
-        "environments/*"
+      "@environment": [
+        "environments/"
       ]
     }
   }

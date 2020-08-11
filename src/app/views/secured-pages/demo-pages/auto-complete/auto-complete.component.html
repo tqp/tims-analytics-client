@@ -40,7 +40,7 @@
                     <mat-option *ngFor="let option of streetAutoCompleteOptions | async"
                                 [value]="option.street"
                                 (onSelectionChange)="populateAddressGroup(option)">
-                      {{option.street}}, {{option.city}} {{option.state}}
+                      {{option.street}}, {{option.city}}, {{option.state}}
                     </mat-option>
                   </mat-autocomplete>
                 </div>

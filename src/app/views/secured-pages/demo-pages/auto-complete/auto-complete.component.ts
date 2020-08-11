@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Person } from '@tqp/models/Person';
 import { AutoCompleteService } from './auto-complete.service';
+import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auto-complete',
@@ -30,56 +31,56 @@ export class AutoCompleteComponent implements OnInit {
       })
     });
 
-    // this.lastNameAutoCompleteOptions = this.autoCompleteForm.get('lastName').valueChanges.pipe(
-    //   startWith(''),
-    //   debounceTime(300),
-    //   switchMap(value => {
-    //     // console.log('value', value);
-    //     if (value !== '') {
-    //       return this.autoCompleteService.retrieveLastNameOptions(value.toLowerCase()).pipe(
-    //         map(results => {
-    //           console.log('results', results);
-    //           return results;
-    //         }),
-    //         catchError(() => {
-    //           return of(null);
-    //         })
-    //       );
-    //     } else {
-    //       return of(null);
-    //     }
-    //   })
-    // );
-    //
-    // this.streetAutoCompleteOptions = this.autoCompleteForm.get('address').get('street').valueChanges.pipe(
-    //   startWith(''),
-    //   debounceTime(300),
-    //   switchMap(value => {
-    //     console.log('value', value);
-    //     if (value !== '') {
-    //       return this.autoCompleteService.retrieveAddressOptions(value.toLowerCase()).pipe(
-    //         map(results => {
-    //           console.log('results', results);
-    //           return results;
-    //         }),
-    //         catchError(() => {
-    //           return of(null);
-    //         })
-    //       );
-    //     } else {
-    //       return of(null);
-    //     }
-    //   })
-    // );
+    this.lastNameAutoCompleteOptions = this.autoCompleteForm.get('lastName').valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap(value => {
+        // console.log('value', value);
+        if (value !== '') {
+          return this.autoCompleteService.retrieveLastNameOptions(value.toLowerCase()).pipe(
+            map(results => {
+              // console.log('results', results);
+              return results;
+            }),
+            catchError(() => {
+              return of(null);
+            })
+          );
+        } else {
+          return of(null);
+        }
+      })
+    );
+
+    this.streetAutoCompleteOptions = this.autoCompleteForm.get('address').get('street').valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap(value => {
+        console.log('value', value);
+        if (value !== '') {
+          return this.autoCompleteService.retrieveAddressOptions(value.toLowerCase()).pipe(
+            map(results => {
+              // console.log('results', results);
+              return results;
+            }),
+            catchError(() => {
+              return of(null);
+            })
+          );
+        } else {
+          return of(null);
+        }
+      })
+    );
   }
 
   public populateNameGroup(option: any) {
-    console.log('option', option);
+    // console.log('option', option);
     this.autoCompleteForm.get('firstName').patchValue(option.firstName);
   }
 
   public populateAddressGroup(option: any) {
-    console.log('option', option);
+    // console.log('option', option);
     this.autoCompleteForm.get('address').get('street').patchValue(option.street);
     this.autoCompleteForm.get('address').get('city').patchValue(option.city);
     this.autoCompleteForm.get('address').get('state').patchValue(option.state);
