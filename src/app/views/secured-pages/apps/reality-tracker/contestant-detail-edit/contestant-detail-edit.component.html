@@ -1,0 +1,91 @@
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="contestant">
+
+  <form [formGroup]="contestantEditForm">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h1 *ngIf="contestant && newRecord && contestantEditForm.controls['lastName'].value == ''; else notShow">
+          New Contestant
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            {{contestantEditForm.controls['lastName'].value}}, {{contestantEditForm.controls['firstName'].value}}
+          </h1>
+        </ng-template>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
+                  (click)="delete(contestant.guid)">
+<!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
+            Delete
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                  [disabled]="!contestantEditForm.valid">Save
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user-circle"></i>Person
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input matInput id="lastName" type="text" class="form-control" placeholder="Last Name"
+                         formControlName="lastName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.lastName">
+                    <mat-error class="error-message"
+                               *ngIf="contestantEditForm.get('lastName').hasError(validation.type)
+                                && (contestantEditForm.get('lastName').dirty ||
+                                contestantEditForm.get('lastName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input matInput id="firstName" type="text" class="form-control" placeholder="First Name"
+                         formControlName="firstName">
+                  <mat-error *ngFor="let validation of validationMessages.firstName">
+                    <mat-error class="error-message"
+                               *ngIf="contestantEditForm.get('firstName').hasError(validation.type)
+                                && (contestantEditForm.get('firstName').dirty ||
+                                contestantEditForm.get('firstName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

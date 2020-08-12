@@ -1,4 +1,4 @@
-<div class="tqp-server-pagination-master animated fadeIn">
+<div class="tqp-crud-server-pagination-list animated fadeIn">
 
   <div class="card">
 
@@ -10,9 +10,9 @@
           Displaying {{pageStart}} to {{pageEnd}} of {{totalRecords}} records</span>
         <span class="badge badge-warning ml-2" style="cursor: pointer" *ngIf="isFilterApplied" (click)="clearFilters()">Clear Filters</span>
       </div>
-      <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreatePersonPage()">
+      <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreateContestantPage()">
         <i class="fa fa-plus mr-1"></i>
-        Create New Series
+        Create Contestant
       </button>
     </div>
 
@@ -53,14 +53,14 @@
             <td mat-cell *matCellDef="let row">{{row.guid}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="contestantLastName">
+          <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-            <td mat-cell *matCellDef="let row">{{row.contestantLastName}}</td>
+            <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="contestantFirstName">
+          <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-            <td mat-cell *matCellDef="let row">{{row.contestantFirstName}}</td>
+            <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

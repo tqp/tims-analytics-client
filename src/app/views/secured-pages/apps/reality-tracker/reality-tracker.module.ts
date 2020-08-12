@@ -7,6 +7,7 @@ import { AngularMaterialModule } from '../../../../../@tqp/modules/angular-mater
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContestantListComponent } from './contestant-list/contestant-list.component';
 import { ContestantDetailComponent } from './contestant-detail/contestant-detail.component';
+import { ContestantDetailEditComponent } from './contestant-detail-edit/contestant-detail-edit.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ContestantDetailComponent } from './contestant-detail/contestant-detail
     SeriesListComponent,
     SeriesDetailComponent,
     ContestantListComponent,
-    ContestantDetailComponent
+    ContestantDetailComponent,
+    ContestantDetailEditComponent
   ],
   imports: [
     CommonModule,

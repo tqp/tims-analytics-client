@@ -1,1 +1,47 @@
-<p>contestant-detail works!</p>
+<div class="tqp-crud-detail animated fadeIn" *ngIf="contestant">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>{{contestant.lastName}}, {{contestant.firstName}}</h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <!--        <button class="btn btn-sm btn-outline-info" (click)="openEditDialog(person.guid)">Edit in Popup</button>-->
+        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">Edit</button>
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px">Return to
+          List
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-user-circle"></i>Person
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Last Name:</dt>
+            <dd class="col-sm-9">{{contestant.lastName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">First Name:</dt>
+            <dd class="col-sm-9">{{contestant.firstName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Gender:</dt>
+            <dd class="col-sm-9">{{contestant.gender}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+    </div>
+  </div>
+
+</div>

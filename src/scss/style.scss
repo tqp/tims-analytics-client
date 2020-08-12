@@ -75,4 +75,5 @@ $spinkit-spinner-color: $body-color;
 @import '~spinkit/scss/spinkit.scss';
 
 // TQP Custom Styles
-@import 'tqp-server-pagination-master';
+@import 'tqp-crud-server-pagination-list';
+@import 'tqp-crud-detail';

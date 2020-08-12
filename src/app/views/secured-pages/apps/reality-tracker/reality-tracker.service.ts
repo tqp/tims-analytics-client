@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from '@tqp/services/http.service';
 import { TokenService } from '@tqp/services/token.service';
+import { Person } from '../../../../../@tqp/models/Person';
+import { Contestant } from './reality-tracker-models/Contestant';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,28 @@ export class RealityTrackerService {
   constructor(private http: HttpClient,
               private httpService: HttpService,
               private tokenService: TokenService) { }
+
+  public createContestant(contestant: Contestant): Observable<Contestant> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/contestant/';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.post<Person>(url,
+        contestant,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
 
   public getSeriesList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
     const url = environment.apiUrl + '/reality-tracker/api/v1/series/ssp';
@@ -61,6 +85,71 @@ export class RealityTrackerService {
       return null;
     }
   }
+
+  public getContestantDetail(guid: string) {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/contestant/' + guid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Contestant>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public updateContestant(contestant: Contestant): Observable<Contestant> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/contestant/';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<Contestant>(url,
+        contestant,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public deleteContestant(contestantGuid: string): Observable<string> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/contestant/' + contestantGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.delete<string>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
 
   public setNameSearchValue(val) {
     this.nameSearchValue = val;

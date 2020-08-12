@@ -1,1 +1,16 @@
 /* All styles should be in tqp-server-pagination-master.css */
+
+::ng-deep .paginator {
+  background: transparent;
+  position: absolute;
+  min-width: 50px;
+}
+
+::ng-deep .mat-paginator-container {
+  padding: 0 !important;
+  min-height: unset !important;
+}
+
+::ng-deep .mat-paginator-range-label {
+  display: none !important;
+}

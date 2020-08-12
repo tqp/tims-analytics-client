@@ -31,7 +31,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'seriesName'
+    'name'
   ];
 
   public nameSearchFormControl = new FormControl();

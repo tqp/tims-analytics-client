@@ -60,7 +60,7 @@ const routes: Routes = [
         path: 'crud-detail-create-page',
         component: CrudDetailEditPageComponent,
         data: {
-          title: 'Create New Person'
+          title: 'Create Person'
         }
       },
       {

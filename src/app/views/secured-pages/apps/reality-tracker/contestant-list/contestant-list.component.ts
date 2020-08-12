@@ -31,8 +31,8 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'contestantLastName',
-    'contestantFirstName'
+    'lastName',
+    'firstName'
   ];
 
   public nameSearchFormControl = new FormControl();
@@ -95,7 +95,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.realityTrackerService.getContestantList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        console.log('getPage response', response);
+        // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -197,16 +197,12 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
     this.nameSearchFormControl.setValue('');
   }
 
-  public openCreatePersonPage(): void {
-    this.router.navigate(['secured-pages/crud-detail-create-page'], {queryParams: {src: 'crud-master-server-pagination'}}).then();
+  public openCreateContestantPage(): void {
+    this.router.navigate(['reality-tracker/contestant-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['secured-pages/crud-detail', row.guid], {queryParams: {src: 'crud-master-server-pagination'}}).then();
-  }
-
-  public openPersonEditDialog(row: any): void {
-    console.log('openPersonEditDialog', row);
+    this.router.navigate(['reality-tracker/contestant-detail', row.guid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])
