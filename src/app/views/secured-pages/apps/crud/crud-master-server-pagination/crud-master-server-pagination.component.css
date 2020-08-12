@@ -1,6 +1,6 @@
 .table-container {
   height: calc(100vh - 312px);
-  overflow: auto;
+  overflow: hidden;
 }
 
 table {
@@ -13,11 +13,6 @@ th.mat-header-cell {
 
 th {
   border-top: 0 !important; /* Fixes issue where row text pixels appear above header when using 'table' class . */
-}
-
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
 }
 
 .spinner-container {
@@ -44,3 +39,8 @@ th {
 ::ng-deep .mat-paginator-range-label {
   display: none !important;
 }
+
+/*::-webkit-scrollbar {*/
+/*  width: 0;*/
+/*  background: transparent;*/
+/*}*/

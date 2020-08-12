@@ -45,3 +45,10 @@ td.mat-cell {
   margin-left:  14px !important;
   color: rgb(248, 08, 107) !important;
 }
+
+// Overriding template animation settings
+
+.animated {
+  animation-duration: 200ms !important;
+  // animation-fill-mode: both;
+}
