@@ -37,7 +37,7 @@
             <label for="stateSearchFieldId" *ngIf="false"></label>
             <select id="stateSearchFieldId" class="form-control col-md-3"
                     [formControl]="stateSearchFormControl" #stateSearchElementRef>
-              <option value="" selected>All States</option>
+              <option value="" selected>All</option>
               <option *ngFor="let state of this.stateList" [value]="state">{{state}}</option>
             </select>
           </div>

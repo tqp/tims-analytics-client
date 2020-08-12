@@ -31,7 +31,7 @@ export class CrudMasterClientScrollComponent implements OnInit, OnDestroy {
   public dataSource: Person[] = [];
   public stateList: string[] = [];
   public totalRecords: number;
-  public isLoading = false;
+  public isLoading;
   public isFilterApplied = false;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;

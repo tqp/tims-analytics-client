@@ -9,7 +9,7 @@ export const navItemsUser: INavData[] = [
 
   {
     title: true,
-    name: 'Apps'
+    name: 'Applications'
   },
   {
     name: 'Auto Tracker',
@@ -41,7 +41,7 @@ export const navItemsUser: INavData[] = [
 
   {
     title: true,
-    name: 'Tim\'s Demo Pages'
+    name: 'Demo Pages'
   },
   {
     name: 'Geo Heatmap',

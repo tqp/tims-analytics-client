@@ -41,6 +41,9 @@ Add to Styles:
 - HttpClientModule
 - ToastrModule.forRoot()
 
+#### Custom Theme
+Add to styles.css: `@import '../../src/assets/themes/material-custom-theme';`
+
 ## Notes
 
 #### Simplify Import Paths

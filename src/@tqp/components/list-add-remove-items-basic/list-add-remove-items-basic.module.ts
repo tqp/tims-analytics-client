@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ListAddRemoveItemsBasicComponent} from './list-add-remove-items-basic.component';
+import { AngularMaterialModule } from '../../modules/angular-material.module';
 
 
 @NgModule({
@@ -8,7 +9,8 @@ import {ListAddRemoveItemsBasicComponent} from './list-add-remove-items-basic.co
     ListAddRemoveItemsBasicComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AngularMaterialModule
   ],
   exports: [
     ListAddRemoveItemsBasicComponent

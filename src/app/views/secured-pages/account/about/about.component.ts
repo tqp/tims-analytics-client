@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { AboutService } from './about.service';
-import { KeyValue } from '@tqp/models/KeyValue';
-import { Person } from '../../../../../@tqp/models/Person';
-import { ListItem } from '../../../../../@tqp/models/ListItem';
 
 @Component({
   selector: 'app-about',
@@ -27,7 +24,7 @@ export class AboutComponent implements OnInit {
   private getServerBuildTimestamp(): void {
     this.aboutService.getServerBuildTimestamp().subscribe(
       (response: any) => {
-        console.log('response', response);
+        // console.log('response', response);
         this.serverBuildTimestamp = response.value;
       },
       error => {
