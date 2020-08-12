@@ -1,42 +1,38 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { ServerSidePaginationRequest } from '@tqp/models/ServerSidePaginationRequest';
+import { MatPaginator } from '@angular/material/paginator';
+import { ServerSidePaginationRequest } from '../../../../../../@tqp/models/ServerSidePaginationRequest';
 import { FormControl } from '@angular/forms';
-import { Person } from '@tqp/models/Person';
-import { CrudService } from '../crud.service';
-import { EventService } from '@tqp/services/event.service';
+import { Person } from '../../../../../../@tqp/models/Person';
+import { RealityTrackerService } from '../reality-tracker.service';
+import { EventService } from '../../../../../../@tqp/services/event.service';
 import { Router } from '@angular/router';
+import { ServerSidePaginationResponse } from '../../../../../../@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { ServerSidePaginationResponse } from '@tqp/models/ServerSidePaginationResponse';
-import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-crud-master-server-pagination',
-  templateUrl: './crud-master-server-pagination.component.html',
-  styleUrls: ['./crud-master-server-pagination.component.css']
+  selector: 'app-contestant-list',
+  templateUrl: './contestant-list.component.html',
+  styleUrls: ['./contestant-list.component.css']
 })
-export class CrudMasterServerPaginationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('tableContainer', {read: ElementRef, static: true}) public matTableRef: ElementRef;
   @ViewChild('dialogContent', {static: true}) public dialogRef: any;
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
-  public listTitle = 'Person List';
-  private defaultSortColumn = 'PERSON_LAST_NAME';
+  public listTitle = 'Contestant List';
+  private defaultSortColumn = 'CONTESTANT_LAST_NAME';
   private pageIndex = 0;
   public pageSize = 10;
   private totalNumberOfPages: number;
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'lastName',
-    'firstName',
-    'street',
-    'city',
-    'state',
-    'actions'
+    'contestantLastName',
+    'contestantFirstName'
   ];
 
   public nameSearchFormControl = new FormControl();
@@ -54,7 +50,7 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
 
   public isFilterApplied = false;
 
-  constructor(private crudService: CrudService,
+  constructor(private realityTrackerService: RealityTrackerService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -69,8 +65,7 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
   }
 
   ngOnDestroy(): void {
-    this.crudService.setNameSearchValue(this.nameSearchFormControl.value);
-    this.crudService.setStateSearchValue(this.stateSearchFormControl.value);
+    this.realityTrackerService.setNameSearchValue(this.nameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -89,35 +84,18 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = 'asc';
 
-    if (this.crudService.getNameSearchValue()) {
-      const nameSearchValue = this.crudService.getNameSearchValue();
-      console.log('nameVal', nameSearchValue);
+    if (this.realityTrackerService.getNameSearchValue()) {
+      const nameSearchValue = this.realityTrackerService.getNameSearchValue();
       this.nameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
-
-    this.crudService.getStateDropDownOptions().subscribe(
-      (stateList: string[]) => {
-        // console.log('stateList', this.state.);
-        this.stateList = stateList;
-        this.stateSearchFormControl.setValue('', {emitEvent: false});
-      }, error => {
-        console.error('Error: ', error);
-      }, () => {
-        const stateSearchValue = this.crudService.getStateSearchValue();
-        if (stateSearchValue) {
-          console.log('stateVal', stateSearchValue);
-          this.stateSearchFormControl.setValue(stateSearchValue);
-          this.searchParams.stateFilter = stateSearchValue;
-        }
-      });
   }
 
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.crudService.getPersonList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        // console.log('getPage response', response);
+    this.realityTrackerService.getContestantList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+        console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -145,7 +123,6 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
   private listenForChanges(): void {
     merge(
       this.nameSearchFormControl.valueChanges.pipe(debounceTime(100)),
-      this.stateSearchFormControl.valueChanges,
       this.sort.sortChange,
       this.paginator.page
     )
@@ -161,21 +138,15 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
           this.eventService.loadingEvent.emit(true);
 
           const nameFilter = this.nameSearchFormControl.value != null ? this.nameSearchFormControl.value : '';
-          const stateFilter = this.stateSearchFormControl.value;
 
           // Translate table columns to database columns for sorting.
           // IMPORTANT: If this translation is incorrect, the query will break!!!
           const translateSortColumnsToDatabaseColumns = {
-            lastName: this.defaultSortColumn,
-            firstName: 'PERSON_FIRST_NAME',
-            street: 'PERSON_STREET',
-            city: 'PERSON_CITY',
-            state: 'PERSON_STATE'
+            seriesName: this.defaultSortColumn
           };
 
           const serverSideSearchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
           serverSideSearchParams.nameFilter = nameFilter;
-          serverSideSearchParams.stateFilter = stateFilter;
           serverSideSearchParams.pageIndex = this.paginator.pageIndex;
           serverSideSearchParams.pageSize = this.pageSize;
           serverSideSearchParams.sortColumn = (translateSortColumnsToDatabaseColumns[this.sort.active] != null) ?
@@ -183,8 +154,8 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
           serverSideSearchParams.sortDirection = this.sort.direction;
           this.searchParams = serverSideSearchParams;
 
-          this.isFilterApplied = nameFilter || stateFilter;
-          return this.crudService.getPersonList_SSP(serverSideSearchParams);
+          this.isFilterApplied = nameFilter;
+          return this.realityTrackerService.getContestantList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;
@@ -224,7 +195,6 @@ export class CrudMasterServerPaginationComponent implements OnInit, AfterViewIni
 
   public clearFilters(): void {
     this.nameSearchFormControl.setValue('');
-    this.stateSearchFormControl.patchValue(''); /// Just to use patchValue instead of setValue.
   }
 
   public openCreatePersonPage(): void {

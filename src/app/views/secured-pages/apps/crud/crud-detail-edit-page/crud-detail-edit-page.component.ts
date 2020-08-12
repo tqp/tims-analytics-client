@@ -156,7 +156,7 @@ export class CrudDetailEditPageComponent implements OnInit {
 
   private getSubFirstPage(searchParams: ServerSidePaginationRequest) {
     const records: Person[] = [];
-    this.crudService.getPersonSubList_InfiniteScroll(searchParams).subscribe(response => {
+    this.crudService.getPersonFriendAssociationList_SSP(searchParams).subscribe(response => {
       // console.log('getFirstPage response', response);
       response.data.forEach(item => {
         records.push(item);
@@ -169,7 +169,7 @@ export class CrudDetailEditPageComponent implements OnInit {
 
   private addSubNextPage(searchParams: ServerSidePaginationRequest): void {
     const records = this.dataSource.map(x => Object.assign({}, x)); // 'Deep' copy datasource array
-    this.crudService.getPersonSubList_InfiniteScroll(searchParams).subscribe(response => {
+    this.crudService.getPersonFriendAssociationList_SSP(searchParams).subscribe(response => {
       // console.log('addNextPage response', response);
       response.data.forEach(item => {
         records.push(item);
@@ -323,8 +323,8 @@ export class CrudDetailEditPageComponent implements OnInit {
     switch (this.pageSource) {
       case 'crud-master-client-scroll':
         return 'crud-app/crud-master-client-scroll';
-      case 'crud-master-infinite-scroll':
-        return 'crud-app/crud-master-infinite-scroll';
+      case 'crud-master-server-scroll':
+        return 'crud-app/scroll';
       case 'crud-master-server-pagination':
         return 'crud-app/crud-master-server-pagination';
       default:

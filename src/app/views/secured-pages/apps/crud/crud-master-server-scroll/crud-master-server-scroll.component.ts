@@ -1,21 +1,21 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { ServerSidePaginationRequest } from '@tqp/models/ServerSidePaginationRequest';
+import { ServerSidePaginationRequest } from '../../../../../../@tqp/models/ServerSidePaginationRequest';
 import { FormControl } from '@angular/forms';
-import { EventService } from '@tqp/services/event.service';
-import { Person } from '@tqp/models/Person';
+import { Person } from '../../../../../../@tqp/models/Person';
 import { CrudService } from '../crud.service';
-import { ServerSidePaginationResponse } from '@tqp/models/ServerSidePaginationResponse';
-import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { fromEvent, merge, of } from 'rxjs';
+import { EventService } from '../../../../../../@tqp/services/event.service';
 import { Router } from '@angular/router';
+import { fromEvent, merge, of } from 'rxjs';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import { ServerSidePaginationResponse } from '../../../../../../@tqp/models/ServerSidePaginationResponse';
 
 @Component({
-  selector: 'app-crud-master-infinite-scroll',
-  templateUrl: './crud-master-infinite-scroll.component.html',
-  styleUrls: ['./crud-master-infinite-scroll.component.css']
+  selector: 'app-crud-master-server-scroll',
+  templateUrl: './crud-master-server-scroll.component.html',
+  styleUrls: ['./crud-master-server-scroll.component.css']
 })
-export class CrudMasterInfiniteScrollComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CrudMasterServerScrollComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('tableContainer', {read: ElementRef, static: true}) public matTableRef: ElementRef;
   @ViewChild('dialogContent', {static: true}) public dialogRef: any;
@@ -112,7 +112,7 @@ export class CrudMasterInfiniteScrollComponent implements OnInit, AfterViewInit,
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     // console.log('searchParams', searchParams);
-    this.crudService.getPersonList_InfiniteScroll(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+    this.crudService.getPersonList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
         // console.log('getFirstPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
@@ -141,7 +141,7 @@ export class CrudMasterInfiniteScrollComponent implements OnInit, AfterViewInit,
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.records = this.dataSource.map(x => Object.assign({}, x)); // 'Deep' copy datasource array
-    this.crudService.getPersonList_InfiniteScroll(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+    this.crudService.getPersonList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
       // console.log('addNextPage response', response);
       response.data.forEach(item => {
         this.records.push(item);
@@ -216,7 +216,7 @@ export class CrudMasterInfiniteScrollComponent implements OnInit, AfterViewInit,
 
           this.isFilterApplied = nameFilter || stateFilter;
 
-          return this.crudService.getPersonList_InfiniteScroll(serverSideSearchParams);
+          return this.crudService.getPersonList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;
@@ -258,11 +258,11 @@ export class CrudMasterInfiniteScrollComponent implements OnInit, AfterViewInit,
   }
 
   public openCreatePersonPage(): void {
-    this.router.navigate(['secured-pages/crud-detail-create-page'], {queryParams: {src: 'crud-master-infinite-scroll'}}).then();
+    this.router.navigate(['secured-pages/crud-detail-create-page'], {queryParams: {src: 'crud-master-server-scroll'}}).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['secured-pages/crud-detail', row.guid], {queryParams: {src: 'crud-master-infinite-scroll'}}).then();
+    this.router.navigate(['secured-pages/crud-detail', row.guid], {queryParams: {src: 'crud-master-server-scroll'}}).then();
   }
 
   public openPersonEditDialog(row: any): void {

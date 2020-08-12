@@ -83,21 +83,3 @@ max - maximum point intensity, 1.0 by default
 radius - radius of each "point" of the heatmap, 25 by default  
 blur - amount of blur, 15 by default  
 gradient - color gradient config, e.g. {0.4: 'blue', 0.65: 'lime', 1: 'red'} 
-
-#### Oracle Query Note
-To change the order of columns within a table:
-```text
-create table
-    newTable
-as
-select
-    col3,
-    col2,
-    col1
-from
-    table;
-rename table to oldTable;
-rename newTable to table;
-```
-#### Digital Clock
-jQuery Example Here: REF: https://codepen.io/bsmith/pen/drElg

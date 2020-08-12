@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrudMasterClientScrollComponent } from './crud-master-client-scroll/crud-master-client-scroll.component';
-import { CrudMasterInfiniteScrollComponent } from './crud-master-infinite-scroll/crud-master-infinite-scroll.component';
 import { CrudMasterServerPaginationComponent } from './crud-master-server-pagination/crud-master-server-pagination.component';
 import { CrudDetailComponent } from './crud-detail/crud-detail.component';
 import { CrudDetailEditPageComponent } from './crud-detail-edit-page/crud-detail-edit-page.component';
 import { CrudPersonFriendEditPageComponent } from './crud-person-friend-edit-page/crud-person-friend-edit-page.component';
 import { CrudPersonFriendEditDialogComponent } from './crud-person-friend-edit-dialog/crud-person-friend-edit-dialog.component';
+import { CrudMasterServerScrollComponent } from './crud-master-server-scroll/crud-master-server-scroll.component';
 
 const routes: Routes = [
 
@@ -18,7 +18,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'crud-master-infinite-scroll',
+        redirectTo: 'crud-master-server-scroll',
         pathMatch: 'full'
       },
       {
@@ -29,10 +29,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'crud-master-infinite-scroll',
-        component: CrudMasterInfiniteScrollComponent,
+        path: 'crud-master-server-scroll',
+        component: CrudMasterServerScrollComponent,
         data: {
-          title: 'Person List (Server-Side Infinite Scroll)'
+          title: 'Person List (Server-Side Scroll)'
         }
       },
       {

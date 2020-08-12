@@ -76,6 +76,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'reality-tracker',
+        loadChildren: () => import('./views/secured-pages/apps/reality-tracker/reality-tracker.module').then(m => m.RealityTrackerModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
         path: 'secured-pages',
         loadChildren: () => import('./views/secured-pages/secured-pages.module').then(m => m.SecuredPagesModule),
         resolve: {

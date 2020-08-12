@@ -16,6 +16,7 @@ export const navItemsUser: INavData[] = [
     url: '/auto-tracker',
     icon: 'icon-speedometer'
   },
+
   {
     name: 'CRUD App',
     url: '/crud-app',
@@ -28,13 +29,31 @@ export const navItemsUser: INavData[] = [
       },
       {
         name: 'Server-Side Scroll',
-        url: '/crud-app/crud-master-infinite-scroll',
+        url: '/crud-app/crud-master-server-scroll',
         icon: 'fa fa-keyboard-o'
       },
       {
         name: 'Server-Side Paging',
         url: '/crud-app/crud-master-server-pagination',
         icon: 'fa fa-keyboard-o'
+      }
+    ]
+  },
+
+  {
+    name: 'Reality TV Tracker',
+    url: '/reality-tracker',
+    icon: 'fa fa-trophy',
+    children: [
+      {
+        name: 'Series List',
+        url: '/reality-tracker/series-list',
+        icon: 'fa fa-television'
+      },
+      {
+        name: 'Contestant List',
+        url: '/reality-tracker/contestant-list',
+        icon: 'fa fa-users'
       }
     ]
   },

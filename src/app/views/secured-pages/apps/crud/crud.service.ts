@@ -44,7 +44,7 @@ export class CrudService {
     }
   }
 
-  public getPersonList_All(): Observable<Person[]> {
+  public getPersonList(): Observable<Person[]> {
     const url = environment.apiUrl + '/api/v1/person/all';
     const token = this.tokenService.getToken();
     if (token) {
@@ -64,11 +64,9 @@ export class CrudService {
     }
   }
 
-  public getPersonList_InfiniteScroll(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
-    const url = environment.apiUrl + '/api/v1/person/infinite-scroll';
+  public getPersonList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
+    const url = environment.apiUrl + '/api/v1/person/ssp';
     const token = this.tokenService.getToken();
-    // serverSideSearchParams.pageIndex = ++serverSideSearchParams.pageIndex;
-    // console.log('serverSideSearchParams', serverSideSearchParams);
     if (token) {
       return this.http.post<ServerSidePaginationResponse>(url,
         serverSideSearchParams,
@@ -88,8 +86,8 @@ export class CrudService {
     }
   }
 
-  public getPersonSubList_InfiniteScroll(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
-    const url = environment.apiUrl + '/api/v1/person/sub';
+  public getPersonFriendAssociationList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
+    const url = environment.apiUrl + '/api/v1/person/person-friend-associations-ssp';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.post<ServerSidePaginationResponse>(url,

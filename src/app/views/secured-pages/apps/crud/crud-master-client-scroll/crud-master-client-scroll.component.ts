@@ -57,7 +57,7 @@ export class CrudMasterClientScrollComponent implements OnInit, OnDestroy {
 
   private setInitialFieldValues() {
     if (this.crudService.getNameSearchValue()) {
-      console.log('nameVal', this.crudService.getNameSearchValue());
+      // console.log('nameVal', this.crudService.getNameSearchValue());
       this.nameSearchFormControl.setValue(this.crudService.getNameSearchValue());
     }
 
@@ -80,7 +80,7 @@ export class CrudMasterClientScrollComponent implements OnInit, OnDestroy {
   private getPersonList_All(): void {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.crudService.getPersonList_All().subscribe(
+    this.crudService.getPersonList().subscribe(
       (personList: Person[]) => {
         personList.forEach(item => {
           this.records.push(item);
