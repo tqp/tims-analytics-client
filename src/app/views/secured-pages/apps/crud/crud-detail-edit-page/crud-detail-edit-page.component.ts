@@ -73,7 +73,7 @@ export class CrudDetailEditPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const temp = this.route.params.forEach((params: Params) => {
+    this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
         const guid = params['guid'];
         this.getPersonDetail(guid);
@@ -83,7 +83,7 @@ export class CrudDetailEditPageComponent implements OnInit {
         this.person = new Person();
         this.person.guid = null;
       }
-    });
+    }).then();
 
     const src = this.route
       .queryParams

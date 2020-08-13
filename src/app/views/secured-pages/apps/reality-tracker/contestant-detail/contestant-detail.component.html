@@ -6,10 +6,11 @@
     </div>
     <div class="col-sm-6">
       <div class="form-group float-right">
-        <!--        <button class="btn btn-sm btn-outline-info" (click)="openEditDialog(person.guid)">Edit in Popup</button>-->
-        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">Edit</button>
-        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px">Return to
-          List
+        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">
+          <u>E</u>dit
+        </button>
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px">
+          Return to <u>L</u>ist
         </button>
       </div>
     </div>
@@ -20,7 +21,8 @@
 
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-user-circle"></i>Person
+          <i class="fa fa-user"></i>
+          Basic Info
         </div>
         <div class="card-body">
           <dl class="row">
@@ -33,7 +35,49 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Gender:</dt>
-            <dd class="col-sm-9">{{contestant.gender}}</dd>
+            <dd class="col-sm-9">{{genderNames[contestant.gender]}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-address-card"></i>
+          Additional Info
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Date of Birth:</dt>
+            <dd class="col-sm-9">{{contestant.dateOfBirth}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Occupation:</dt>
+            <dd class="col-sm-9">{{contestant.occupation}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Hometown:</dt>
+            <dd class="col-sm-9">{{contestant.hometownCity}}, {{contestant.hometownState}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Twitter Handle:</dt>
+            <dd class="col-sm-9">{{contestant.twitterHandle}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-rss"></i>
+          Metadata
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">GUID:</dt>
+            <dd class="col-sm-9">{{contestant.guid}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Comments:</dt>
+            <dd class="col-sm-9">{{contestant.comments}}</dd>
           </dl>
         </div>
       </div>

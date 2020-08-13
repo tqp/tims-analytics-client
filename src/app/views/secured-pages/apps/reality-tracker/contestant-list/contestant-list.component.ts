@@ -207,11 +207,13 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
 
   @HostListener('window:keydown', ['$event'])
   public handleKeyboardEvent(event: KeyboardEvent): void {
-    // console.log(event + ' (' + event.key + ')');
-    // CTRL + F
     if (event.ctrlKey && event.key === 'f') {
       event.preventDefault();
       this.nameSearchElementRef.nativeElement.focus();
+    }
+    if (event.ctrlKey && event.key === 'c') {
+      event.preventDefault();
+      this.openCreateContestantPage();
     }
   }
 }

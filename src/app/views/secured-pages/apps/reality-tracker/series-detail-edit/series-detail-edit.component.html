@@ -1,0 +1,74 @@
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="series">
+
+  <form [formGroup]="seriesEditForm">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h1 *ngIf="series && newRecord && seriesEditForm.controls['name'].value == ''; else notShow">
+          New Series
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            {{seriesEditForm.controls['name'].value}}
+          </h1>
+        </ng-template>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
+                  (click)="delete(series.guid)">
+            <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
+            Delete
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                  [disabled]="!seriesEditForm.valid">Save
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user-circle"></i>Person
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="name">Series Name</label>
+                  <input matInput id="name" type="text" class="form-control" placeholder="Last Name"
+                         formControlName="name" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.name">
+                    <mat-error class="error-message"
+                               *ngIf="seriesEditForm.get('name').hasError(validation.type)
+                                && (seriesEditForm.get('name').dirty ||
+                                seriesEditForm.get('name').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

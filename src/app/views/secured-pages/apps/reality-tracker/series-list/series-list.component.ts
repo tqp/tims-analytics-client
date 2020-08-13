@@ -94,7 +94,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.realityTrackerService.getSeriesList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        console.log('getPage response', response);
+        // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -197,11 +197,11 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public openCreatePersonPage(): void {
-    this.router.navigate(['secured-pages/crud-detail-create-page'], {queryParams: {src: 'crud-master-server-pagination'}}).then();
+    this.router.navigate(['reality-tracker/series-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['secured-pages/crud-detail', row.guid], {queryParams: {src: 'crud-master-server-pagination'}}).then();
+    this.router.navigate(['reality-tracker/series-detail', row.guid]).then();
   }
 
   public openPersonEditDialog(row: any): void {

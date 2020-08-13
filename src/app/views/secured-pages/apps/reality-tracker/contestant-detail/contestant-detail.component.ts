@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventService } from '../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +15,7 @@ export class ContestantDetailComponent implements OnInit {
   public pageSource: string;
   public contestant: Contestant;
   public dialogRef: any;
+  public genderNames = {'M': 'Male', 'F': 'Female', 'O': 'Other'};
 
   constructor(private route: ActivatedRoute,
               private realityTrackerService: RealityTrackerService,
@@ -24,7 +25,7 @@ export class ContestantDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const temp = this.route.params.forEach((params: Params) => {
+    this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
         const guid = params['guid'];
         // console.log('guid', guid);
@@ -32,7 +33,7 @@ export class ContestantDetailComponent implements OnInit {
       } else {
         console.error('No ID was present.');
       }
-    });
+    }).then();
 
     const src = this.route
       .queryParams
@@ -46,7 +47,7 @@ export class ContestantDetailComponent implements OnInit {
     this.realityTrackerService.getContestantDetail(guid).subscribe(
       response => {
         this.contestant = response;
-        // console.log('response', response);
+        console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {
@@ -78,6 +79,18 @@ export class ContestantDetailComponent implements OnInit {
       }, error => {
         console.error('Error: ', error);
       });
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  public handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === 'e') {
+      event.preventDefault();
+      this.openEditPage();
+    }
+    if (event.ctrlKey && event.key === 'l') {
+      event.preventDefault();
+      this.returnToList();
+    }
   }
 
 }

@@ -4,7 +4,8 @@ import { SeriesListComponent } from './series-list/series-list.component';
 import { ContestantListComponent } from './contestant-list/contestant-list.component';
 import { ContestantDetailComponent } from './contestant-detail/contestant-detail.component';
 import { ContestantDetailEditComponent } from './contestant-detail-edit/contestant-detail-edit.component';
-import { CrudDetailEditPageComponent } from '../crud/crud-detail-edit-page/crud-detail-edit-page.component';
+import { SeriesDetailComponent } from './series-detail/series-detail.component';
+import { SeriesDetailEditComponent } from './series-detail-edit/series-detail-edit.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
         redirectTo: 'series-list',
         pathMatch: 'full'
       },
+
+      // SERIES
+
       {
         path: 'series-list',
         component: SeriesListComponent,
@@ -26,10 +30,41 @@ const routes: Routes = [
         }
       },
       {
+        path: 'series-detail/:guid',
+        component: SeriesDetailComponent,
+        data: {
+          title: 'Series Detail'
+        }
+      },
+      {
+        path: 'series-detail-edit/:guid',
+        component: SeriesDetailEditComponent,
+        data: {
+          title: 'Edit Series'
+        }
+      },
+      {
+        path: 'series-create',
+        component: SeriesDetailEditComponent,
+        data: {
+          title: 'Create Series'
+        }
+      },
+
+      // CONTESTANT
+
+      {
         path: 'contestant-list',
         component: ContestantListComponent,
         data: {
           title: 'Contestant List'
+        }
+      },
+      {
+        path: 'contestant-detail/:guid',
+        component: ContestantDetailComponent,
+        data: {
+          title: 'Contestant Detail'
         }
       },
       {
@@ -44,13 +79,6 @@ const routes: Routes = [
         component: ContestantDetailEditComponent,
         data: {
           title: 'Create Contestant'
-        }
-      },
-      {
-        path: 'contestant-detail/:guid',
-        component: ContestantDetailComponent,
-        data: {
-          title: 'Contestant Detail'
         }
       }
     ]

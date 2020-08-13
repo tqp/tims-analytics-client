@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContestantListComponent } from './contestant-list/contestant-list.component';
 import { ContestantDetailComponent } from './contestant-detail/contestant-detail.component';
 import { ContestantDetailEditComponent } from './contestant-detail-edit/contestant-detail-edit.component';
+import { SeriesDetailEditComponent } from './series-detail-edit/series-detail-edit.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -16,14 +18,16 @@ import { ContestantDetailEditComponent } from './contestant-detail-edit/contesta
     SeriesDetailComponent,
     ContestantListComponent,
     ContestantDetailComponent,
-    ContestantDetailEditComponent
+    ContestantDetailEditComponent,
+    SeriesDetailEditComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    RealityTrackerRoutingModule
+    RealityTrackerRoutingModule,
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class RealityTrackerModule {
