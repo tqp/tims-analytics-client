@@ -10,6 +10,7 @@ import { TokenService } from '@tqp/services/token.service';
 import { Person } from '../../../../../@tqp/models/Person';
 import { Contestant } from './reality-tracker-models/Contestant';
 import { Series } from './reality-tracker-models/Series';
+import { Season } from './reality-tracker-models/Season';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class RealityTrackerService {
 
   constructor(private http: HttpClient,
               private httpService: HttpService,
-              private tokenService: TokenService) { }
+              private tokenService: TokenService) {
+  }
 
   // SERIES
 
@@ -120,6 +122,29 @@ export class RealityTrackerService {
           observe: 'response',
           params: {}
         })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  // Series-Season List
+  public getSeriesSeasonList(seriesGuid: string): Observable<Season[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/season';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Season[]>(url, {
+        headers: this.httpService.setHeadersWithToken(),
+        observe: 'response',
+        params: {
+          'series-guid': seriesGuid
+        }
+      })
         .pipe(
           map(res => {
             return res.body;

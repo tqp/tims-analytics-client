@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { RealityTrackerService } from '../reality-tracker.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
-import { AuthService } from '../../../../../../@tqp/services/auth.service';
+import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
+import { AuthService } from '@tqp/services/auth.service';
 import { Series } from '../reality-tracker-models/Series';
+import { Season } from '../reality-tracker-models/Season';
 
 @Component({
   selector: 'app-series-detail-edit',
@@ -18,6 +19,13 @@ export class SeriesDetailEditComponent implements OnInit {
   public series: Series;
   public seriesEditForm: FormGroup;
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
+
+  public seasonList: Season[];
+  public records: Season[] = [];
+  public dataSource: Season[] = [];
+  public displayedColumns: string[] = [
+    'number'
+  ];
 
   public validationMessages = {
     'name': [
@@ -37,9 +45,10 @@ export class SeriesDetailEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
-        const guid = params['guid'];
-        // console.log('guid', guid);
-        this.getSeriesDetail(guid);
+        const seriesGuid = params['guid'];
+        // console.log('seriesGuid', seriesGuid);
+        this.getSeriesDetail(seriesGuid);
+        this.getSeriesSeasonList(seriesGuid);
       } else {
         // Create new Person
         this.newRecord = true;
@@ -47,12 +56,6 @@ export class SeriesDetailEditComponent implements OnInit {
         this.series.guid = null;
       }
     }).then();
-
-    const src = this.route
-      .queryParams
-      .subscribe(params => {
-        this.pageSource = params.src;
-      });
   }
 
   private initializeForm(): void {
@@ -76,7 +79,26 @@ export class SeriesDetailEditComponent implements OnInit {
     );
   }
 
+  private getSeriesSeasonList(seriesGuid: string): void {
+    this.realityTrackerService.getSeriesSeasonList(seriesGuid).subscribe(
+      (seasonList: Season[]) => {
+        // console.log('seasonList', seasonList);
+        seasonList.forEach(item => {
+          this.records.push(item);
+        });
+        this.dataSource = this.records;
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
   // BUTTONS
+
+  public openCreateSeasonDialog(): void {
+    console.log('openCreateSeasonDialog');
+  }
 
   public delete(seriesGuid: string): void {
     this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {

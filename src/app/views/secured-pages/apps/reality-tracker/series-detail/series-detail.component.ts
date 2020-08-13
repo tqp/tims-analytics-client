@@ -6,6 +6,7 @@ import { EventService } from '../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
 import { Series } from '../reality-tracker-models/Series';
+import { Season } from '../reality-tracker-models/Season';
 
 @Component({
   selector: 'app-series-detail',
@@ -17,6 +18,13 @@ export class SeriesDetailComponent implements OnInit {
   public series: Series;
   public dialogRef: any;
 
+  public seasonList: Season[];
+  public records: Season[] = [];
+  public dataSource: Season[] = [];
+  public displayedColumns: string[] = [
+    'number'
+  ];
+
   constructor(private route: ActivatedRoute,
               private realityTrackerService: RealityTrackerService,
               private eventService: EventService,
@@ -25,21 +33,16 @@ export class SeriesDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const temp = this.route.params.forEach((params: Params) => {
+    this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
-        const guid = params['guid'];
-        // console.log('guid', guid);
-        this.getSeriesDetail(guid);
+        const seriesGuid = params['guid'];
+        // console.log('seriesGuid', seriesGuid);
+        this.getSeriesDetail(seriesGuid);
+        this.getSeriesSeasonList(seriesGuid);
       } else {
         console.error('No ID was present.');
       }
-    });
-
-    const src = this.route
-      .queryParams
-      .subscribe(params => {
-        this.pageSource = params.src;
-      });
+    }).then();
   }
 
   private getSeriesDetail(guid: string): void {
@@ -49,6 +52,21 @@ export class SeriesDetailComponent implements OnInit {
         this.series = response;
         // console.log('response', response);
         this.eventService.loadingEvent.emit(false);
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
+  private getSeriesSeasonList(seriesGuid: string): void {
+    this.realityTrackerService.getSeriesSeasonList(seriesGuid).subscribe(
+      (seasonList: Season[]) => {
+        // console.log('seasonList', seasonList);
+        seasonList.forEach(item => {
+          this.records.push(item);
+        });
+        this.dataSource = this.records;
       },
       error => {
         console.error('Error: ', error);

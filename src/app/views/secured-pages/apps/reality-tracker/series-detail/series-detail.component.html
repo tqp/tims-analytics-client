@@ -33,6 +33,55 @@
     </div>
 
     <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-leaf"></i>
+          Seasons
+        </div>
+        <div class="card-body">
+
+          <div class="table-container">
+
+            <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
+                   matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+                   class="table table-striped">
+
+              <ng-container matColumnDef="seasonGuid">
+                <th mat-header-cell *matHeaderCellDef>GUID</th>
+                <td mat-cell *matCellDef="let row">{{row.seasonGuid}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef>Season Number</th>
+                <td mat-cell *matCellDef="let row">
+                  Season {{row.number}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
+              No records to display.
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 

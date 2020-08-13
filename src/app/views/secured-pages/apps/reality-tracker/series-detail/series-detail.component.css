@@ -1,1 +1,6 @@
 /* All styles should be in tqp-detail.css */
+
+.table-container {
+  height: 500px;
+  overflow: auto;
+}
