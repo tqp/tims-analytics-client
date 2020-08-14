@@ -134,8 +134,32 @@ export class RealityTrackerService {
     }
   }
 
+  // SEASON
+
+  public createSeason(season: Season): Observable<Season> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/season/';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.post<Season>(url,
+        season,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
   // Series-Season List
-  public getSeriesSeasonList(seriesGuid: string): Observable<Season[]> {
+  public getSeasonListBySeriesGuid(seriesGuid: string): Observable<Season[]> {
     const url = environment.apiUrl + '/reality-tracker/api/v1/season';
     const token = this.tokenService.getToken();
     if (token) {
@@ -157,14 +181,11 @@ export class RealityTrackerService {
     }
   }
 
-  // SEASON
-
-  public createSeason(season: Season): Observable<Season> {
-    const url = environment.apiUrl + '/reality-tracker/api/v1/season/';
+  public getSeasonDetail(guid: string) {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/season/' + guid;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.post<Season>(url,
-        season,
+      return this.http.get<Contestant>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
@@ -216,6 +237,28 @@ export class RealityTrackerService {
           observe: 'response',
           params: {}
         })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getPlayerListBySeasonGuid(seasonGuid: string): Observable<Season[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Season[]>(url, {
+        headers: this.httpService.setHeadersWithToken(),
+        observe: 'response',
+        params: {
+          'season-guid': seasonGuid
+        }
+      })
         .pipe(
           map(res => {
             return res.body;

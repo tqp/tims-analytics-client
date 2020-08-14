@@ -6,6 +6,8 @@ import { ContestantDetailComponent } from './contestant/contestant-detail/contes
 import { ContestantDetailEditComponent } from './contestant/contestant-detail-edit/contestant-detail-edit.component';
 import { SeriesDetailComponent } from './series/series-detail/series-detail.component';
 import { SeriesDetailEditComponent } from './series/series-detail-edit/series-detail-edit.component';
+import { SeasonDetailComponent } from './season/season-detail/season-detail.component';
+import { SeasonDetailEditComponent } from './season/season-detail-edit/season-detail-edit.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,23 @@ const routes: Routes = [
         component: SeriesDetailEditComponent,
         data: {
           title: 'Create Series'
+        }
+      },
+
+      // SEASON
+
+      {
+        path: 'season-detail/:guid',
+        component: SeasonDetailComponent,
+        data: {
+          title: 'Season Detail'
+        }
+      },
+      {
+        path: 'season-detail-edit/:guid',
+        component: SeasonDetailEditComponent,
+        data: {
+          title: 'Edit Season'
         }
       },
 

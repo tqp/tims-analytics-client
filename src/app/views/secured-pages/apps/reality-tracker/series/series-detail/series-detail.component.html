@@ -62,20 +62,23 @@
                    matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
                    class="table table-striped">
 
-              <ng-container matColumnDef="seasonGuid">
+              <ng-container matColumnDef="guid">
                 <th mat-header-cell *matHeaderCellDef>GUID</th>
-                <td mat-cell *matCellDef="let row">{{row.seasonGuid}}</td>
+                <td mat-cell *matCellDef="let row">{{row.guid}}</td>
               </ng-container>
 
-              <ng-container matColumnDef="number">
+              <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Season Name</th>
-                <td mat-cell *matCellDef="let row">
-                  {{row.name}}
-                </td>
+                <td mat-cell *matCellDef="let row">{{row.name}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                <td mat-cell *matCellDef="let row">{{row.startDate}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
             </table>
 
             <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">

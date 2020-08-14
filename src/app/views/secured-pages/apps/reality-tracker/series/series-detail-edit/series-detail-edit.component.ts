@@ -27,7 +27,8 @@ export class SeriesDetailEditComponent implements OnInit {
   public records: Season[] = [];
   public dataSource: Season[] = [];
   public displayedColumns: string[] = [
-    'number'
+    'number',
+    'startDate'
   ];
 
   public validationMessages = {
@@ -86,7 +87,7 @@ export class SeriesDetailEditComponent implements OnInit {
   }
 
   private getSeriesSeasonList(seriesGuid: string): void {
-    this.realityTrackerService.getSeriesSeasonList(seriesGuid).subscribe(
+    this.realityTrackerService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
       (seasonList: Season[]) => {
         // console.log('seasonList', seasonList);
         this.records = [];
@@ -183,6 +184,10 @@ export class SeriesDetailEditComponent implements OnInit {
     } else {
       this.router.navigate(['reality-tracker/series-list']).then();
     }
+  }
+
+  public openSeasonDetailPage(row: Season): void {
+    this.router.navigate(['reality-tracker/season-detail', row.guid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

@@ -22,7 +22,8 @@ export class SeriesDetailComponent implements OnInit {
   public records: Season[] = [];
   public dataSource: Season[] = [];
   public displayedColumns: string[] = [
-    'number'
+    'name',
+    'startDate'
   ];
 
   constructor(private route: ActivatedRoute,
@@ -38,7 +39,7 @@ export class SeriesDetailComponent implements OnInit {
         const seriesGuid = params['guid'];
         // console.log('seriesGuid', seriesGuid);
         this.getSeriesDetail(seriesGuid);
-        this.getSeriesSeasonList(seriesGuid);
+        this.getSeasonListBySeriesGuid(seriesGuid);
       } else {
         console.error('No ID was present.');
       }
@@ -59,8 +60,8 @@ export class SeriesDetailComponent implements OnInit {
     );
   }
 
-  private getSeriesSeasonList(seriesGuid: string): void {
-    this.realityTrackerService.getSeriesSeasonList(seriesGuid).subscribe(
+  private getSeasonListBySeriesGuid(seriesGuid: string): void {
+    this.realityTrackerService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
       (seasonList: Season[]) => {
         // console.log('seasonList', seasonList);
         seasonList.forEach(item => {
@@ -82,21 +83,8 @@ export class SeriesDetailComponent implements OnInit {
     this.router.navigate(['reality-tracker/series-detail-edit', this.series.guid]).then();
   }
 
-  public openEditDialog(personGuid: string): void {
-    this.dialogRef = this._matDialog.open(CrudDetailEditDialogComponent, {
-      panelClass: 'crud-edit-dialog',
-      data: {
-        personGuid: personGuid,
-        action: 'edit'
-      }
-    });
-
-    this.dialogRef.afterClosed()
-      .subscribe(response => {
-        console.log('response', response);
-      }, error => {
-        console.error('Error: ', error);
-      });
+  public openSeasonDetailPage(row: Season): void {
+    this.router.navigate(['reality-tracker/season-detail', row.guid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])
