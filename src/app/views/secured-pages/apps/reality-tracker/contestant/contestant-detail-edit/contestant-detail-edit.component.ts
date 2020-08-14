@@ -5,8 +5,8 @@ import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-d
 import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '@tqp/services/auth.service';
-import { Contestant } from '../reality-tracker-models/Contestant';
-import { RealityTrackerService } from '../reality-tracker.service';
+import { Contestant } from '../../reality-tracker-models/Contestant';
+import { RealityTrackerService } from '../../reality-tracker.service';
 
 @Component({
   selector: 'app-contestant-detail-edit',
@@ -31,6 +31,7 @@ export class ContestantDetailEditComponent implements OnInit {
     'firstName': [
       {type: 'required', message: 'A First Name is required'}
     ],
+    'nickname': [],
     'gender': [
       {type: 'required', message: 'A Gender is required'}
     ],
@@ -73,16 +74,12 @@ export class ContestantDetailEditComponent implements OnInit {
     }).then();
   }
 
-  test() {
-    console.log('test');
-    this.lastNameInputField.nativeElement.focus();
-  }
-
   private initializeForm(): void {
     this.contestantEditForm = this.formBuilder.group({
       guid: new FormControl(''),
       lastName: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
+      nickname: new FormControl(''),
       gender: new FormControl('', Validators.required),
       dateOfBirth: new FormControl(''),
       occupation: new FormControl(''),
@@ -101,6 +98,7 @@ export class ContestantDetailEditComponent implements OnInit {
         this.contestantEditForm.controls['guid'].patchValue(this.contestant.guid);
         this.contestantEditForm.controls['lastName'].patchValue(this.contestant.lastName);
         this.contestantEditForm.controls['firstName'].patchValue(this.contestant.firstName);
+        this.contestantEditForm.controls['nickname'].patchValue(this.contestant.nickname);
         this.contestantEditForm.controls['gender'].patchValue(this.contestant.gender);
         this.contestantEditForm.controls['dateOfBirth'].patchValue(this.contestant.dateOfBirth);
         this.contestantEditForm.controls['occupation'].patchValue(this.contestant.occupation);
@@ -144,6 +142,7 @@ export class ContestantDetailEditComponent implements OnInit {
     contestant.guid = this.contestantEditForm.value.guid;
     contestant.lastName = this.contestantEditForm.value.lastName;
     contestant.firstName = this.contestantEditForm.value.firstName;
+    contestant.nickname = this.contestantEditForm.value.nickname;
     contestant.gender = this.contestantEditForm.value.gender;
     contestant.dateOfBirth = this.contestantEditForm.value.dateOfBirth;
     contestant.occupation = this.contestantEditForm.value.occupation;
@@ -165,7 +164,7 @@ export class ContestantDetailEditComponent implements OnInit {
     } else {
       this.realityTrackerService.updateContestant(contestant).subscribe(
         response => {
-          console.log('response: ', response);
+          // console.log('response: ', response);
           this.router.navigate(['reality-tracker/contestant-detail', response.guid]).then();
         },
         error => {
@@ -189,6 +188,18 @@ export class ContestantDetailEditComponent implements OnInit {
       this.save();
     }
     if (event.key === 'Escape') {
+      this.cancel();
+    }
+    if (event.ctrlKey && event.key === 'd') {
+      event.preventDefault();
+      this.delete(this.contestant.guid);
+    }
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault();
+      this.save();
+    }
+    if (event.ctrlKey && event.key === 'c') {
+      event.preventDefault();
       this.cancel();
     }
   }

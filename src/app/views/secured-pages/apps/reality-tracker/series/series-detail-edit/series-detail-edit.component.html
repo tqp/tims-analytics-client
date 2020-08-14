@@ -20,13 +20,14 @@
           <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
                   (click)="delete(series.guid)">
             <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
-            Delete
+            <u>D</u>elete
           </button>
           <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
-                  [disabled]="!seriesEditForm.valid">Save
+                  [disabled]="!seriesEditForm.valid">
+            <u>S</u>ave
           </button>
           <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
-            Cancel
+            <u>C</u>ancel
           </button>
         </div>
       </div>
@@ -63,6 +64,33 @@
           </div>
         </div>
 
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-rss"></i>
+            Metadata
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="guid">GUID</label>
+                  <input matInput id="guid" type="text" class="form-control" placeholder="GUID"
+                         formControlName="guid" autocomplete="chrome-off" readonly>
+                  <mat-error *ngFor="let validation of validationMessages.guid">
+                    <mat-error class="error-message"
+                               *ngIf="seriesEditForm.get('guid').hasError(validation.type)
+                                && (seriesEditForm.get('guid').dirty ||
+                                seriesEditForm.get('guid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-lg-6 col-sm-12">
@@ -75,7 +103,7 @@
             </div>
             <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openCreateSeasonDialog()"
                     style="cursor: pointer;">
-              Add New Season
+              <u>A</u>dd New Season
             </button>
           </div>
           <div class="card-body">
@@ -83,7 +111,6 @@
             <div class="table-container">
 
               <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
-                     matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
                      class="table table-striped">
 
                 <ng-container matColumnDef="seasonGuid">
@@ -92,20 +119,10 @@
                 </ng-container>
 
                 <ng-container matColumnDef="number">
-                  <th mat-header-cell *matHeaderCellDef>Season Number</th>
+                  <th mat-header-cell *matHeaderCellDef>Season Name</th>
                   <td mat-cell *matCellDef="let row">
-                    Season {{row.number}}
+                    {{row.name}}
                   </td>
-                </ng-container>
-
-                <ng-container matColumnDef="lastName">
-                  <th mat-header-cell *matHeaderCellDef>Last Name</th>
-                  <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="firstName">
-                  <th mat-header-cell *matHeaderCellDef>First Name</th>
-                  <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>

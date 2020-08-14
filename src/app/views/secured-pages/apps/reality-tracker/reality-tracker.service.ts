@@ -16,7 +16,8 @@ import { Season } from './reality-tracker-models/Season';
   providedIn: 'root'
 })
 export class RealityTrackerService {
-  private nameSearchValue;
+  private seriesListNameSearchValue;
+  private contestantListNameSearchValue;
 
   constructor(private http: HttpClient,
               private httpService: HttpService,
@@ -156,6 +157,30 @@ export class RealityTrackerService {
     }
   }
 
+  // SEASON
+
+  public createSeason(season: Season): Observable<Season> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/season/';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.post<Season>(url,
+        season,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
   // CONTESTANT
 
   public createContestant(contestant: Contestant): Observable<Contestant> {
@@ -266,12 +291,19 @@ export class RealityTrackerService {
     }
   }
 
-
-  public setNameSearchValue(val) {
-    this.nameSearchValue = val;
+  public setSeriesListNameSearchValue(val) {
+    this.seriesListNameSearchValue = val;
   }
 
-  public getNameSearchValue() {
-    return this.nameSearchValue;
+  public getSeriesListNameSearchValue() {
+    return this.seriesListNameSearchValue;
+  }
+
+  public setContestantListNameSearchValue(val) {
+    this.contestantListNameSearchValue = val;
+  }
+
+  public getContestantListNameSearchValue() {
+    return this.contestantListNameSearchValue;
   }
 }

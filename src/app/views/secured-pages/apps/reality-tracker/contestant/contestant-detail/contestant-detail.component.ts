@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { EventService } from '../../../../../../@tqp/services/event.service';
+import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
-import { RealityTrackerService } from '../reality-tracker.service';
-import { Contestant } from '../reality-tracker-models/Contestant';
+import { CrudDetailEditDialogComponent } from '../../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
+import { RealityTrackerService } from '../../reality-tracker.service';
+import { Contestant } from '../../reality-tracker-models/Contestant';
 
 @Component({
   selector: 'app-contestant-detail',
@@ -47,7 +47,7 @@ export class ContestantDetailComponent implements OnInit {
     this.realityTrackerService.getContestantDetail(guid).subscribe(
       response => {
         this.contestant = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {

@@ -2,6 +2,7 @@ export class Contestant {
   public guid?: string;
   public firstName?: string;
   public lastName?: string;
+  public nickname?: string;
   public gender?: string;
 
   public dateOfBirth?: string;

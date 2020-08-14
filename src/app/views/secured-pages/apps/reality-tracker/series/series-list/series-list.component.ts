@@ -1,42 +1,40 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { ServerSidePaginationRequest } from '../../../../../../@tqp/models/ServerSidePaginationRequest';
+import { ServerSidePaginationRequest } from '../../../../../../../@tqp/models/ServerSidePaginationRequest';
 import { FormControl } from '@angular/forms';
-import { Person } from '../../../../../../@tqp/models/Person';
-import { RealityTrackerService } from '../reality-tracker.service';
-import { EventService } from '../../../../../../@tqp/services/event.service';
+import { Person } from '../../../../../../../@tqp/models/Person';
+import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { Router } from '@angular/router';
-import { ServerSidePaginationResponse } from '../../../../../../@tqp/models/ServerSidePaginationResponse';
+import { ServerSidePaginationResponse } from '../../../../../../../@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import { RealityTrackerService } from '../../reality-tracker.service';
 
 @Component({
-  selector: 'app-contestant-list',
-  templateUrl: './contestant-list.component.html',
-  styleUrls: ['./contestant-list.component.css']
+  selector: 'app-series-list',
+  templateUrl: './series-list.component.html',
+  styleUrls: ['./series-list.component.css']
 })
-export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('tableContainer', {read: ElementRef, static: true}) public matTableRef: ElementRef;
   @ViewChild('dialogContent', {static: true}) public dialogRef: any;
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
-  public listTitle = 'Contestant List';
-  private defaultSortColumn = 'CONTESTANT_LAST_NAME';
+  public listTitle = 'Series List';
+  private defaultSortColumn = 'SERIES_NAME';
   private pageIndex = 0;
   public pageSize = 10;
   private totalNumberOfPages: number;
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'lastName',
-    'firstName'
+    'name'
   ];
 
-  public nameSearchFormControl = new FormControl();
-  public stateSearchFormControl = new FormControl();
+  public seriesListNameSearchFormControl = new FormControl();
 
   public records: Person[] = [];
   public dataSource: any[] = [];
@@ -65,7 +63,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnDestroy(): void {
-    this.realityTrackerService.setNameSearchValue(this.nameSearchFormControl.value);
+    this.realityTrackerService.setSeriesListNameSearchValue(this.seriesListNameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -84,9 +82,9 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = 'asc';
 
-    if (this.realityTrackerService.getNameSearchValue()) {
-      const nameSearchValue = this.realityTrackerService.getNameSearchValue();
-      this.nameSearchFormControl.setValue(nameSearchValue);
+    if (this.realityTrackerService.getSeriesListNameSearchValue()) {
+      const nameSearchValue = this.realityTrackerService.getSeriesListNameSearchValue();
+      this.seriesListNameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
   }
@@ -94,7 +92,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getContestantList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+    this.realityTrackerService.getSeriesList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
         // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
@@ -122,7 +120,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
 
   private listenForChanges(): void {
     merge(
-      this.nameSearchFormControl.valueChanges.pipe(debounceTime(100)),
+      this.seriesListNameSearchFormControl.valueChanges.pipe(debounceTime(100)),
       this.sort.sortChange,
       this.paginator.page
     )
@@ -137,7 +135,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
           this.isLoading = true;
           this.eventService.loadingEvent.emit(true);
 
-          const nameFilter = this.nameSearchFormControl.value != null ? this.nameSearchFormControl.value : '';
+          const nameFilter = this.seriesListNameSearchFormControl.value != null ? this.seriesListNameSearchFormControl.value : '';
 
           // Translate table columns to database columns for sorting.
           // IMPORTANT: If this translation is incorrect, the query will break!!!
@@ -155,7 +153,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
           this.searchParams = serverSideSearchParams;
 
           this.isFilterApplied = nameFilter;
-          return this.realityTrackerService.getContestantList_SSP(serverSideSearchParams);
+          return this.realityTrackerService.getSeriesList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;
@@ -194,26 +192,24 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   public clearFilters(): void {
-    this.nameSearchFormControl.setValue('');
+    this.seriesListNameSearchFormControl.setValue('');
   }
 
-  public openCreateContestantPage(): void {
-    this.router.navigate(['reality-tracker/contestant-create']).then();
+  public openCreatePersonPage(): void {
+    this.router.navigate(['reality-tracker/series-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['reality-tracker/contestant-detail', row.guid]).then();
+    this.router.navigate(['reality-tracker/series-detail', row.guid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])
   public handleKeyboardEvent(event: KeyboardEvent): void {
+    // console.log(event + ' (' + event.key + ')');
+    // CTRL + F
     if (event.ctrlKey && event.key === 'f') {
       event.preventDefault();
       this.nameSearchElementRef.nativeElement.focus();
-    }
-    if (event.ctrlKey && event.key === 'c') {
-      event.preventDefault();
-      this.openCreateContestantPage();
     }
   }
 }

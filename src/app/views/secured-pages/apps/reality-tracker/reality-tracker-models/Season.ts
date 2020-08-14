@@ -1,4 +1,5 @@
 export class Season {
   public guid?: string;
-  public number?: number;
+  public name?: string;
+  public seriesGuid?: string;
 }

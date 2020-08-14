@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RealityTrackerService } from '../reality-tracker.service';
+import { RealityTrackerService } from '../../reality-tracker.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '@tqp/services/auth.service';
-import { Series } from '../reality-tracker-models/Series';
-import { Season } from '../reality-tracker-models/Season';
+import { Series } from '../../reality-tracker-models/Series';
+import { Season } from '../../reality-tracker-models/Season';
+import { SeasonCreateDialogComponent } from '../../season/season-create-dialog/season-create-dialog.component';
 
 @Component({
   selector: 'app-series-detail-edit',
   templateUrl: './series-detail-edit.component.html',
-  styleUrls: ['./series-detail-edit.component.css']
+  styleUrls: ['./series-detail-edit.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SeriesDetailEditComponent implements OnInit {
   public pageSource: string;
@@ -19,6 +21,7 @@ export class SeriesDetailEditComponent implements OnInit {
   public series: Series;
   public seriesEditForm: FormGroup;
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
+  public createNewSeasonDialogRef: MatDialogRef<SeasonCreateDialogComponent>;
 
   public seasonList: Season[];
   public records: Season[] = [];
@@ -28,6 +31,9 @@ export class SeriesDetailEditComponent implements OnInit {
   ];
 
   public validationMessages = {
+    'guid': [
+      {type: 'required', message: 'A GUID is required'}
+    ],
     'name': [
       {type: 'required', message: 'A Series Name is required'}
     ]
@@ -83,6 +89,7 @@ export class SeriesDetailEditComponent implements OnInit {
     this.realityTrackerService.getSeriesSeasonList(seriesGuid).subscribe(
       (seasonList: Season[]) => {
         // console.log('seasonList', seasonList);
+        this.records = [];
         seasonList.forEach(item => {
           this.records.push(item);
         });
@@ -97,7 +104,29 @@ export class SeriesDetailEditComponent implements OnInit {
   // BUTTONS
 
   public openCreateSeasonDialog(): void {
-    console.log('openCreateSeasonDialog');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '25%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {seriesGuid: this.series.guid, seriesName: this.series.name};
+    dialogConfig.autoFocus = false;
+    this.createNewSeasonDialogRef = this._matDialog.open(SeasonCreateDialogComponent, dialogConfig);
+
+    this.createNewSeasonDialogRef.afterClosed().subscribe(dialogData => {
+      if (dialogData) {
+        const season = new Season();
+        season.seriesGuid = dialogData.seriesGuid;
+        season.name = dialogData.name;
+        this.realityTrackerService.createSeason(season).subscribe(
+          () => {
+            this.getSeriesSeasonList(this.series.guid);
+          },
+          error => {
+            console.error('Error: ' + error.message);
+          }
+        );
+      }
+    });
   }
 
   public delete(seriesGuid: string): void {
@@ -153,6 +182,39 @@ export class SeriesDetailEditComponent implements OnInit {
       this.router.navigate(['reality-tracker/series-detail', this.series.guid]).then();
     } else {
       this.router.navigate(['reality-tracker/series-list']).then();
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  public handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === 'a') {
+      event.preventDefault();
+      this.openCreateSeasonDialog();
+    }
+    if (event.key === 'Enter') {
+      if (!this.createNewSeasonDialogRef) {
+        this.save();
+      }
+    }
+    if (event.key === 'Escape') {
+      if (!this.createNewSeasonDialogRef) {
+        this.cancel();
+      }
+    }
+    if (event.ctrlKey && event.key === 'd') {
+      event.preventDefault();
+      this.delete(this.series.guid);
+    }
+    if (event.ctrlKey && event.key === 's') {
+      // console.log('s', this.createNewSeasonDialogRef.getState());
+      if (!this.createNewSeasonDialogRef || this.createNewSeasonDialogRef.getState() === 2) {
+        this.save();
+      }
+      event.preventDefault();
+    }
+    if (event.ctrlKey && event.key === 'c') {
+      event.preventDefault();
+      this.cancel();
     }
   }
 

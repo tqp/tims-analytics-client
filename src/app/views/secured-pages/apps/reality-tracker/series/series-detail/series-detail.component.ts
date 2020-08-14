@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RealityTrackerService } from '../reality-tracker.service';
-import { EventService } from '../../../../../../@tqp/services/event.service';
+import { RealityTrackerService } from '../../reality-tracker.service';
+import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
-import { Series } from '../reality-tracker-models/Series';
-import { Season } from '../reality-tracker-models/Season';
+import { CrudDetailEditDialogComponent } from '../../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
+import { Series } from '../../reality-tracker-models/Series';
+import { Season } from '../../reality-tracker-models/Season';
 
 @Component({
   selector: 'app-series-detail',
@@ -97,6 +97,18 @@ export class SeriesDetailComponent implements OnInit {
       }, error => {
         console.error('Error: ', error);
       });
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  public handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === 'e') {
+      event.preventDefault();
+      this.openEditPage();
+    }
+    if (event.ctrlKey && event.key === 'l') {
+      event.preventDefault();
+      this.returnToList();
+    }
   }
 
 }

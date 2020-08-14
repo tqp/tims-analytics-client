@@ -20,13 +20,14 @@
           <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
                   (click)="delete(contestant.guid)">
             <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
-            Delete
+            <u>D</u>elete
           </button>
           <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
-                  [disabled]="!contestantEditForm.valid">Save
+                  [disabled]="!contestantEditForm.valid">
+            <u>S</u>ave
           </button>
           <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
-            Cancel
+            <u>C</u>ancel
           </button>
         </div>
       </div>
@@ -71,6 +72,23 @@
                                *ngIf="contestantEditForm.get('firstName').hasError(validation.type)
                                 && (contestantEditForm.get('firstName').dirty ||
                                 contestantEditForm.get('firstName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="nickname">Nickname</label>
+                  <input matInput id="nickname" type="text" class="form-control" placeholder="Nickname"
+                         formControlName="nickname">
+                  <mat-error *ngFor="let validation of validationMessages.nickname">
+                    <mat-error class="error-message"
+                               *ngIf="contestantEditForm.get('nickname').hasError(validation.type)
+                                && (contestantEditForm.get('nickname').dirty ||
+                                contestantEditForm.get('nickname').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>

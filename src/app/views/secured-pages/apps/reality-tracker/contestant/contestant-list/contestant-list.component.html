@@ -35,7 +35,7 @@
             </div>
             <label for="nameSearchFieldId" *ngIf="false"></label>
             <input id="nameSearchFieldId" type="text" class="form-control" placeholder="Search by Contestant Name"
-                   [formControl]="nameSearchFormControl" #nameSearchElementRef autocomplete="off"/>
+                   [formControl]="contestantListNameSearchFormControl" #nameSearchElementRef autocomplete="off"/>
           </div>
 
         </div>
@@ -60,7 +60,9 @@
 
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-            <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+            <td mat-cell *matCellDef="let row">{{row.firstName}}
+              <span *ngIf="row.nickname">"{{row.nickname}}"</span>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

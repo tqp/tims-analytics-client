@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>
+  Add New Season
+</h2>
+
+<mat-dialog-content style="overflow: hidden">
+
+  <form [formGroup]="seasonEditForm">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seriesGuid">Series GUID</label>
+          <input matInput id="seriesGuid" type="text" class="form-control" placeholder="Series GUID"
+                 formControlName="seriesGuid" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seriesGuid">
+            <mat-error class="error-message"
+                       *ngIf="seasonEditForm.get('seriesGuid').hasError(validation.type)
+                                && (seasonEditForm.get('seriesGuid').dirty ||
+                                seasonEditForm.get('seriesGuid').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seriesName">Series Name</label>
+          <input matInput id="seriesName" type="text" class="form-control" placeholder="Series Name"
+                 formControlName="seriesName" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seriesName">
+            <mat-error class="error-message"
+                       *ngIf="seasonEditForm.get('seriesName').hasError(validation.type)
+                                && (seasonEditForm.get('seriesName').dirty ||
+                                seasonEditForm.get('seriesName').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="name">Season Name</label>
+          <input matInput id="name" type="text" class="form-control" placeholder="Season Name"
+                 formControlName="name" autocomplete="chrome-off" #nameInputField>
+          <mat-error *ngFor="let validation of validationMessages.name">
+            <mat-error class="error-message"
+                       *ngIf="seasonEditForm.get('name').hasError(validation.type)
+                                && (seasonEditForm.get('name').dirty ||
+                                seasonEditForm.get('name').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <div fxFlex></div>
+  <button mat-raised-button mat-dialog-close color="primary" (click)="save();" [disabled]="!seasonEditForm.valid">
+    Save
+  </button>
+</mat-dialog-actions>
