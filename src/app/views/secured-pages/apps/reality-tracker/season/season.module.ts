@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
 import { CrudPersonFriendEditDialogComponent } from '../../crud/crud-person-friend-edit-dialog/crud-person-friend-edit-dialog.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -24,7 +25,8 @@ import { CrudPersonFriendEditDialogComponent } from '../../crud/crud-person-frie
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule
   ],
   entryComponents: [
     SeasonCreateDialogComponent

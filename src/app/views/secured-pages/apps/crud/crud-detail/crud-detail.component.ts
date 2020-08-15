@@ -43,12 +43,6 @@ export class CrudDetailComponent implements OnInit {
         console.error('No ID was present.');
       }
     });
-
-    const src = this.route
-      .queryParams
-      .subscribe(params => {
-        this.pageSource = params.src;
-      });
   }
 
   private getPersonDetail(guid: string): void {

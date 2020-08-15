@@ -6,16 +6,18 @@ import { SeasonModule } from './season/season.module';
 import { SeriesModule } from './series/series.module';
 import { PlayerDetailComponent } from './player/player-detail/player-detail.component';
 import { PlayerDetailEditComponent } from './player/player-detail-edit/player-detail-edit.component';
+import { PlayerModule } from './player/player.module';
 
 
 @NgModule({
-  declarations: [PlayerDetailComponent, PlayerDetailEditComponent],
+  declarations: [],
   imports: [
     CommonModule,
     RealityTrackerRoutingModule,
     SeriesModule,
     SeasonModule,
-    ContestantModule
+    ContestantModule,
+    PlayerModule
   ]
 })
 export class RealityTrackerModule {

@@ -8,6 +8,8 @@ import { SeriesDetailComponent } from './series/series-detail/series-detail.comp
 import { SeriesDetailEditComponent } from './series/series-detail-edit/series-detail-edit.component';
 import { SeasonDetailComponent } from './season/season-detail/season-detail.component';
 import { SeasonDetailEditComponent } from './season/season-detail-edit/season-detail-edit.component';
+import { PlayerDetailComponent } from './player/player-detail/player-detail.component';
+import { PlayerDetailEditComponent } from './player/player-detail-edit/player-detail-edit.component';
 
 const routes: Routes = [
   {
@@ -99,7 +101,32 @@ const routes: Routes = [
         data: {
           title: 'Create Contestant'
         }
+      },
+
+      // PLAYER
+
+      {
+        path: 'player-detail/:guid',
+        component: PlayerDetailComponent,
+        data: {
+          title: 'Player Detail'
+        }
+      },
+      {
+        path: 'player-detail-edit/:guid',
+        component: PlayerDetailEditComponent,
+        data: {
+          title: 'Edit Player'
+        }
+      },
+      {
+        path: 'player-create',
+        component: PlayerDetailEditComponent,
+        data: {
+          title: 'Create Player'
+        }
       }
+
     ]
   }
 ];

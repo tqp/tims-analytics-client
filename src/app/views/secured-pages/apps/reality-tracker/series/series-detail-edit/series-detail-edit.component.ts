@@ -37,6 +37,9 @@ export class SeriesDetailEditComponent implements OnInit {
     ],
     'name': [
       {type: 'required', message: 'A Series Name is required'}
+    ],
+    'abbreviation': [
+      {type: 'required', message: 'An Abbreviation is required'}
     ]
   };
 
@@ -69,6 +72,7 @@ export class SeriesDetailEditComponent implements OnInit {
     this.seriesEditForm = this.formBuilder.group({
       guid: new FormControl(''),
       name: new FormControl('', Validators.required),
+      abbreviation: new FormControl('', Validators.required),
     });
   }
 
@@ -79,6 +83,7 @@ export class SeriesDetailEditComponent implements OnInit {
         // console.log('response', response);
         this.seriesEditForm.controls['guid'].patchValue(this.series.guid);
         this.seriesEditForm.controls['name'].patchValue(this.series.name);
+        this.seriesEditForm.controls['abbreviation'].patchValue(this.series.abbreviation);
       },
       error => {
         console.error('Error: ', error);
@@ -155,6 +160,7 @@ export class SeriesDetailEditComponent implements OnInit {
     const series = new Series();
     series.guid = this.seriesEditForm.value.guid;
     series.name = this.seriesEditForm.value.name;
+    series.abbreviation = this.seriesEditForm.value.abbreviation;
     if (this.newRecord) {
       this.realityTrackerService.createSeries(series).subscribe(
         response => {

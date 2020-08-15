@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SeriesListComponent } from './series-list/series-list.component';
-import { SeriesDetailComponent } from './series-detail/series-detail.component';
-import { SeriesDetailEditComponent } from './series-detail-edit/series-detail-edit.component';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
+import { PlayerDetailEditComponent } from './player-detail-edit/player-detail-edit.component';
 import { AngularMaterialModule } from '../../../../../../@tqp/modules/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { Router, RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [
-    SeriesListComponent,
-    SeriesDetailComponent,
-    SeriesDetailEditComponent
+    PlayerDetailComponent,
+    PlayerDetailEditComponent
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     RouterModule
   ]
 })
-export class SeriesModule { }
+export class PlayerModule {
+}

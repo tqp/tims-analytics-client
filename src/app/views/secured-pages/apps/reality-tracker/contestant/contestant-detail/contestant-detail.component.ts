@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { CrudDetailEditDialogComponent } from '../../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
 import { RealityTrackerService } from '../../reality-tracker.service';
 import { Contestant } from '../../reality-tracker-models/Contestant';
+import { Season } from '../../reality-tracker-models/Season';
+import { Player } from '../../reality-tracker-models/Player';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-contestant-detail',
@@ -17,6 +20,14 @@ export class ContestantDetailComponent implements OnInit {
   public dialogRef: any;
   public genderNames = {'M': 'Male', 'F': 'Female', 'O': 'Other'};
 
+  // Season List
+  public records: Season[] = [];
+  public dataSource: Season[] = [];
+  public displayedColumns: string[] = [
+    'seriesName',
+    'seasonName'
+  ];
+
   constructor(private route: ActivatedRoute,
               private realityTrackerService: RealityTrackerService,
               private eventService: EventService,
@@ -27,19 +38,14 @@ export class ContestantDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
-        const guid = params['guid'];
-        // console.log('guid', guid);
-        this.getContestantDetail(guid);
+        const contestantGuid = params['guid'];
+        // console.log('contestantGuid', contestantGuid);
+        this.getContestantDetail(contestantGuid);
+        this.getSeasonListByContestantGuid(contestantGuid);
       } else {
         console.error('No ID was present.');
       }
     }).then();
-
-    const src = this.route
-      .queryParams
-      .subscribe(params => {
-        this.pageSource = params.src;
-      });
   }
 
   private getContestantDetail(guid: string): void {
@@ -56,12 +62,31 @@ export class ContestantDetailComponent implements OnInit {
     );
   }
 
+  private getSeasonListByContestantGuid(contestantGuid: string): void {
+    this.realityTrackerService.getSeasonListByContestantGuid(contestantGuid).subscribe(
+      (playerList: Player[]) => {
+        console.log('playerList', playerList);
+        playerList.forEach(item => {
+          this.records.push(item);
+        });
+        this.dataSource = this.records;
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
   public returnToList(): void {
     this.router.navigate(['reality-tracker/contestant-list']).then();
   }
 
   public openEditPage(): void {
     this.router.navigate(['reality-tracker/contestant-detail-edit', this.contestant.guid]).then();
+  }
+
+  public openSeasonDetailPage(player: Player): void {
+    this.router.navigate(['reality-tracker/player-detail', player.guid]).then();
   }
 
   public openEditDialog(personGuid: string): void {
@@ -79,6 +104,11 @@ export class ContestantDetailComponent implements OnInit {
       }, error => {
         console.error('Error: ', error);
       });
+  }
+
+  public openTwitter(twitterHandle: string): void {
+    console.log('openTwitter', twitterHandle);
+    window.open('https://twitter.com/' + twitterHandle, '_blank');
   }
 
   @HostListener('window:keydown', ['$event'])

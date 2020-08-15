@@ -3,6 +3,7 @@ import { Season } from '../../reality-tracker-models/Season';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RealityTrackerService } from '../../reality-tracker.service';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
+import { Player } from '../../reality-tracker-models/Player';
 
 @Component({
   selector: 'app-season-detail',
@@ -14,9 +15,9 @@ export class SeasonDetailComponent implements OnInit {
   public season: Season;
   public dialogRef: any;
 
-  public playerList: Season[];
-  public records: Season[] = [];
-  public dataSource: Season[] = [];
+  // Player List
+  public records: Player[] = [];
+  public dataSource: Player[] = [];
   public displayedColumns: string[] = [
     'name'
   ];
@@ -56,8 +57,8 @@ export class SeasonDetailComponent implements OnInit {
 
   private getPlayerListBySeasonGuid(seasonGuid: string): void {
     this.realityTrackerService.getPlayerListBySeasonGuid(seasonGuid).subscribe(
-      (playerList: Season[]) => {
-        console.log('playerList', playerList);
+      (playerList: Player[]) => {
+        // console.log('playerList', playerList);
         playerList.forEach(item => {
           this.records.push(item);
         });
@@ -70,11 +71,11 @@ export class SeasonDetailComponent implements OnInit {
   }
 
   public returnToList(): void {
-    this.router.navigate(['reality-tracker/series-list']).then();
+    this.router.navigate(['reality-tracker/series-detail', this.season.seriesGuid]).then();
   }
 
   public openEditPage(): void {
-    this.router.navigate(['reality-tracker/series-detail-edit', this.season.guid]).then();
+    this.router.navigate(['reality-tracker/season-detail-edit', this.season.guid]).then();
   }
 
   public openPlayerDetailPage(row: Season): void {

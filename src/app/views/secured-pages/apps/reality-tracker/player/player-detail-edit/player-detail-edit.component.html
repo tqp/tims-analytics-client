@@ -1,1 +1,91 @@
-<p>player-detail-edit works!</p>
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="player">
+
+  <form [formGroup]="playerEditForm">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h1 *ngIf="player && newRecord && playerEditForm.controls['name'].value == ''; else notShow">
+          New Player
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            {{player.seriesAbbreviation}}{{player.seasonAbbreviation}}:
+            {{player.contestantFirstName}} {{player.contestantLastName}}
+          </h1>
+        </ng-template>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                  [disabled]="!playerEditForm.valid">
+            <u>S</u>ave
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+            <u>C</u>ancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-address-card"></i>
+            Season-Specific Player Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="occupation">Occupation</label>
+                  <input matInput id="occupation" type="text" class="form-control" placeholder="Occupation"
+                         formControlName="occupation" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.occupation">
+                    <mat-error class="error-message"
+                               *ngIf="playerEditForm.get('occupation').hasError(validation.type)
+                                && (playerEditForm.get('occupation').dirty ||
+                                playerEditForm.get('occupation').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="ageOnEntry">Age On Entry</label>
+                  <input matInput id="ageOnEntry" type="text" class="form-control" placeholder="Age On Entry"
+                         formControlName="ageOnEntry" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.ageOnEntry">
+                    <mat-error class="error-message"
+                               *ngIf="playerEditForm.get('ageOnEntry').hasError(validation.type)
+                                && (playerEditForm.get('ageOnEntry').dirty ||
+                                playerEditForm.get('ageOnEntry').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

@@ -149,55 +149,6 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="occupation">Occupation</label>
-                  <input matInput id="occupation" type="text" class="form-control" placeholder="Occupation"
-                         formControlName="occupation" autocomplete="chrome-off">
-                  <mat-error *ngFor="let validation of validationMessages.occupation">
-                    <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('occupation').hasError(validation.type)
-                                && (contestantEditForm.get('occupation').dirty ||
-                                contestantEditForm.get('occupation').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="hometownCity">Hometown City</label>
-                  <input matInput id="hometownCity" type="text" class="form-control" placeholder="Hometown City"
-                         formControlName="hometownCity">
-                  <mat-error *ngFor="let validation of validationMessages.hometownCity">
-                    <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('hometownCity').hasError(validation.type)
-                                && (contestantEditForm.get('hometownCity').dirty ||
-                                contestantEditForm.get('hometownCity').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="hometownState">State</label>
-                  <input matInput id="hometownState" type="text" class="form-control" placeholder="State"
-                         formControlName="hometownState">
-                  <mat-error *ngFor="let validation of validationMessages.hometownState">
-                    <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('hometownState').hasError(validation.type)
-                                && (contestantEditForm.get('hometownState').dirty ||
-                                contestantEditForm.get('hometownState').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
                   <label for="twitterHandle">Twitter Handle</label>
                   <input matInput id="twitterHandle" type="text" class="form-control" placeholder="Twitter Handle"
                          formControlName="twitterHandle">

@@ -61,33 +61,25 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <i class="fa fa-rss"></i>
-            Metadata
-          </div>
-          <div class="card-body">
 
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="guid">GUID</label>
-                  <input matInput id="guid" type="text" class="form-control" placeholder="GUID"
-                         formControlName="guid" autocomplete="chrome-off" readonly>
-                  <mat-error *ngFor="let validation of validationMessages.guid">
+                  <label for="abbreviation">Abbreviation</label>
+                  <input matInput id="abbreviation" type="text" class="form-control" placeholder="Abbreviation"
+                         formControlName="abbreviation" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.abbreviation">
                     <mat-error class="error-message"
-                               *ngIf="seriesEditForm.get('guid').hasError(validation.type)
-                                && (seriesEditForm.get('guid').dirty ||
-                                seriesEditForm.get('guid').touched)">
+                               *ngIf="seriesEditForm.get('abbreviation').hasError(validation.type)
+                                && (seriesEditForm.get('abbreviation').dirty ||
+                                seriesEditForm.get('abbreviation').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 

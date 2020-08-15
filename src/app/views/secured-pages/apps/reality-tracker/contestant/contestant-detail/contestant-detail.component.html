@@ -33,7 +33,7 @@
             <dt class="col-sm-3">First Name:</dt>
             <dd class="col-sm-9">{{contestant.firstName}}</dd>
           </dl>
-          <dl class="row">
+          <dl class="row" *ngIf="contestant.nickname">
             <dt class="col-sm-3">Nickname:</dt>
             <dd class="col-sm-9">{{contestant.nickname}}</dd>
           </dl>
@@ -55,23 +55,10 @@
             <dd class="col-sm-9">{{contestant.dateOfBirth}}</dd>
           </dl>
           <dl class="row">
-            <dt class="col-sm-3">Occupation:</dt>
-            <dd class="col-sm-9">{{contestant.occupation}}</dd>
-          </dl>
-          <dl class="row">
-            <dt class="col-sm-3">Hometown:</dt>
-            <dd class="col-sm-9">
-              <div *ngIf="contestant.hometownCity && contestant.hometownState; else noComma">
-                {{contestant.hometownCity}}, {{contestant.hometownState}}
-              </div>
-              <ng-template #noComma>
-                {{contestant.hometownCity}} {{contestant.hometownState}}
-              </ng-template>
-            </dd>
-          </dl>
-          <dl class="row">
             <dt class="col-sm-3">Twitter Handle:</dt>
-            <dd class="col-sm-9">{{contestant.twitterHandle}}</dd>
+            <dd class="col-sm-9">
+              <span class="tqp-nav-link" (click)="openTwitter(contestant.twitterHandle);">{{contestant.twitterHandle}}</span>
+            </dd>
           </dl>
         </div>
       </div>
@@ -96,6 +83,48 @@
     </div>
 
     <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-leaf"></i>
+          Seasons
+        </div>
+        <div class="card-body">
+
+          <div class="table-container">
+
+            <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
+                   matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+                   class="table table-striped">
+
+              <ng-container matColumnDef="guid">
+                <th mat-header-cell *matHeaderCellDef>GUID</th>
+                <td mat-cell *matCellDef="let row">{{row.guid}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="seriesName">
+                <th mat-header-cell *matHeaderCellDef>Season Name</th>
+                <td mat-cell *matCellDef="let row">{{row.seriesName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="seasonName">
+                <th mat-header-cell *matHeaderCellDef>Season Name Date</th>
+                <td mat-cell *matCellDef="let row">{{row.seasonName}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
+            </table>
+
+            <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
+              No records to display.
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 

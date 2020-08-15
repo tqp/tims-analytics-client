@@ -6,6 +6,7 @@ import { ContestantDetailEditComponent } from './contestant-detail-edit/contesta
 import { AngularMaterialModule } from '../../../../../../@tqp/modules/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    RouterModule
   ]
 })
 export class ContestantModule {
