@@ -39,7 +39,7 @@ export class PlayerDetailComponent implements OnInit {
     this.realityTrackerService.getPlayerDetail(playerGuid).subscribe(
       response => {
         this.player = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {

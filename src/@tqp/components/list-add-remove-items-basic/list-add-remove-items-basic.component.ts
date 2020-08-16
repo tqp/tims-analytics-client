@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -14,6 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ToasterService } from 'angular2-toaster';
 import { ListAddRemoveOutputObject } from '../../models/ListAddRemoveOutputObject';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-list-add-remove-items-basic',
@@ -25,6 +26,12 @@ export class ListAddRemoveItemsBasicComponent implements OnInit, OnDestroy, OnCh
   @Input() private currentItemsList: ListItem[];
   @Input() private availableItemsList: ListItem[];
   @Output() private listAddRemoveOutput: EventEmitter<ListAddRemoveOutputObject> = new EventEmitter<ListAddRemoveOutputObject>();
+
+  @ViewChild('currentItemListFilter', {static: false}) public currentItemListFilter: ElementRef;
+  public currentItemListFilterFormControl = new FormControl();
+
+  @ViewChild('availableItemListFilter', {static: false}) public availableItemListFilter: ElementRef;
+  public availableItemListFilterFormControl = new FormControl();
 
   // Current Items List
   // public currentItemsList: ListItem[];
@@ -128,9 +135,15 @@ export class ListAddRemoveItemsBasicComponent implements OnInit, OnDestroy, OnCh
     listAddRemoveResponseObject.itemsToAdd = this.currentItemsList.filter(item => item.tag === 'available');
     listAddRemoveResponseObject.itemsToRemove = this.availableItemsList.filter(item => item.tag === 'current');
     this.listAddRemoveOutput.emit(listAddRemoveResponseObject);
+
+    this.availableItemListFilterFormControl.setValue('');
+    setTimeout(() => {
+      this.availableItemListFilter.nativeElement.focus();
+    }, 0);
   }
 
   public removeFromCurrentItemsList(row: any): void {
+    console.log('removeFromCurrentItemsList');
     const index = this.currentItemsList.findIndex((d) => {
       return d.guid === row.guid;
     });
@@ -146,6 +159,11 @@ export class ListAddRemoveItemsBasicComponent implements OnInit, OnDestroy, OnCh
     listAddRemoveOutputObject.itemsToAdd = this.currentItemsList.filter(item => item.tag === 'available');
     listAddRemoveOutputObject.itemsToRemove = this.availableItemsList.filter(item => item.tag === 'current');
     this.listAddRemoveOutput.emit(listAddRemoveOutputObject);
+
+    this.currentItemListFilterFormControl.setValue('');
+    setTimeout(() => {
+      this.currentItemListFilter.nativeElement.focus();
+    }, 0);
   }
 
   private sortCurrentItemsList(list: ListItem[]): ListItem[] {

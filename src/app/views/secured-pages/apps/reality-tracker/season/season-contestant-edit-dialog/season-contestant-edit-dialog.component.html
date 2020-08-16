@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>
-  Associate Seasons to Contestant
+  Associate Contestant to Seasons
 </h2>
 
 <mat-dialog-content style="overflow: hidden">
@@ -8,9 +8,9 @@
     <app-list-add-remove-items-basic
       class="component"
       #listAddRemoveItemsBasicComponent
-      [currentItemsList]="currentSeasonsList"
-      [availableItemsList]="availableSeasonsList"
-      (listAddRemoveOutput)="addRemoveSeasons($event)">
+      [currentItemsList]="currentContestantsList"
+      [availableItemsList]="availableContestantsList"
+      (listAddRemoveOutput)="addRemoveContestants($event)">
     </app-list-add-remove-items-basic>
   </div>
 

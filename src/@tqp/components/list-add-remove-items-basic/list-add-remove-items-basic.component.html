@@ -12,7 +12,8 @@
       <div class="float-right">
         <label for="currentItemListFilterId" [hidden]="true"></label>
         <input type="text" class="form-control form-control-sm filter" matInput id="currentItemListFilterId" placeholder="Filter Current"
-               (keyup)="applyCurrentItemListFilter($event)">
+               [formControl]="currentItemListFilterFormControl"
+               (keyup)="applyCurrentItemListFilter($event)" #currentItemListFilter>
       </div>
     </div>
 
@@ -64,7 +65,8 @@
       <div class="float-right">
         <label for="availableItemListFilterId" [hidden]="true"></label>
         <input type="text" class="form-control form-control-sm filter" matInput id="availableItemListFilterId" placeholder="Filter Available"
-               (keyup)="applyAvailableItemListFilter($event)">
+               [formControl]="availableItemListFilterFormControl"
+               (keyup)="applyAvailableItemListFilter($event)" #availableItemListFilter>
       </div>
     </div>
 

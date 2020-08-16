@@ -292,8 +292,8 @@ export class RealityTrackerService {
     }
   }
 
-  public getAvailableSeasonsByContestantGuid(personGuid: string): Observable<Season[]> {
-    const url = environment.apiUrl + '/reality-tracker/api/v1/player/available-seasons/contestant/' + personGuid;
+  public getAvailableSeasonsByContestantGuid(contestantGuid: string): Observable<Season[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/available-seasons/contestant/' + contestantGuid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<Season[]>(url,
@@ -313,7 +313,7 @@ export class RealityTrackerService {
     }
   }
 
-  public addContestantsToSeason(contestantGuid: string, itemsToAdd: ListItem[]): Observable<any> {
+  public addSeasonsToContestant(contestantGuid: string, itemsToAdd: ListItem[]): Observable<any> {
     const url = environment.apiUrl + '/reality-tracker/api/v1/player/add-seasons/contestant/' + contestantGuid;
     const token = this.tokenService.getToken();
     if (token) {
@@ -335,7 +335,7 @@ export class RealityTrackerService {
     }
   }
 
-  public removeContestantsFromSeason(contestantGuid: string, itemsToRemove: ListItem[]): Observable<any> {
+  public removeSeasonsFromContestant(contestantGuid: string, itemsToRemove: ListItem[]): Observable<any> {
     const url = environment.apiUrl + '/reality-tracker/api/v1/player/remove-seasons/contestant/' + contestantGuid;
     const token = this.tokenService.getToken();
     if (token) {
@@ -473,6 +473,93 @@ export class RealityTrackerService {
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.delete<string>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  // Season-Contestant Add/Remove
+  public getCurrentContestantsBySeasonGuid(seasonGuid: string): Observable<Contestant[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/current-contestants/season/' + seasonGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Contestant[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getAvailableContestantsBySeasonGuid(seasonGuid: string): Observable<Contestant[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/available-contestants/season/' + seasonGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Contestant[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public addContestantsToSeason(seasonGuid: string, itemsToAdd: ListItem[]): Observable<any> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/add-contestants/season/' + seasonGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<Person[]>(url,
+        itemsToAdd,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public removeContestantsFromSeason(seasonGuid: string, itemsToRemove: ListItem[]): Observable<any> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/remove-contestants/season/' + seasonGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<ListItem[]>(url,
+        itemsToRemove,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',

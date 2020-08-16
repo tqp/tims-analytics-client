@@ -89,8 +89,14 @@
 
         <div class="card">
           <div class="card-header">
-            <i class="fa fa-group"></i>
-            Players
+            <div class="float-left" style="line-height: 28px;">
+              <i class="fa fa-group mr-2"></i>
+              Players in Season Played
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openSeasonContestantEditDialog()"
+                    style="cursor: pointer;">
+              <u>U</u>pdate Players in Season
+            </button>
           </div>
           <div class="card-body">
 

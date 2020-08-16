@@ -47,7 +47,7 @@ export class SeriesDetailComponent implements OnInit {
     this.realityTrackerService.getSeriesDetail(guid).subscribe(
       response => {
         this.series = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {
@@ -59,7 +59,7 @@ export class SeriesDetailComponent implements OnInit {
   private getSeasonListBySeriesGuid(seriesGuid: string): void {
     this.realityTrackerService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
       (seasonList: Season[]) => {
-        console.log('seasonList', seasonList);
+        // console.log('seasonList', seasonList);
         seasonList.forEach(item => {
           this.records.push(item);
         });

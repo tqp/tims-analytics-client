@@ -64,7 +64,7 @@ export class ContestantDetailComponent implements OnInit {
   private getSeasonListByContestantGuid(contestantGuid: string): void {
     this.realityTrackerService.getSeasonListByContestantGuid(contestantGuid).subscribe(
       (playerList: Player[]) => {
-        console.log('playerList', playerList);
+        // console.log('playerList', playerList);
         playerList.forEach(item => {
           this.records.push(item);
         });

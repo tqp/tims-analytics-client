@@ -25,7 +25,6 @@ export class ContestantDetailEditComponent implements OnInit {
   public contestant: Contestant;
   public contestantEditForm: FormGroup;
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
-  public listAddRemoveOutputObject: ListAddRemoveOutputObject = {};
   bsValue: Date = new Date();
 
   // Season List
@@ -37,6 +36,7 @@ export class ContestantDetailEditComponent implements OnInit {
   ];
 
   // Contestant-Season Dialog
+  public listAddRemoveOutputObject: ListAddRemoveOutputObject = {};
 
   public validationMessages = {
     'lastName': [
@@ -165,8 +165,8 @@ export class ContestantDetailEditComponent implements OnInit {
       if ((this.listAddRemoveOutputObject.itemsToAdd && this.listAddRemoveOutputObject.itemsToAdd.length > 0) ||
         (this.listAddRemoveOutputObject.itemsToRemove && this.listAddRemoveOutputObject.itemsToRemove.length > 0)) {
         // We'll use forkJoin to ensure that we don't redirect the page until both updates have completed.
-        const first = this.realityTrackerService.addContestantsToSeason(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToAdd);
-        const second = this.realityTrackerService.removeContestantsFromSeason(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToRemove);
+        const first = this.realityTrackerService.addSeasonsToContestant(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToAdd);
+        const second = this.realityTrackerService.removeSeasonsFromContestant(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToRemove);
         forkJoin([first, second]).subscribe(
           next => {
             // console.log(next);

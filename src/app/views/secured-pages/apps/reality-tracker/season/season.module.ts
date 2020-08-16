@@ -10,7 +10,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
 import { CrudPersonFriendEditDialogComponent } from '../../crud/crud-person-friend-edit-dialog/crud-person-friend-edit-dialog.component';
 import { RouterModule } from '@angular/router';
-
+import { SeasonContestantEditDialogComponent } from './season-contestant-edit-dialog/season-contestant-edit-dialog.component';
+import { ListAddRemoveItemsBasicModule } from '../../../../../../@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     SeasonListComponent,
     SeasonDetailComponent,
     SeasonDetailEditComponent,
-    SeasonCreateDialogComponent
+    SeasonCreateDialogComponent,
+    SeasonContestantEditDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,10 +28,13 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    RouterModule
+    RouterModule,
+    ListAddRemoveItemsBasicModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     SeasonCreateDialogComponent
   ]
 })
-export class SeasonModule { }
+export class SeasonModule {
+}
