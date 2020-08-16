@@ -58,7 +58,7 @@ export class SeasonDetailComponent implements OnInit {
   private getPlayerListBySeasonGuid(seasonGuid: string): void {
     this.realityTrackerService.getPlayerListBySeasonGuid(seasonGuid).subscribe(
       (playerList: Player[]) => {
-        // console.log('playerList', playerList);
+        console.log('playerList', playerList);
         playerList.forEach(item => {
           this.records.push(item);
         });
@@ -75,11 +75,11 @@ export class SeasonDetailComponent implements OnInit {
   }
 
   public openEditPage(): void {
-    this.router.navigate(['reality-tracker/season-detail-edit', this.season.guid]).then();
+    this.router.navigate(['reality-tracker/season-detail-edit', this.season.seasonGuid]).then();
   }
 
-  public openPlayerDetailPage(row: Season): void {
-    this.router.navigate(['reality-tracker/player-detail', row.guid]).then();
+  public openPlayerDetailPage(row: Player): void {
+    this.router.navigate(['reality-tracker/player-detail', row.playerGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

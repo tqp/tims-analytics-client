@@ -47,7 +47,7 @@ export class PlayerDetailEditComponent implements OnInit {
         // Create new Person
         this.newRecord = true;
         this.player = new Player();
-        this.player.guid = null;
+        this.player.playerGuid = null;
       }
     }).then();
   }
@@ -66,10 +66,10 @@ export class PlayerDetailEditComponent implements OnInit {
       response => {
         this.player = response;
         console.log('response', response);
-        this.playerEditForm.controls['guid'].patchValue(this.player.guid);
+        this.playerEditForm.controls['guid'].patchValue(this.player.playerGuid);
         this.playerEditForm.controls['seriesName'].patchValue(this.player.seriesName);
-        this.playerEditForm.controls['occupation'].patchValue(this.player.occupation);
-        this.playerEditForm.controls['ageOnEntry'].patchValue(this.player.ageOnEntry);
+        this.playerEditForm.controls['occupation'].patchValue(this.player.playerOccupation);
+        this.playerEditForm.controls['ageOnEntry'].patchValue(this.player.playerAgeOnEntry);
       },
       error => {
         console.error('Error: ', error);
@@ -81,13 +81,13 @@ export class PlayerDetailEditComponent implements OnInit {
 
   public save(): void {
     const player = new Player();
-    player.guid = this.playerEditForm.value.guid;
-    player.occupation = this.playerEditForm.value.occupation;
-    player.ageOnEntry = this.playerEditForm.value.ageOnEntry;
+    player.playerGuid = this.playerEditForm.value.guid;
+    player.playerOccupation = this.playerEditForm.value.occupation;
+    player.playerAgeOnEntry = this.playerEditForm.value.ageOnEntry;
     this.realityTrackerService.updatePlayer(player).subscribe(
       response => {
         // console.log('response: ', response);
-        this.router.navigate(['reality-tracker/player-detail', response.guid]).then();
+        this.router.navigate(['reality-tracker/player-detail', response.playerGuid]).then();
       },
       error => {
         console.error('Error: ' + error.message);
@@ -96,15 +96,15 @@ export class PlayerDetailEditComponent implements OnInit {
   }
 
   public cancel(): void {
-    if (this.player.guid) {
-      this.router.navigate(['reality-tracker/player-detail', this.player.guid]).then();
+    if (this.player.playerGuid) {
+      this.router.navigate(['reality-tracker/player-detail', this.player.playerGuid]).then();
     } else {
       this.router.navigate(['reality-tracker/player-list']).then();
     }
   }
 
   public openPlayerDetailPage(row: Player): void {
-    this.router.navigate(['reality-tracker/player-detail', row.guid]).then();
+    this.router.navigate(['reality-tracker/player-detail', row.playerGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

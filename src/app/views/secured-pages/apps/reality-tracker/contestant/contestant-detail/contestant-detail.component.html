@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <h1>{{contestant.lastName}}, {{contestant.firstName}}</h1>
+      <h1>{{contestant.contestantLastName}}, {{contestant.contestantFirstName}}</h1>
     </div>
     <div class="col-sm-6">
       <div class="form-group float-right">
@@ -27,19 +27,19 @@
         <div class="card-body">
           <dl class="row">
             <dt class="col-sm-3">Last Name:</dt>
-            <dd class="col-sm-9">{{contestant.lastName}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantLastName}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">First Name:</dt>
-            <dd class="col-sm-9">{{contestant.firstName}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantFirstName}}</dd>
           </dl>
-          <dl class="row" *ngIf="contestant.nickname">
+          <dl class="row" *ngIf="contestant.contestantNickname">
             <dt class="col-sm-3">Nickname:</dt>
-            <dd class="col-sm-9">{{contestant.nickname}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantNickname}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Gender:</dt>
-            <dd class="col-sm-9">{{genderNames[contestant.gender]}}</dd>
+            <dd class="col-sm-9">{{genderNames[contestant.contestantGender]}}</dd>
           </dl>
         </div>
       </div>
@@ -52,12 +52,12 @@
         <div class="card-body">
           <dl class="row">
             <dt class="col-sm-3">Date of Birth:</dt>
-            <dd class="col-sm-9">{{contestant.dateOfBirth}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantDateOfBirth}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Twitter Handle:</dt>
             <dd class="col-sm-9">
-              <span class="tqp-nav-link" (click)="openTwitter(contestant.twitterHandle);">{{contestant.twitterHandle}}</span>
+              <span class="tqp-nav-link" (click)="openTwitter(contestant.contestantTwitterHandle);">{{contestant.contestantTwitterHandle}}</span>
             </dd>
           </dl>
         </div>
@@ -71,11 +71,11 @@
         <div class="card-body">
           <dl class="row">
             <dt class="col-sm-3">GUID:</dt>
-            <dd class="col-sm-9">{{contestant.guid}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantGuid}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Comments:</dt>
-            <dd class="col-sm-9">{{contestant.comments}}</dd>
+            <dd class="col-sm-9">{{contestant.contestantComments}}</dd>
           </dl>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-leaf"></i>
-          Seasons
+          Seasons Played
         </div>
         <div class="card-body">
 
@@ -97,19 +97,9 @@
                    matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
                    class="table table-striped">
 
-              <ng-container matColumnDef="guid">
-                <th mat-header-cell *matHeaderCellDef>GUID</th>
-                <td mat-cell *matCellDef="let row">{{row.guid}}</td>
-              </ng-container>
-
-              <ng-container matColumnDef="seriesName">
+              <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Season Name</th>
-                <td mat-cell *matCellDef="let row">{{row.seriesName}}</td>
-              </ng-container>
-
-              <ng-container matColumnDef="seasonName">
-                <th mat-header-cell *matHeaderCellDef>Season Name Date</th>
-                <td mat-cell *matCellDef="let row">{{row.seasonName}}</td>
+                <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>

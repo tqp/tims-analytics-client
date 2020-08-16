@@ -1,14 +1,14 @@
 export class Contestant {
-  public guid?: string;
-  public firstName?: string;
-  public lastName?: string;
-  public nickname?: string;
-  public gender?: string;
+  public contestantGuid?: string;
+  public contestantFirstName?: string;
+  public contestantLastName?: string;
+  public contestantNickname?: string;
+  public contestantGender?: string;
 
-  public dateOfBirth?: string;
+  public contestantDateOfBirth?: string;
   public occupation?: string;
   public hometownCity?: string;
   public hometownState?: string;
-  public twitterHandle?: string;
-  public comments?: string;
+  public contestantTwitterHandle?: string;
+  public contestantComments?: string;
 }

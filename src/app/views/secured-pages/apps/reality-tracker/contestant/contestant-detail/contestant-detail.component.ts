@@ -24,8 +24,7 @@ export class ContestantDetailComponent implements OnInit {
   public records: Season[] = [];
   public dataSource: Season[] = [];
   public displayedColumns: string[] = [
-    'seriesName',
-    'seasonName'
+    'name'
   ];
 
   constructor(private route: ActivatedRoute,
@@ -77,33 +76,18 @@ export class ContestantDetailComponent implements OnInit {
     );
   }
 
+  // Buttons
+
   public returnToList(): void {
     this.router.navigate(['reality-tracker/contestant-list']).then();
   }
 
   public openEditPage(): void {
-    this.router.navigate(['reality-tracker/contestant-detail-edit', this.contestant.guid]).then();
+    this.router.navigate(['reality-tracker/contestant-detail-edit', this.contestant.contestantGuid]).then();
   }
 
   public openSeasonDetailPage(player: Player): void {
-    this.router.navigate(['reality-tracker/player-detail', player.guid]).then();
-  }
-
-  public openEditDialog(personGuid: string): void {
-    this.dialogRef = this._matDialog.open(CrudDetailEditDialogComponent, {
-      panelClass: 'crud-edit-dialog',
-      data: {
-        personGuid: personGuid,
-        action: 'edit'
-      }
-    });
-
-    this.dialogRef.afterClosed()
-      .subscribe(response => {
-        console.log('response', response);
-      }, error => {
-        console.error('Error: ', error);
-      });
+    this.router.navigate(['reality-tracker/player-detail', player.playerGuid]).then();
   }
 
   public openTwitter(twitterHandle: string): void {

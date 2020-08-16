@@ -18,7 +18,7 @@
       <div class="col-sm-6">
         <div class="form-group float-right">
           <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
-                  (click)="delete(contestant.guid)">
+                  (click)="delete(contestant.contestantGuid)">
             <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
             <u>D</u>elete
           </button>
@@ -172,24 +172,6 @@
             Metadata
           </div>
           <div class="card-body">
-
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="guid">GUID</label>
-                  <input matInput id="guid" type="text" class="form-control" placeholder="GUID"
-                         formControlName="guid" autocomplete="chrome-off" readonly>
-                  <mat-error *ngFor="let validation of validationMessages.guid">
-                    <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('guid').hasError(validation.type)
-                                && (contestantEditForm.get('guid').dirty ||
-                                contestantEditForm.get('guid').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-            </div>
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
@@ -213,6 +195,42 @@
       </div>
 
       <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="float-left" style="line-height: 28px;">
+              <i class="fa fa-leaf mr-2"></i>
+              Seasons Played
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openContestantSeasonEditDialog()"
+                    style="cursor: pointer;">
+              <u>U</u>pdate Seasons Played
+            </button>
+          </div>
+          <div class="card-body">
+
+            <div class="table-container">
+
+              <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
+                     class="table table-striped">
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Series Name</th>
+                  <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
+              </table>
+
+              <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
+                No records to display.
+              </div>
+
+            </div>
+
+          </div>
+        </div>
 
       </div>
     </div>

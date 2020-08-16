@@ -25,21 +25,21 @@ export class PlayerDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
-        const guid = params['guid'];
-        // console.log('guid', guid);
-        this.getPlayerDetail(guid);
+        const playerGuid = params['guid'];
+        // console.log('playerGuid', playerGuid);
+        this.getPlayerDetail(playerGuid);
       } else {
         console.error('No ID was present.');
       }
     }).then();
   }
 
-  private getPlayerDetail(guid: string): void {
+  private getPlayerDetail(playerGuid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getPlayerDetail(guid).subscribe(
+    this.realityTrackerService.getPlayerDetail(playerGuid).subscribe(
       response => {
         this.player = response;
-        // console.log('response', response);
+        console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {
@@ -53,7 +53,7 @@ export class PlayerDetailComponent implements OnInit {
   }
 
   public openEditPage(): void {
-    this.router.navigate(['reality-tracker/player-detail-edit', this.player.guid]).then();
+    this.router.navigate(['reality-tracker/player-detail-edit', this.player.playerGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

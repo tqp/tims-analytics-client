@@ -47,7 +47,7 @@ export class SeriesDetailComponent implements OnInit {
     this.realityTrackerService.getSeriesDetail(guid).subscribe(
       response => {
         this.series = response;
-        // console.log('response', response);
+        console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {
@@ -76,11 +76,11 @@ export class SeriesDetailComponent implements OnInit {
   }
 
   public openEditPage(): void {
-    this.router.navigate(['reality-tracker/series-detail-edit', this.series.guid]).then();
+    this.router.navigate(['reality-tracker/series-detail-edit', this.series.seriesGuid]).then();
   }
 
   public openSeasonDetailPage(row: Season): void {
-    this.router.navigate(['reality-tracker/season-detail', row.guid]).then();
+    this.router.navigate(['reality-tracker/season-detail', row.seasonGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

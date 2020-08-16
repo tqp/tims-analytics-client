@@ -7,6 +7,9 @@ import { AngularMaterialModule } from '../../../../../../@tqp/modules/angular-ma
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { RouterModule } from '@angular/router';
+import { ContestantSeasonEditDialogComponent } from './contestant-season-edit-dialog/contestant-season-edit-dialog.component';
+import { ListAddRemoveItemsBasicModule } from '../../../../../../@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -14,6 +17,7 @@ import { RouterModule } from '@angular/router';
     ContestantListComponent,
     ContestantDetailComponent,
     ContestantDetailEditComponent,
+    ContestantSeasonEditDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    RouterModule
+    RouterModule,
+    ListAddRemoveItemsBasicModule,
+    FlexLayoutModule
   ]
 })
 export class ContestantModule {

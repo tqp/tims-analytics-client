@@ -200,7 +200,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['reality-tracker/series-detail', row.guid]).then();
+    this.router.navigate(['reality-tracker/series-detail', row.seriesGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

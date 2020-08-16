@@ -1,12 +1,16 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '@tqp/services/auth.service';
 import { Contestant } from '../../reality-tracker-models/Contestant';
 import { RealityTrackerService } from '../../reality-tracker.service';
+import { Season } from '../../reality-tracker-models/Season';
+import { Player } from '../../reality-tracker-models/Player';
+import { ContestantSeasonEditDialogComponent } from '../contestant-season-edit-dialog/contestant-season-edit-dialog.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-contestant-detail-edit',
@@ -23,6 +27,16 @@ export class ContestantDetailEditComponent implements OnInit {
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
   public listAddRemoveOutputObject: ListAddRemoveOutputObject = {};
   bsValue: Date = new Date();
+
+  // Season List
+  public seasonList: Season[];
+  public records: Season[] = [];
+  public dataSource: Season[] = [];
+  public displayedColumns: string[] = [
+    'name'
+  ];
+
+  // Contestant-Season Dialog
 
   public validationMessages = {
     'lastName': [
@@ -58,14 +72,15 @@ export class ContestantDetailEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
-        const guid = params['guid'];
-        // console.log('guid', guid);
-        this.getContestantDetail(guid);
+        const contestantGuid = params['guid'];
+        // console.log('contestantGuid', contestantGuid);
+        this.getContestantDetail(contestantGuid);
+        this.getSeasonListByContestantGuid(contestantGuid);
       } else {
         // Create new Person
         this.newRecord = true;
         this.contestant = new Contestant();
-        this.contestant.guid = null;
+        this.contestant.contestantGuid = null;
 
         setTimeout(() => {
           this.lastNameInputField.nativeElement.focus();
@@ -95,17 +110,33 @@ export class ContestantDetailEditComponent implements OnInit {
       response => {
         this.contestant = response;
         // console.log('response', response);
-        this.contestantEditForm.controls['guid'].patchValue(this.contestant.guid);
-        this.contestantEditForm.controls['lastName'].patchValue(this.contestant.lastName);
-        this.contestantEditForm.controls['firstName'].patchValue(this.contestant.firstName);
-        this.contestantEditForm.controls['nickname'].patchValue(this.contestant.nickname);
-        this.contestantEditForm.controls['gender'].patchValue(this.contestant.gender);
-        this.contestantEditForm.controls['dateOfBirth'].patchValue(this.contestant.dateOfBirth);
+        this.contestantEditForm.controls['guid'].patchValue(this.contestant.contestantGuid);
+        this.contestantEditForm.controls['lastName'].patchValue(this.contestant.contestantLastName);
+        this.contestantEditForm.controls['firstName'].patchValue(this.contestant.contestantFirstName);
+        this.contestantEditForm.controls['nickname'].patchValue(this.contestant.contestantNickname);
+        this.contestantEditForm.controls['gender'].patchValue(this.contestant.contestantGender);
+        this.contestantEditForm.controls['dateOfBirth'].patchValue(this.contestant.contestantDateOfBirth);
         this.contestantEditForm.controls['occupation'].patchValue(this.contestant.occupation);
         this.contestantEditForm.controls['hometownCity'].patchValue(this.contestant.hometownCity);
         this.contestantEditForm.controls['hometownState'].patchValue(this.contestant.hometownState);
-        this.contestantEditForm.controls['twitterHandle'].patchValue(this.contestant.twitterHandle);
-        this.contestantEditForm.controls['comments'].patchValue(this.contestant.comments);
+        this.contestantEditForm.controls['twitterHandle'].patchValue(this.contestant.contestantTwitterHandle);
+        this.contestantEditForm.controls['comments'].patchValue(this.contestant.contestantComments);
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
+  private getSeasonListByContestantGuid(contestantGuid: string): void {
+    this.realityTrackerService.getSeasonListByContestantGuid(contestantGuid).subscribe(
+      (playerList: Player[]) => {
+        this.records = [];
+        // console.log('playerList', playerList);
+        playerList.forEach(item => {
+          this.records.push(item);
+        });
+        this.dataSource = this.records;
       },
       error => {
         console.error('Error: ', error);
@@ -114,6 +145,41 @@ export class ContestantDetailEditComponent implements OnInit {
   }
 
   // BUTTONS
+
+  public openSeasonDetailPage(player: Player): void {
+    this.router.navigate(['reality-tracker/player-detail', player.playerGuid]).then();
+  }
+
+  public openContestantSeasonEditDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '25%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.contestant.contestantGuid;
+    dialogConfig.autoFocus = false;
+    const dialogRef = this._matDialog.open(ContestantSeasonEditDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(dialogData => {
+      // console.log('dialogData', dialogData);
+      this.listAddRemoveOutputObject = dialogData;
+      if ((this.listAddRemoveOutputObject.itemsToAdd && this.listAddRemoveOutputObject.itemsToAdd.length > 0) ||
+        (this.listAddRemoveOutputObject.itemsToRemove && this.listAddRemoveOutputObject.itemsToRemove.length > 0)) {
+        // We'll use forkJoin to ensure that we don't redirect the page until both updates have completed.
+        const first = this.realityTrackerService.addContestantsToSeason(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToAdd);
+        const second = this.realityTrackerService.removeContestantsFromSeason(this.contestant.contestantGuid, this.listAddRemoveOutputObject.itemsToRemove);
+        forkJoin([first, second]).subscribe(
+          next => {
+            // console.log(next);
+            // console.log('Refresh.');
+            this.getSeasonListByContestantGuid(this.contestant.contestantGuid);
+          },
+          error => console.log(error)
+        );
+      } else {
+        console.log('No changes made.');
+      }
+    });
+  }
 
   public delete(contestantGuid: string): void {
     this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
@@ -139,23 +205,23 @@ export class ContestantDetailEditComponent implements OnInit {
   public save(): void {
     const contestant = new Contestant();
     // console.log('crudEditForm', this.contestantEditForm.value);
-    contestant.guid = this.contestantEditForm.value.guid;
-    contestant.lastName = this.contestantEditForm.value.lastName;
-    contestant.firstName = this.contestantEditForm.value.firstName;
-    contestant.nickname = this.contestantEditForm.value.nickname;
-    contestant.gender = this.contestantEditForm.value.gender;
-    contestant.dateOfBirth = this.contestantEditForm.value.dateOfBirth;
+    contestant.contestantGuid = this.contestantEditForm.value.guid;
+    contestant.contestantLastName = this.contestantEditForm.value.lastName;
+    contestant.contestantFirstName = this.contestantEditForm.value.firstName;
+    contestant.contestantNickname = this.contestantEditForm.value.nickname;
+    contestant.contestantGender = this.contestantEditForm.value.gender;
+    contestant.contestantDateOfBirth = this.contestantEditForm.value.dateOfBirth;
     contestant.occupation = this.contestantEditForm.value.occupation;
     contestant.hometownCity = this.contestantEditForm.value.hometownCity;
     contestant.hometownState = this.contestantEditForm.value.hometownState;
-    contestant.twitterHandle = this.contestantEditForm.value.twitterHandle;
-    contestant.comments = this.contestantEditForm.value.comments;
+    contestant.contestantTwitterHandle = this.contestantEditForm.value.twitterHandle;
+    contestant.contestantComments = this.contestantEditForm.value.comments;
 
     if (this.newRecord) {
       this.realityTrackerService.createContestant(contestant).subscribe(
         response => {
           console.log('response: ', response);
-          this.router.navigate(['reality-tracker/contestant-detail', response.guid]).then();
+          this.router.navigate(['reality-tracker/contestant-detail', response.contestantGuid]).then();
         },
         error => {
           console.error('Error: ' + error.message);
@@ -165,7 +231,7 @@ export class ContestantDetailEditComponent implements OnInit {
       this.realityTrackerService.updateContestant(contestant).subscribe(
         response => {
           // console.log('response: ', response);
-          this.router.navigate(['reality-tracker/contestant-detail', response.guid]).then();
+          this.router.navigate(['reality-tracker/contestant-detail', response.contestantGuid]).then();
         },
         error => {
           console.error('Error: ' + error.message);
@@ -175,8 +241,8 @@ export class ContestantDetailEditComponent implements OnInit {
   }
 
   public cancel(): void {
-    if (this.contestant.guid) {
-      this.router.navigate(['reality-tracker/contestant-detail', this.contestant.guid]).then();
+    if (this.contestant.contestantGuid) {
+      this.router.navigate(['reality-tracker/contestant-detail', this.contestant.contestantGuid]).then();
     } else {
       this.router.navigate(['reality-tracker/contestant-list']).then();
     }
@@ -192,7 +258,7 @@ export class ContestantDetailEditComponent implements OnInit {
     }
     if (event.ctrlKey && event.key === 'd') {
       event.preventDefault();
-      this.delete(this.contestant.guid);
+      this.delete(this.contestant.contestantGuid);
     }
     if (event.ctrlKey && event.key === 's') {
       event.preventDefault();

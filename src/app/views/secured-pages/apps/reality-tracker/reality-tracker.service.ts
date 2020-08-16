@@ -7,11 +7,12 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from '@tqp/services/http.service';
 import { TokenService } from '@tqp/services/token.service';
-import { Person } from '../../../../../@tqp/models/Person';
 import { Contestant } from './reality-tracker-models/Contestant';
 import { Series } from './reality-tracker-models/Series';
 import { Season } from './reality-tracker-models/Season';
 import { Player } from './reality-tracker-models/Player';
+import { Person } from '../../../../../@tqp/models/Person';
+import { ListItem } from '../../../../../@tqp/models/ListItem';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,7 @@ export class RealityTrackerService {
     const url = environment.apiUrl + '/reality-tracker/api/v1/series/' + guid;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get<Contestant>(url,
+      return this.http.get<Series>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
@@ -209,7 +210,7 @@ export class RealityTrackerService {
     const url = environment.apiUrl + '/reality-tracker/api/v1/season/' + guid;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get<Contestant>(url,
+      return this.http.get<Season>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
@@ -269,13 +270,100 @@ export class RealityTrackerService {
     }
   }
 
+  // Contestant-Season Add/Remove
+  public getCurrentSeasonsByContestantGuid(contestantGuid: string): Observable<Season[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/current-seasons/contestant/' + contestantGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Season[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getAvailableSeasonsByContestantGuid(personGuid: string): Observable<Season[]> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/available-seasons/contestant/' + personGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<Season[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public addContestantsToSeason(contestantGuid: string, itemsToAdd: ListItem[]): Observable<any> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/add-seasons/contestant/' + contestantGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<Person[]>(url,
+        itemsToAdd,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public removeContestantsFromSeason(contestantGuid: string, itemsToRemove: ListItem[]): Observable<any> {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/remove-seasons/contestant/' + contestantGuid;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<ListItem[]>(url,
+        itemsToRemove,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
   // CONTESTANT
 
   public createContestant(contestant: Contestant): Observable<Contestant> {
     const url = environment.apiUrl + '/reality-tracker/api/v1/contestant/';
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.post<Person>(url,
+      return this.http.post<Contestant>(url,
         contestant,
         {
           headers: this.httpService.setHeadersWithToken(),
@@ -403,8 +491,8 @@ export class RealityTrackerService {
 
   // PLAYER
 
-  public getPlayerDetail(guid: string) {
-    const url = environment.apiUrl + '/reality-tracker/api/v1/player/' + guid;
+  public getPlayerDetail(playerGuid: string) {
+    const url = environment.apiUrl + '/reality-tracker/api/v1/player/' + playerGuid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<Contestant>(url,

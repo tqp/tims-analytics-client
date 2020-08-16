@@ -31,8 +31,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'lastName',
-    'firstName'
+    'name'
   ];
 
   public contestantListNameSearchFormControl = new FormControl();
@@ -201,7 +200,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['reality-tracker/contestant-detail', row.guid]).then();
+    this.router.navigate(['reality-tracker/contestant-detail', row.contestantGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])
