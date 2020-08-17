@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutoTrackerDashboardComponent } from './auto-tracker-dashboard/auto-tracker-dashboard.component';
+import { FuelActivityListComponent } from './fuel-activity/fuel-activity-list/fuel-activity-list.component';
 
 const routes: Routes = [
 
@@ -20,6 +21,13 @@ const routes: Routes = [
         component: AutoTrackerDashboardComponent,
         data: {
           title: 'Auto Tracker Dashboard'
+        }
+      },
+      {
+        path: 'fuel-activity-list',
+        component: FuelActivityListComponent,
+        data: {
+          title: 'Fuel Activity'
         }
       },
     ]

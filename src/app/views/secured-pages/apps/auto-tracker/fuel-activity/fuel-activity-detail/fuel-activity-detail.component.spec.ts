@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FuelActivityComponent } from './fuel-activity.component';
+import { FuelActivityDetailComponent } from './fuel-activity-detail.component';
 
-describe('FuelActivityComponent', () => {
-  let component: FuelActivityComponent;
-  let fixture: ComponentFixture<FuelActivityComponent>;
+describe('FuelActivityDetailComponent', () => {
+  let component: FuelActivityDetailComponent;
+  let fixture: ComponentFixture<FuelActivityDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FuelActivityComponent ]
+      declarations: [ FuelActivityDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FuelActivityComponent);
+    fixture = TestBed.createComponent(FuelActivityDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
 import { AutoTrackerService } from '../auto-tracker.service';
 import { FuelFill } from '../auto-tracker-models/FuelFill';
+import { KeyValue } from '../../../../../../@tqp/models/KeyValue';
 
 @Component({
   selector: 'app-auto-tracker-dashboard',
@@ -31,7 +32,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCostPerMile();
-    this.getLongestDistance();
+    this.getLongestDistanceBetweenFills();
     this.getLongestTimeBetweenFills();
     this.getEstimated1kDate();
 
@@ -45,13 +46,22 @@ export class AutoTrackerDashboardComponent implements OnInit {
 
   private getLongestTimeBetweenFills() {
     this.statLongestTimeBetweenFills = '25 Days';
+    this.autoTrackerService.getLongestTimeBetweenFills().subscribe(
+      (result: KeyValue) => {
+        // console.log('result', result);
+        this.statLongestTimeBetweenFills = result.value + ' Miles';
+      },
+      error => {
+        console.error('Error: ' + error.message);
+      }
+    );
   }
 
-  private getLongestDistance() {
-    this.autoTrackerService.getLongestDistance().subscribe(
-      (result: any) => {
+  private getLongestDistanceBetweenFills() {
+    this.autoTrackerService.getLongestDistanceBetweenFills().subscribe(
+      (result: KeyValue) => {
         // console.log('result', result);
-        this.statLongestDistance = result + ' Miles';
+        this.statLongestDistance = result.value + ' Miles';
       },
       error => {
         console.error('Error: ' + error.message);
@@ -60,7 +70,15 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   private getEstimated1kDate() {
-    this.statEstimated1kDate = 'January 12, 2025';
+    this.autoTrackerService.getEstimated1kDate().subscribe(
+      (result: KeyValue) => {
+        // console.log('result', result);
+        this.statEstimated1kDate = result.value;
+      },
+      error => {
+        console.error('Error: ' + error.message);
+      }
+    );
   }
 
   public drawOdometerChart() {
