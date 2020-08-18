@@ -1,1 +1,122 @@
-<p>fuel-activity-detail works!</p>
+<div class="tqp-crud-detail animated fadeIn" *ngIf="fuelActivity">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Fuel Activity on {{fuelActivity.fuelActivityDate | date: 'MM/dd/yyyy'}}</h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">
+          <u>E</u>dit
+        </button>
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px">
+          Return to <u>L</u>ist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-car"></i>
+          Fuel Activity Info
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Date:</dt>
+            <dd class="col-sm-9">{{fuelActivity.fuelActivityDate | date: 'MM/dd/yyyy'}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Odometer:</dt>
+            <dd class="col-sm-9">{{fuelActivity.fuelActivityOdometer}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Gallons:</dt>
+            <dd class="col-sm-9">{{fuelActivity.fuelActivityGallons.toFixed(3)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Cost per Gallon:</dt>
+            <dd class="col-sm-9">${{fuelActivity.fuelActivityCostPerGallon.toFixed(3)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Total Cost:</dt>
+            <dd class="col-sm-9"
+                [ngStyle]="{'color': getTotalCostColor(fuelActivity.fuelActivityGallons, fuelActivity.fuelActivityCostPerGallon, fuelActivity.fuelActivityTotalCost)}">
+              ${{fuelActivity.fuelActivityTotalCost.toFixed(2)}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Miles Driven:</dt>
+            <dd class="col-sm-9">{{fuelActivity.fuelActivityMilesTraveled.toFixed(1)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">MPG (From Car):</dt>
+            <dd class="col-sm-9"
+                [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fuelActivityMilesPerGallon, fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons)}">
+              {{fuelActivity.fuelActivityMilesPerGallon.toFixed(3)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">MPG (Calculated):</dt>
+            <dd
+              class="col-sm-9"
+              [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fuelActivityMilesPerGallon, fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons)}">
+              {{(fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons).toFixed(3)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Notes:</dt>
+            <dd class="col-sm-9">{{fuelActivity.fuelActivityComments}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-life-ring"></i>
+          Station Info
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Station Name:</dt>
+            <dd class="col-sm-9">
+              {{fuelActivity.stationName}}
+              <!--              [routerLink]="['/developer-pages/fuel-station-detail/' + fuelActivity.fuelStation.stationGuid]"-->
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Affiliation:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationAffiliation}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Address:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationAddress}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">City:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationCity}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">State:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationState}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Zip Code:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationZip}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Phone Number:</dt>
+            <dd class="col-sm-9">{{fuelActivity.stationPhone}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

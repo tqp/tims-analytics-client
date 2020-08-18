@@ -4,6 +4,15 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-info-circle"></i>Car Cost Dashboard
+          <div class="btn-group float-right" style="margin-bottom: -7px;" dropdown>
+            <button dropdownToggle type="button" class="btn btn-outline-primary btn-sm dropdown-toggle">
+              Auto Tracker Data <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/auto-tracker/fuel-activity-list']">Fuel Activity</a></li>
+            </ul>
+          </div>
+
         </div>
         <div class="card-body">
           This project began as a debate between my father and me about how much it costs to own a car.
@@ -14,17 +23,6 @@
           Technologies: Angular 9, Angular Material, Java/Spring back-end, MySQL database, Chart.js library.
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row align-items-center mb-4">
-    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <button type="button" class="btn btn-block btn-primary" [routerLink]="['/auto-tracker/fuel-activity-list']">
-        Fuel Activity
-      </button>
-    </div>
-    <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-      <button type="button" class="btn btn-block btn-primary">Auto Expenses</button>
     </div>
   </div>
 

@@ -24,14 +24,18 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
   public listTitle = 'Fuel Activity';
-  private defaultSortColumn = 'CONTESTANT_LAST_NAME';
+  private defaultSortColumn = 'FUEL_ACTIVITY_DATE';
+  private defaultSortDirection = 'DESC';
   private pageIndex = 0;
   public pageSize = 10;
   private totalNumberOfPages: number;
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'name'
+    'fuelActivityDate',
+    'fuelActivityOdometer',
+    'stationAffiliation',
+    'stationLocation'
   ];
 
   public fuelActivityListNameSearchFormControl = new FormControl();
@@ -80,7 +84,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.searchParams.pageIndex = this.pageIndex;
     this.searchParams.pageSize = this.calculateTableSize();
     this.searchParams.sortColumn = this.defaultSortColumn;
-    this.searchParams.sortDirection = 'asc';
+    this.searchParams.sortDirection = this.defaultSortDirection;
 
     if (this.autoTrackerService.getFuelActivityListNameSearchValue()) {
       const nameSearchValue = this.autoTrackerService.getFuelActivityListNameSearchValue();
@@ -93,7 +97,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.autoTrackerService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        // console.log('getPage response', response);
+        console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -196,11 +200,11 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   public openCreateFuelActivityPage(): void {
-    this.router.navigate(['reality-tracker/fuelActivity-create']).then();
+    this.router.navigate(['auto-tracker/fuel-activity-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['reality-tracker/fuelActivity-detail', row.fuelActivityGuid]).then();
+    this.router.navigate(['auto-tracker/fuel-activity-detail', row.fuelActivityGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

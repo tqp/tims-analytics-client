@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutoTrackerDashboardComponent } from './auto-tracker-dashboard/auto-tracker-dashboard.component';
 import { FuelActivityListComponent } from './fuel-activity/fuel-activity-list/fuel-activity-list.component';
+import { SeriesDetailComponent } from '../reality-tracker/series/series-detail/series-detail.component';
+import { SeriesDetailEditComponent } from '../reality-tracker/series/series-detail-edit/series-detail-edit.component';
+import { FuelActivityDetailEditComponent } from './fuel-activity/fuel-activity-detail-edit/fuel-activity-detail-edit.component';
+import { FuelActivityDetailComponent } from './fuel-activity/fuel-activity-detail/fuel-activity-detail.component';
 
 const routes: Routes = [
 
@@ -28,6 +32,20 @@ const routes: Routes = [
         component: FuelActivityListComponent,
         data: {
           title: 'Fuel Activity'
+        }
+      },
+      {
+        path: 'fuel-activity-detail/:guid',
+        component: FuelActivityDetailComponent,
+        data: {
+          title: 'Fuel Activity Detail'
+        }
+      },
+      {
+        path: 'fuel-activity-detail-edit/:guid',
+        component: FuelActivityDetailEditComponent,
+        data: {
+          title: 'Edit Fuel Activity'
         }
       },
     ]

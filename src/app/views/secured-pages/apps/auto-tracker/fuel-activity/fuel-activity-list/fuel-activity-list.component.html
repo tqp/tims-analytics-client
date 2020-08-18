@@ -12,7 +12,7 @@
       </div>
       <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreateFuelActivityPage()">
         <i class="fa fa-plus mr-1"></i>
-        Create Fuel Activity
+        Add Fuel Activity
       </button>
     </div>
 
@@ -34,7 +34,7 @@
               <div class="input-group-text"><i class="fa fa-search"></i></div>
             </div>
             <label for="nameSearchFieldId" *ngIf="false"></label>
-            <input id="nameSearchFieldId" type="text" class="form-control" placeholder="Search by Contestant Name"
+            <input id="nameSearchFieldId" type="text" class="form-control" placeholder="Search by Something"
                    [formControl]="fuelActivityListNameSearchFormControl" #nameSearchElementRef autocomplete="off"/>
           </div>
 
@@ -45,13 +45,27 @@
       <div class="table-container" #tableContainer>
 
         <table mat-table [dataSource]="dataSource"
-               matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+               matSort matSortActive="fuelActivityDate" matSortDirection="asc" matSortDisableClear="true"
                class="table table-striped">
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-            <td mat-cell *matCellDef="let row">{{row.contestantLastName}}, {{row.contestantFirstName}} <span
-              *ngIf="row.nickname">"{{row.nickname}}"</span></td>
+          <ng-container matColumnDef="fuelActivityDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+            <td mat-cell *matCellDef="let row">{{row.fuelActivityDate}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fuelActivityOdometer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Odometer</th>
+            <td mat-cell *matCellDef="let row">{{row.fuelActivityOdometer}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="stationAffiliation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Affiliation</th>
+            <td mat-cell *matCellDef="let row">{{row.stationAffiliation}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="stationLocation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+            <td mat-cell *matCellDef="let row">{{row.stationCity}}, {{row.stationState}}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

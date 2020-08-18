@@ -32,8 +32,8 @@ export class AutoTrackerDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCostPerMile();
-    this.getLongestDistanceBetweenFills();
     this.getLongestTimeBetweenFills();
+    this.getLongestDistanceBetweenFills();
     this.getEstimated1kDate();
 
     this.drawOdometerChart();
