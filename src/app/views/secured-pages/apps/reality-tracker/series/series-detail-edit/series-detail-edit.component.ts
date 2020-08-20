@@ -1,13 +1,15 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from '@tqp/services/auth.service';
-import { Series } from '../../reality-tracker-models/Series';
-import { Season } from '../../reality-tracker-models/Season';
+import { Series } from '../Series';
+import { Season } from '../../season/Season';
 import { SeasonCreateDialogComponent } from '../../season/season-create-dialog/season-create-dialog.component';
+import { EpisodeCreateDialogComponent } from '../../episode/episode-create-dialog/episode-create-dialog.component';
+import { SeriesService } from '../series.service';
+import { SeasonService } from '../../season/season.service';
 
 @Component({
   selector: 'app-series-detail-edit',
@@ -21,7 +23,8 @@ export class SeriesDetailEditComponent implements OnInit {
   public series: Series;
   public seriesEditForm: FormGroup;
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
-  public createNewSeasonDialogRef: MatDialogRef<SeasonCreateDialogComponent>;
+  public seasonCreateDialogRef: MatDialogRef<SeasonCreateDialogComponent>;
+  public episodeCreateDialogRef: MatDialogRef<EpisodeCreateDialogComponent>;
 
   // Season List
   public seasonList: Season[];
@@ -32,20 +35,21 @@ export class SeriesDetailEditComponent implements OnInit {
   ];
 
   public validationMessages = {
-    'guid': [
+    'seriesGuid': [
       {type: 'required', message: 'A GUID is required'}
     ],
-    'name': [
+    'seriesName': [
       {type: 'required', message: 'A Series Name is required'}
     ],
-    'abbreviation': [
+    'seriesAbbreviation': [
       {type: 'required', message: 'An Abbreviation is required'}
     ]
   };
 
   constructor(private route: ActivatedRoute,
               public authService: AuthService,
-              private realityTrackerService: RealityTrackerService,
+              private seriesService: SeriesService,
+              private seasonService: SeasonService,
               private router: Router,
               private formBuilder: FormBuilder,
               public _matDialog: MatDialog) {
@@ -70,20 +74,20 @@ export class SeriesDetailEditComponent implements OnInit {
 
   private initializeForm(): void {
     this.seriesEditForm = this.formBuilder.group({
-      guid: new FormControl(''),
-      name: new FormControl('', Validators.required),
-      abbreviation: new FormControl('', Validators.required),
+      seriesGuid: new FormControl(''),
+      seriesName: new FormControl('', Validators.required),
+      seriesAbbreviation: new FormControl('', Validators.required),
     });
   }
 
   private getSeriesDetail(guid: string): void {
-    this.realityTrackerService.getSeriesDetail(guid).subscribe(
+    this.seriesService.getSeriesDetail(guid).subscribe(
       response => {
         this.series = response;
         // console.log('response', response);
-        this.seriesEditForm.controls['guid'].patchValue(this.series.seriesGuid);
-        this.seriesEditForm.controls['name'].patchValue(this.series.seriesName);
-        this.seriesEditForm.controls['abbreviation'].patchValue(this.series.seriesAbbreviation);
+        this.seriesEditForm.controls['seriesGuid'].patchValue(this.series.seriesGuid);
+        this.seriesEditForm.controls['seriesName'].patchValue(this.series.seriesName);
+        this.seriesEditForm.controls['seriesAbbreviation'].patchValue(this.series.seriesAbbreviation);
       },
       error => {
         console.error('Error: ', error);
@@ -92,7 +96,7 @@ export class SeriesDetailEditComponent implements OnInit {
   }
 
   private getSeasonListBySeriesGuid(seriesGuid: string): void {
-    this.realityTrackerService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
+    this.seasonService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
       (seasonList: Season[]) => {
         // console.log('seasonList', seasonList);
         this.records = [];
@@ -114,16 +118,19 @@ export class SeriesDetailEditComponent implements OnInit {
     dialogConfig.minWidth = '25%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {seriesGuid: this.series.seriesGuid, seriesName: this.series.seriesName};
+    dialogConfig.data = {
+      seriesGuid: this.series.seriesGuid,
+      seriesName: this.series.seriesName
+    };
     dialogConfig.autoFocus = false;
-    this.createNewSeasonDialogRef = this._matDialog.open(SeasonCreateDialogComponent, dialogConfig);
+    this.seasonCreateDialogRef = this._matDialog.open(SeasonCreateDialogComponent, dialogConfig);
 
-    this.createNewSeasonDialogRef.afterClosed().subscribe(dialogData => {
+    this.seasonCreateDialogRef.afterClosed().subscribe(dialogData => {
       if (dialogData) {
         const season = new Season();
         season.seriesGuid = dialogData.seriesGuid;
         season.seasonName = dialogData.name;
-        this.realityTrackerService.createSeason(season).subscribe(
+        this.seasonService.createSeason(season).subscribe(
           () => {
             this.getSeasonListBySeriesGuid(this.series.seriesGuid);
           },
@@ -142,7 +149,7 @@ export class SeriesDetailEditComponent implements OnInit {
     this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.realityTrackerService.deleteSeries(seriesGuid).subscribe(
+        this.seriesService.deleteSeries(seriesGuid).subscribe(
           response => {
             // console.log('response: ', response);
             this.router.navigate(['reality-tracker/series-list']).then();
@@ -162,7 +169,7 @@ export class SeriesDetailEditComponent implements OnInit {
     series.seriesName = this.seriesEditForm.value.name;
     series.seriesAbbreviation = this.seriesEditForm.value.abbreviation;
     if (this.newRecord) {
-      this.realityTrackerService.createSeries(series).subscribe(
+      this.seriesService.createSeries(series).subscribe(
         response => {
           console.log('response: ', response);
           this.router.navigate(['reality-tracker/series-detail', response.seriesGuid]).then();
@@ -172,7 +179,7 @@ export class SeriesDetailEditComponent implements OnInit {
         }
       );
     } else {
-      this.realityTrackerService.updateSeries(series).subscribe(
+      this.seriesService.updateSeries(series).subscribe(
         response => {
           // console.log('response: ', response);
           this.router.navigate(['reality-tracker/series-detail', response.seriesGuid]).then();
@@ -203,12 +210,12 @@ export class SeriesDetailEditComponent implements OnInit {
       this.openCreateSeasonDialog();
     }
     if (event.key === 'Enter') {
-      if (!this.createNewSeasonDialogRef) {
+      if (!this.seasonCreateDialogRef) {
         this.save();
       }
     }
     if (event.key === 'Escape') {
-      if (!this.createNewSeasonDialogRef) {
+      if (!this.seasonCreateDialogRef) {
         this.cancel();
       }
     }
@@ -218,7 +225,7 @@ export class SeriesDetailEditComponent implements OnInit {
     }
     if (event.ctrlKey && event.key === 's') {
       // console.log('s', this.createNewSeasonDialogRef.getState());
-      if (!this.createNewSeasonDialogRef || this.createNewSeasonDialogRef.getState() === 2) {
+      if (!this.seasonCreateDialogRef || this.seasonCreateDialogRef.getState() === 2) {
         this.save();
       }
       event.preventDefault();

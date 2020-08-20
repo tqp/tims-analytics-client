@@ -1,4 +1,4 @@
-import {FuseUtils} from '@fuse/utils';
+import { CustomUtils } from '@tqp/utils/custom-utils';
 
 export class AutoExpense {
     expenseGuid?: string;
@@ -9,7 +9,7 @@ export class AutoExpense {
 
     constructor(expense) {
         {
-            this.expenseGuid = expense.expenseGuid || FuseUtils.generateGUID();
+            this.expenseGuid = expense.expenseGuid || CustomUtils.generateGUID();
             this.categoryGuid = expense.categoryGuid || '';
             this.categoryName = expense.categoryName || '';
             this.expenseCost = expense.expenseCost || 0;

@@ -16,7 +16,7 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.environmentName = environment.name;
+    this.environmentName = environment.seasonName;
     this.clientBuildTimestamp = environment.buildTimestamp;
     this.getServerBuildTimestamp();
   }

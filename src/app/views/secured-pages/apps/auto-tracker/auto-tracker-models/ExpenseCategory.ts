@@ -1,4 +1,4 @@
-import {FuseUtils} from '@fuse/utils';
+import { CustomUtils } from '@tqp/utils/custom-utils';
 
 export class ExpenseCategory {
     categoryGuid?: string;
@@ -6,7 +6,7 @@ export class ExpenseCategory {
 
     constructor(category) {
         {
-            this.categoryGuid = category.categoryGuid || FuseUtils.generateGUID();
+            this.categoryGuid = category.categoryGuid || CustomUtils.generateGUID();
             this.categoryName = category.categoryName || '';
         }
     }

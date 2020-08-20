@@ -35,7 +35,7 @@ export class AutoCompleteComponent implements OnInit {
       startWith(''),
       debounceTime(300),
       switchMap(value => {
-        // console.log('value', value);
+        console.log('value', value);
         if (value !== '') {
           return this.autoCompleteService.retrieveLastNameOptions(value.toLowerCase()).pipe(
             map(results => {

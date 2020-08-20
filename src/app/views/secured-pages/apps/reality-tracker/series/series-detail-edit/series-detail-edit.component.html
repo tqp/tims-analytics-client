@@ -5,12 +5,12 @@
     <div class="row">
 
       <div class="col-sm-6">
-        <h1 *ngIf="series && newRecord && seriesEditForm.controls['name'].value == ''; else notShow">
+        <h1 *ngIf="series && newRecord && seriesEditForm.controls['seriesName'].value == ''; else notShow">
           New Series
         </h1>
         <ng-template #notShow>
           <h1>
-            {{seriesEditForm.controls['name'].value}}
+            {{seriesEditForm.controls['seriesName'].value}}
           </h1>
         </ng-template>
       </div>
@@ -39,7 +39,7 @@
 
         <div class="card">
           <div class="card-header">
-            <i class="fa fa-television"></i>
+            <i class="fa fa-star"></i>
             Series
           </div>
           <div class="card-body">
@@ -47,14 +47,14 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="name">Series Name</label>
-                  <input matInput id="name" type="text" class="form-control" placeholder="Last Name"
-                         formControlName="name" autocomplete="chrome-off">
-                  <mat-error *ngFor="let validation of validationMessages.name">
+                  <label for="seriesName">Series Name</label>
+                  <input matInput id="seriesName" type="text" class="form-control" placeholder="Series Name"
+                         formControlName="seriesName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.seriesName">
                     <mat-error class="error-message"
-                               *ngIf="seriesEditForm.get('name').hasError(validation.type)
-                                && (seriesEditForm.get('name').dirty ||
-                                seriesEditForm.get('name').touched)">
+                               *ngIf="seriesEditForm.get('seriesName').hasError(validation.type)
+                                && (seriesEditForm.get('seriesName').dirty ||
+                                seriesEditForm.get('seriesName').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
@@ -65,14 +65,14 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="abbreviation">Abbreviation</label>
-                  <input matInput id="abbreviation" type="text" class="form-control" placeholder="Abbreviation"
-                         formControlName="abbreviation" autocomplete="chrome-off">
-                  <mat-error *ngFor="let validation of validationMessages.abbreviation">
+                  <label for="seriesAbbreviation">Abbreviation</label>
+                  <input matInput id="seriesAbbreviation" type="text" class="form-control" placeholder="Abbreviation"
+                         formControlName="seriesAbbreviation" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.seriesAbbreviation">
                     <mat-error class="error-message"
-                               *ngIf="seriesEditForm.get('abbreviation').hasError(validation.type)
-                                && (seriesEditForm.get('abbreviation').dirty ||
-                                seriesEditForm.get('abbreviation').touched)">
+                               *ngIf="seriesEditForm.get('seriesAbbreviation').hasError(validation.type)
+                                && (seriesEditForm.get('seriesAbbreviation').dirty ||
+                                seriesEditForm.get('seriesAbbreviation').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
@@ -90,7 +90,7 @@
         <div class="card">
           <div class="card-header">
             <div class="float-left" style="line-height: 28px;">
-              <i class="fa fa-leaf"></i>
+              <i class="fa fa-calendar"></i>
               Seasons
             </div>
             <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openCreateSeasonDialog()"

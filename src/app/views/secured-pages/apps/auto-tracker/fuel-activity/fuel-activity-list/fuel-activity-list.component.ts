@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 import { ServerSidePaginationResponse } from '../../../../../../../@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { AutoTrackerService } from '../../auto-tracker.service';
+import { FuelActivityService } from '../fuel-activity.service';
+import { FuelActivityFlat } from '../../auto-tracker-models/FuelActivityFlat';
 
 @Component({
   selector: 'app-fuel-activity-list',
@@ -24,7 +25,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
   public listTitle = 'Fuel Activity';
-  private defaultSortColumn = 'FUEL_ACTIVITY_DATE';
+  private defaultSortColumn = 'FILL_DATE';
   private defaultSortDirection = 'DESC';
   private pageIndex = 0;
   public pageSize = 10;
@@ -32,10 +33,15 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'fuelActivityDate',
-    'fuelActivityOdometer',
+    'fillDate',
     'stationAffiliation',
-    'stationLocation'
+    'stationLocation',
+    'fillOdometer',
+    'fillMilesTraveled',
+    'fillGallons',
+    'fillCostPerGallon',
+    'fillTotalCost',
+    'fillMilesPerGallon',
   ];
 
   public fuelActivityListNameSearchFormControl = new FormControl();
@@ -52,7 +58,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
 
   public isFilterApplied = false;
 
-  constructor(private autoTrackerService: AutoTrackerService,
+  constructor(private fuelActivityService: FuelActivityService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -67,7 +73,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy(): void {
-    this.autoTrackerService.setFuelActivityListNameSearchValue(this.fuelActivityListNameSearchFormControl.value);
+    this.fuelActivityService.setFuelActivityListNameSearchValue(this.fuelActivityListNameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -86,8 +92,8 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = this.defaultSortDirection;
 
-    if (this.autoTrackerService.getFuelActivityListNameSearchValue()) {
-      const nameSearchValue = this.autoTrackerService.getFuelActivityListNameSearchValue();
+    if (this.fuelActivityService.getFuelActivityListNameSearchValue()) {
+      const nameSearchValue = this.fuelActivityService.getFuelActivityListNameSearchValue();
       this.fuelActivityListNameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
@@ -96,8 +102,8 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.autoTrackerService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        console.log('getPage response', response);
+    this.fuelActivityService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+        // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -111,7 +117,11 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
         const pageEnd = this.pageStart + this.paginator.pageSize - 1;
         this.pageEnd = pageEnd >= this.totalRecords ? this.totalRecords : pageEnd;
         this.totalNumberOfPages = Math.ceil(this.totalRecords / this.pageSize);
-        this.dataSource = this.records;
+
+        const flat: any = this.fuelActivityService.flattenFuelActivityObject(this.records);
+        // console.log('flat', flat);
+
+        this.dataSource = flat;
         this.isLoading = false;
         this.eventService.loadingEvent.emit(false);
       }, error => {
@@ -157,7 +167,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
           this.searchParams = serverSideSearchParams;
 
           this.isFilterApplied = nameFilter;
-          return this.autoTrackerService.getFuelActivityList_SSP(serverSideSearchParams);
+          return this.fuelActivityService.getFuelActivityList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;
@@ -195,6 +205,25 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
       );
   }
 
+  public getMilesPerGallonColor(car: number, calc: number): string {
+    const abs = Math.abs(car - calc);
+    if (abs > 4) {
+      return 'rgb(248, 108, 107)';
+    } else if (abs > 2) {
+      return 'rgb(255, 193, 7)';
+    } else {
+      return 'rgb(77, 189, 116)';
+    }
+  }
+
+  public getTotalCostColor(fillGallons: number, fillCostPerGallon: number, fillTotalCost: number): string {
+    if (Math.round(fillCostPerGallon * fillGallons) === Math.round(fillTotalCost)) {
+      return 'rgb(77, 189, 116)';
+    } else {
+      return 'rgb(248, 108, 107)';
+    }
+  }
+
   public clearFilters(): void {
     this.fuelActivityListNameSearchFormControl.setValue('');
   }
@@ -204,7 +233,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['auto-tracker/fuel-activity-detail', row.fuelActivityGuid]).then();
+    this.router.navigate(['auto-tracker/fuel-activity-detail', row.fillGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

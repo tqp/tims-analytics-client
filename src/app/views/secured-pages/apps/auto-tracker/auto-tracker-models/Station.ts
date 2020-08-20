@@ -1,11 +1,10 @@
-import {FuseUtils} from '../../../../../@fuse/utils';
+import { CustomUtils } from '@tqp/utils/custom-utils';
 
-export class FuelStation {
+export class Station {
     stationGuid?: string;
     stationName?: string;
     stationAffiliation?: string;
-    stationAddress1?: string;
-    stationAddress2?: string;
+    stationAddress?: string;
     stationCity?: string;
     stationState?: number;
     stationZip?: string;
@@ -14,11 +13,10 @@ export class FuelStation {
 
     constructor(station) {
         {
-            this.stationGuid = station.stationGuid || FuseUtils.generateGUID();
+            this.stationGuid = station.stationGuid || CustomUtils.generateGUID();
             this.stationName = station.stationName || '';
             this.stationAffiliation = station.stationAffiliation || '';
-            this.stationAddress1 = station.stationAddress1 || '';
-            this.stationAddress2 = station.stationAddress2 || '';
+            this.stationAddress = station.stationAddress || '';
             this.stationCity = station.stationCity || '';
             this.stationState = station.stationState || '';
             this.stationZip = station.stationZip || '';

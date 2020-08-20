@@ -1,0 +1,56 @@
+<div class="tqp-crud-detail animated fadeIn" *ngIf="episode">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>{{episode.seriesAbbreviation}}{{episode.seasonAbbreviation}} {{episode.episodeName}}</h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">
+          <u>E</u>dit
+        </button>
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 110px">
+          <u>R</u>eturn to Series
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-television"></i>
+          Episode
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Series Name:</dt>
+            <dd class="col-sm-9">
+              <span class="tqp-nav-link"
+                    [routerLink]="['/reality-tracker/series-detail', episode.seriesGuid]">{{episode.seriesName}}</span>
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Season Name:</dt>
+            <dd class="col-sm-9">
+              <span class="tqp-nav-link"
+                    [routerLink]="['/reality-tracker/season-detail', episode.seasonGuid]">{{episode.seasonName}}</span>
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Episode Name:</dt>
+            <dd class="col-sm-9">{{episode.episodeName}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+    </div>
+  </div>
+
+</div>

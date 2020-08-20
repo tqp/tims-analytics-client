@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { ServerSidePaginationResponse } from '../../../../../../../@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { RealityTrackerService } from '../../reality-tracker.service';
+import { SeriesService } from '../series.service';
 
 @Component({
   selector: 'app-series-list',
@@ -48,7 +48,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public isFilterApplied = false;
 
-  constructor(private realityTrackerService: RealityTrackerService,
+  constructor(private seriesService: SeriesService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -63,7 +63,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.realityTrackerService.setSeriesListNameSearchValue(this.seriesListNameSearchFormControl.value);
+    this.seriesService.setSeriesListNameSearchValue(this.seriesListNameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -82,8 +82,8 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = 'asc';
 
-    if (this.realityTrackerService.getSeriesListNameSearchValue()) {
-      const nameSearchValue = this.realityTrackerService.getSeriesListNameSearchValue();
+    if (this.seriesService.getSeriesListNameSearchValue()) {
+      const nameSearchValue = this.seriesService.getSeriesListNameSearchValue();
       this.seriesListNameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
@@ -92,7 +92,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getSeriesList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+    this.seriesService.getSeriesList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
         // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
@@ -153,7 +153,7 @@ export class SeriesListComponent implements OnInit, AfterViewInit, OnDestroy {
           this.searchParams = serverSideSearchParams;
 
           this.isFilterApplied = nameFilter;
-          return this.realityTrackerService.getSeriesList_SSP(serverSideSearchParams);
+          return this.seriesService.getSeriesList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;

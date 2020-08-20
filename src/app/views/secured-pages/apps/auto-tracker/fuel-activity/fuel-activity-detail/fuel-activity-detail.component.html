@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <h1>Fuel Activity on {{fuelActivity.fuelActivityDate | date: 'MM/dd/yyyy'}}</h1>
+      <h1>Fuel Activity on {{fuelActivity.fill.fillDate | date: 'MM/dd/yyyy'}}</h1>
     </div>
     <div class="col-sm-6">
       <div class="form-group float-right">
@@ -27,47 +27,47 @@
         <div class="card-body">
           <dl class="row">
             <dt class="col-sm-3">Date:</dt>
-            <dd class="col-sm-9">{{fuelActivity.fuelActivityDate | date: 'MM/dd/yyyy'}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.fill.fillDate | date: 'MM/dd/yyyy'}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Odometer:</dt>
-            <dd class="col-sm-9">{{fuelActivity.fuelActivityOdometer}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.fill.fillOdometer}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Gallons:</dt>
-            <dd class="col-sm-9">{{fuelActivity.fuelActivityGallons.toFixed(3)}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.fill.fillGallons.toFixed(3)}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Cost per Gallon:</dt>
-            <dd class="col-sm-9">${{fuelActivity.fuelActivityCostPerGallon.toFixed(3)}}</dd>
+            <dd class="col-sm-9">${{fuelActivity.fill.fillCostPerGallon.toFixed(3)}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Total Cost:</dt>
             <dd class="col-sm-9"
-                [ngStyle]="{'color': getTotalCostColor(fuelActivity.fuelActivityGallons, fuelActivity.fuelActivityCostPerGallon, fuelActivity.fuelActivityTotalCost)}">
-              ${{fuelActivity.fuelActivityTotalCost.toFixed(2)}}
+                [ngStyle]="{'color': getTotalCostColor(fuelActivity.fill.fillGallons, fuelActivity.fill.fillCostPerGallon, fuelActivity.fill.fillTotalCost)}">
+              ${{fuelActivity.fill.fillTotalCost.toFixed(2)}}
             </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Miles Driven:</dt>
-            <dd class="col-sm-9">{{fuelActivity.fuelActivityMilesTraveled.toFixed(1)}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.fill.fillMilesTraveled.toFixed(1)}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">MPG (From Car):</dt>
             <dd class="col-sm-9"
-                [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fuelActivityMilesPerGallon, fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons)}">
-              {{fuelActivity.fuelActivityMilesPerGallon.toFixed(3)}}</dd>
+                [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fill.fillMilesPerGallon, fuelActivity.fill.fillMilesTraveled / fuelActivity.fill.fillGallons)}">
+              {{fuelActivity.fill.fillMilesPerGallon.toFixed(3)}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">MPG (Calculated):</dt>
             <dd
               class="col-sm-9"
-              [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fuelActivityMilesPerGallon, fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons)}">
-              {{(fuelActivity.fuelActivityMilesTraveled / fuelActivity.fuelActivityGallons).toFixed(3)}}</dd>
+              [ngStyle]="{'color': getMilesPerGallonColor(fuelActivity.fill.fillMilesPerGallon, fuelActivity.fill.fillMilesTraveled / fuelActivity.fill.fillGallons)}">
+              {{(fuelActivity.fill.fillMilesTraveled / fuelActivity.fill.fillGallons).toFixed(3)}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Notes:</dt>
-            <dd class="col-sm-9">{{fuelActivity.fuelActivityComments}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.fill.fillComments}}</dd>
           </dl>
         </div>
       </div>
@@ -85,33 +85,33 @@
           <dl class="row">
             <dt class="col-sm-3">Station Name:</dt>
             <dd class="col-sm-9">
-              {{fuelActivity.stationName}}
+              {{fuelActivity.station.stationName}}
               <!--              [routerLink]="['/developer-pages/fuel-station-detail/' + fuelActivity.fuelStation.stationGuid]"-->
             </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Affiliation:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationAffiliation}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationAffiliation}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Address:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationAddress}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationAddress}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">City:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationCity}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationCity}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">State:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationState}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationState}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Zip Code:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationZip}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationZip}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Phone Number:</dt>
-            <dd class="col-sm-9">{{fuelActivity.stationPhone}}</dd>
+            <dd class="col-sm-9">{{fuelActivity.station.stationPhone}}</dd>
           </dl>
         </div>
       </div>

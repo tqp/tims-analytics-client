@@ -1,9 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Season } from '../../reality-tracker-models/Season';
+import { Season } from '../Season';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
-import { Player } from '../../reality-tracker-models/Player';
+import { Player } from '../../player/Player';
+import { Episode } from '../../episode/Episode';
+import { SeasonService } from '../season.service';
+import { PlayerService } from '../../player/player.service';
+import { EpisodeService } from '../../episode/episode.service';
 
 @Component({
   selector: 'app-season-detail',
@@ -16,14 +19,25 @@ export class SeasonDetailComponent implements OnInit {
   public dialogRef: any;
 
   // Player List
-  public records: Player[] = [];
-  public dataSource: Player[] = [];
-  public displayedColumns: string[] = [
+  public playerRecords: Player[] = [];
+  public playerDataSource: Player[] = [];
+  public playerDataSourceLoaded = false;
+  public playerDisplayedColumns: string[] = [
+    'name'
+  ];
+
+  // Player List
+  public episodeRecords: Player[] = [];
+  public episodeDataSource: Player[] = [];
+  public episodeDataSourceLoaded = false;
+  public episodeDisplayedColumns: string[] = [
     'name'
   ];
 
   constructor(private route: ActivatedRoute,
-              private realityTrackerService: RealityTrackerService,
+              private seasonService: SeasonService,
+              private playerService: PlayerService,
+              private episodeService: EpisodeService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -35,6 +49,7 @@ export class SeasonDetailComponent implements OnInit {
         // console.log('seasonGuid', seasonGuid);
         this.getSeasonDetail(seasonGuid);
         this.getPlayerListBySeasonGuid(seasonGuid);
+        this.getEpisodeListBySeasonGuid(seasonGuid);
       } else {
         console.error('No ID was present.');
       }
@@ -43,7 +58,7 @@ export class SeasonDetailComponent implements OnInit {
 
   private getSeasonDetail(guid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getSeasonDetail(guid).subscribe(
+    this.seasonService.getSeasonDetail(guid).subscribe(
       response => {
         this.season = response;
         // console.log('response', response);
@@ -56,13 +71,31 @@ export class SeasonDetailComponent implements OnInit {
   }
 
   private getPlayerListBySeasonGuid(seasonGuid: string): void {
-    this.realityTrackerService.getPlayerListBySeasonGuid(seasonGuid).subscribe(
+    this.playerService.getPlayerListBySeasonGuid(seasonGuid).subscribe(
       (playerList: Player[]) => {
         // console.log('playerList', playerList);
         playerList.forEach(item => {
-          this.records.push(item);
+          this.playerRecords.push(item);
         });
-        this.dataSource = this.records;
+        this.playerDataSource = this.playerRecords;
+        this.playerDataSourceLoaded = true;
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
+  }
+
+  private getEpisodeListBySeasonGuid(seasonGuid: string): void {
+    this.episodeService.getEpisodeListBySeasonGuid(seasonGuid).subscribe(
+      (episodeList: Episode[]) => {
+        // console.log('episodeList', episodeList);
+        this.episodeRecords = [];
+        episodeList.forEach(item => {
+          this.episodeRecords.push(item);
+        });
+        this.episodeDataSource = this.episodeRecords;
+        this.episodeDataSourceLoaded = true;
       },
       error => {
         console.error('Error: ', error);
@@ -80,6 +113,10 @@ export class SeasonDetailComponent implements OnInit {
 
   public openPlayerDetailPage(row: Player): void {
     this.router.navigate(['reality-tracker/player-detail', row.playerGuid]).then();
+  }
+
+  public openEpisodeDetailPage(row: Episode): void {
+    this.router.navigate(['reality-tracker/episode-detail', row.episodeGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

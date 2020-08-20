@@ -2,9 +2,9 @@ import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/cor
 import { ListItem } from '@tqp/models/ListItem';
 import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
 import { ListAddRemoveItemsBasicComponent } from '@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.component';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Contestant } from '../../reality-tracker-models/Contestant';
+import { Contestant } from '../../contestant/Contestant';
+import { ContestantService } from '../../contestant/contestant.service';
 
 @Component({
   selector: 'app-season-contestant-edit-dialog',
@@ -17,7 +17,7 @@ export class SeasonContestantEditDialogComponent implements OnInit {
   public listAddRemoveOutputObject: ListAddRemoveOutputObject = {};
   @ViewChild(ListAddRemoveItemsBasicComponent) listAddRemoveItemsBasicComponent: ListAddRemoveItemsBasicComponent;
 
-  constructor(private realityTrackerService: RealityTrackerService,
+  constructor(private contestantService: ContestantService,
               private dialogRef: MatDialogRef<SeasonContestantEditDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -30,7 +30,7 @@ export class SeasonContestantEditDialogComponent implements OnInit {
   }
 
   private getCurrentContestantsBySeasonGuid(seasonGuid: string): void {
-    this.realityTrackerService.getCurrentContestantsBySeasonGuid(seasonGuid).subscribe(
+    this.contestantService.getCurrentContestantsBySeasonGuid(seasonGuid).subscribe(
       (response: Contestant[]) => {
         // console.log('response', response);
         this.currentContestantsList = response.map((item) => {
@@ -47,7 +47,7 @@ export class SeasonContestantEditDialogComponent implements OnInit {
   }
 
   private getAvailableContestantsBySeasonGuid(seasonGuid: string): void {
-    this.realityTrackerService.getAvailableContestantsBySeasonGuid(seasonGuid).subscribe(
+    this.contestantService.getAvailableContestantsBySeasonGuid(seasonGuid).subscribe(
       (response: Contestant[]) => {
         this.availableContestantsList = response.map((item) => {
             const listItem: ListItem = new ListItem();

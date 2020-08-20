@@ -1,0 +1,109 @@
+<h2 mat-dialog-title>
+  Add New Episode
+</h2>
+
+<mat-dialog-content style="overflow: hidden">
+
+  <form [formGroup]="episodeEditForm">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seriesGuid">Series GUID</label>
+          <input matInput id="seriesGuid" type="text" class="form-control" placeholder="Series GUID"
+                 formControlName="seriesGuid" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seriesGuid">
+            <mat-error class="error-message"
+                       *ngIf="episodeEditForm.get('seriesGuid').hasError(validation.type)
+                                && (episodeEditForm.get('seriesGuid').dirty ||
+                                episodeEditForm.get('seriesGuid').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seriesName">Series Name</label>
+          <input matInput id="seriesName" type="text" class="form-control" placeholder="Series Name"
+                 formControlName="seriesName" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seriesName">
+            <mat-error class="error-message"
+                       *ngIf="episodeEditForm.get('seriesName').hasError(validation.type)
+                                && (episodeEditForm.get('seriesName').dirty ||
+                                episodeEditForm.get('seriesName').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seasonGuid">Season GUID</label>
+          <input matInput id="seasonGuid" type="text" class="form-control" placeholder="Season GUID"
+                 formControlName="seasonGuid" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seasonGuid">
+            <mat-error class="error-message"
+                       *ngIf="episodeEditForm.get('seasonGuid').hasError(validation.type)
+                                && (episodeEditForm.get('seasonGuid').dirty ||
+                                episodeEditForm.get('seasonGuid').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seasonName">Season Name</label>
+          <input matInput id="seasonName" type="text" class="form-control" placeholder="Season Name"
+                 formControlName="seasonName" autocomplete="chrome-off" readonly>
+          <mat-error *ngFor="let validation of validationMessages.seasonName">
+            <mat-error class="error-message"
+                       *ngIf="episodeEditForm.get('seasonName').hasError(validation.type)
+                                && (episodeEditForm.get('seasonName').dirty ||
+                                episodeEditForm.get('seasonName').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="episodeName">Episode Name</label>
+          <input matInput id="episodeName" type="text" class="form-control" placeholder="Episode Name"
+                 formControlName="episodeName" autocomplete="chrome-off" #nameInputField>
+          <mat-error *ngFor="let validation of validationMessages.episodeName">
+            <mat-error class="error-message"
+                       *ngIf="episodeEditForm.get('episodeName').hasError(validation.type)
+                                && (episodeEditForm.get('episodeName').dirty ||
+                                episodeEditForm.get('episodeName').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <div fxFlex></div>
+  <button mat-raised-button mat-dialog-close color="primary" (click)="save();" [disabled]="!episodeEditForm.valid">
+    Save
+  </button>
+</mat-dialog-actions>

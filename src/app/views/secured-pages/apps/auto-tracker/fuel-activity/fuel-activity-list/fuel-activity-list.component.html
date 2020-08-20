@@ -48,25 +48,61 @@
                matSort matSortActive="fuelActivityDate" matSortDirection="asc" matSortDisableClear="true"
                class="table table-striped">
 
-          <ng-container matColumnDef="fuelActivityDate">
+          <ng-container matColumnDef="fillDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-            <td mat-cell *matCellDef="let row">{{row.fuelActivityDate}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="fuelActivityOdometer">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Odometer</th>
-            <td mat-cell *matCellDef="let row">{{row.fuelActivityOdometer}}</td>
+            <td mat-cell *matCellDef="let row">
+              {{row.fillDate | date: 'MM/dd/yyyy'}}
+              {{row.fillComments != null ? '*' : ''}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="stationAffiliation">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Affiliation</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Station</th>
             <td mat-cell *matCellDef="let row">{{row.stationAffiliation}}</td>
           </ng-container>
 
           <ng-container matColumnDef="stationLocation">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-            <td mat-cell *matCellDef="let row">{{row.stationCity}}, {{row.stationState}}</td>
+            <td mat-cell *matCellDef="let row">{{row.stationLocation}}</td>
           </ng-container>
+
+          <ng-container matColumnDef="fillOdometer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Odometer</th>
+            <td mat-cell *matCellDef="let row">{{row.fillOdometer}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillMilesTraveled">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance</th>
+            <td mat-cell *matCellDef="let row">{{row.fillMilesTraveled.toFixed(1)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillGallons">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Gallons</th>
+            <td mat-cell *matCellDef="let row">{{row.fillGallons.toFixed(3)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillCostPerGallon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>$/Gal.</th>
+            <td mat-cell *matCellDef="let row">{{row.fillCostPerGallon.toFixed(3)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillTotalCost">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Cost</th>
+            <td mat-cell *matCellDef="let row"
+                [ngStyle]="{'color': getTotalCostColor(row.fillGallons, row.fillCostPerGallon, row.fillTotalCost)}">
+              {{row.fillTotalCost.toFixed(2)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillMilesPerGallon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>MPG (Car/Calc.)</th>
+            <td mat-cell *matCellDef="let row"
+                [ngStyle]="{'color': getMilesPerGallonColor(row.fillMilesPerGallonCar, row.fillMilesPerGallonCalc)}">
+              {{row.fillMilesPerGallonCar.toFixed(1)}}
+              / {{row.fillMilesPerGallonCalc.toFixed(1)}}
+            </td>
+          </ng-container>
+
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailPage(row);"></tr>

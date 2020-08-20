@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Player } from '../../reality-tracker-models/Player';
+import { Player } from '../Player';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-player-detail',
@@ -16,10 +16,9 @@ export class PlayerDetailComponent implements OnInit {
   public dialogRef: any;
 
   constructor(private route: ActivatedRoute,
-              private realityTrackerService: RealityTrackerService,
+              private playerService: PlayerService,
               private eventService: EventService,
-              private router: Router,
-              public _matDialog: MatDialog) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,7 +35,7 @@ export class PlayerDetailComponent implements OnInit {
 
   private getPlayerDetail(playerGuid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getPlayerDetail(playerGuid).subscribe(
+    this.playerService.getPlayerDetail(playerGuid).subscribe(
       response => {
         this.player = response;
         // console.log('response', response);

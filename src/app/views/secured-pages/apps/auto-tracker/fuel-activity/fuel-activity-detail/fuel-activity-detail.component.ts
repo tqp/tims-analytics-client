@@ -1,9 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
-import { Player } from '../../../reality-tracker/reality-tracker-models/Player';
 import { FuelActivity } from '../../auto-tracker-models/FuelActivity';
-import { AutoTrackerService } from '../../auto-tracker.service';
+import { FuelActivityService } from '../fuel-activity.service';
 
 @Component({
   selector: 'app-fuel-activity-detail',
@@ -16,7 +15,7 @@ export class FuelActivityDetailComponent implements OnInit {
   public dialogRef: any;
 
   constructor(private route: ActivatedRoute,
-              private autoTrackerService: AutoTrackerService,
+              private fuelActivityService: FuelActivityService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -35,10 +34,10 @@ export class FuelActivityDetailComponent implements OnInit {
 
   private getFuelActivityDetail(guid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.autoTrackerService.getFuelActivityDetail(guid).subscribe(
+    this.fuelActivityService.getFuelActivityDetail(guid).subscribe(
       response => {
         this.fuelActivity = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.eventService.loadingEvent.emit(false);
       },
       error => {
@@ -73,7 +72,7 @@ export class FuelActivityDetailComponent implements OnInit {
   }
 
   public openEditPage(): void {
-    this.router.navigate(['auto-tracker/fuel-activity-detail-edit', this.fuelActivity.fuelActivityGuid]).then();
+    this.router.navigate(['auto-tracker/fuel-activity-detail-edit', this.fuelActivity.fill.fillGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

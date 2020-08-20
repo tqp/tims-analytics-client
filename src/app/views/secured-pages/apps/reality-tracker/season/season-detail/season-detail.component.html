@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <h1>{{season.seriesName}} - {{season.seasonName}}</h1>
+      <h1>{{season.seriesName}} {{season.seasonName}} ({{season.seriesAbbreviation}}{{season.seasonAbbreviation}})</h1>
     </div>
     <div class="col-sm-6">
       <div class="form-group float-right">
@@ -21,7 +21,7 @@
 
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-leaf"></i>
+          <i class="fa fa-calendar"></i>
           Season
         </div>
         <div class="card-body">
@@ -45,14 +45,34 @@
 
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-rss"></i>
-          Metadata
+          <i class="fa fa-group"></i>
+          Players in Season
         </div>
         <div class="card-body">
-          <dl class="row">
-            <dt class="col-sm-3">GUID:</dt>
-            <dd class="col-sm-9">{{season.seasonGuid}}</dd>
-          </dl>
+
+          <div class="table-container">
+
+            <table mat-table [dataSource]="playerDataSource" *ngIf="playerDataSource && playerDataSource.length > 0"
+                   class="table table-striped">
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Contestant Name</th>
+                <td mat-cell *matCellDef="let row">{{row.contestantLastName}}, {{row.contestantFirstName}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="playerDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: playerDisplayedColumns;" (click)="openPlayerDetailPage(row);"></tr>
+            </table>
+
+            <mat-card class="spinner-container" *ngIf="!playerDataSourceLoaded">
+              <mat-progress-spinner
+                color="primary"
+                mode="indeterminate">
+              </mat-progress-spinner>
+            </mat-card>
+
+          </div>
+
         </div>
       </div>
 
@@ -62,28 +82,31 @@
 
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-group"></i>
-          Players in Season
+          <i class="fa fa-television"></i>
+          Episodes
         </div>
         <div class="card-body">
 
           <div class="table-container">
 
-            <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
+            <table mat-table [dataSource]="episodeDataSource" *ngIf="episodeDataSource && episodeDataSource.length > 0"
                    class="table table-striped">
 
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>GUID</th>
-                <td mat-cell *matCellDef="let row">{{row.contestantLastName}}, {{row.contestantFirstName}}</td>
+                <td mat-cell *matCellDef="let row">{{row.episodeName}}</td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openPlayerDetailPage(row);"></tr>
+              <tr mat-header-row *matHeaderRowDef="episodeDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: episodeDisplayedColumns;" (click)="openEpisodeDetailPage(row);"></tr>
             </table>
 
-            <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
-              No records to display.
-            </div>
+            <mat-card class="spinner-container" *ngIf="!episodeDataSourceLoaded">
+              <mat-progress-spinner
+                color="primary"
+                mode="indeterminate">
+              </mat-progress-spinner>
+            </mat-card>
 
           </div>
 

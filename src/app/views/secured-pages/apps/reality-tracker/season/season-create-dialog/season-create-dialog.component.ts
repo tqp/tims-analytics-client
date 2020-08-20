@@ -18,7 +18,7 @@ export class SeasonCreateDialogComponent implements OnInit {
     'seriesName': [
       {type: 'required', message: 'A Series Name is required'}
     ],
-    'name': [
+    'seasonName': [
       {type: 'required', message: 'A Season Number is required'}
     ]
   };
@@ -29,6 +29,7 @@ export class SeasonCreateDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('data', this.data);
     this.initializeForm();
   }
 
@@ -36,7 +37,7 @@ export class SeasonCreateDialogComponent implements OnInit {
     this.seasonEditForm = this.formBuilder.group({
       seriesGuid: new FormControl(this.data.seriesGuid, Validators.required),
       seriesName: new FormControl(this.data.seriesName, Validators.required),
-      name: new FormControl('', Validators.required),
+      seasonName: new FormControl('', Validators.required),
     });
 
     setTimeout(() => {

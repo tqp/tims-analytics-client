@@ -7,11 +7,10 @@ import { SeasonCreateDialogComponent } from './season-create-dialog/season-creat
 import { AngularMaterialModule } from '../../../../../../@tqp/modules/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { CrudDetailEditDialogComponent } from '../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
-import { CrudPersonFriendEditDialogComponent } from '../../crud/crud-person-friend-edit-dialog/crud-person-friend-edit-dialog.component';
 import { RouterModule } from '@angular/router';
 import { SeasonContestantEditDialogComponent } from './season-contestant-edit-dialog/season-contestant-edit-dialog.component';
 import { ListAddRemoveItemsBasicModule } from '../../../../../../@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.module';
+import { EpisodeCreateDialogComponent } from '../episode/episode-create-dialog/episode-create-dialog.component';
 
 
 @NgModule({

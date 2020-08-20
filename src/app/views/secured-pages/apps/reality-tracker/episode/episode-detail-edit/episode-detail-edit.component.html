@@ -1,0 +1,77 @@
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="episode">
+
+  <form [formGroup]="episodeEditForm">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h1 *ngIf="episode && newRecord && episodeEditForm.controls['episodeName'].value == ''; else notShow">
+          New Episode
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            {{episodeEditForm.controls['episodeName'].value}}
+          </h1>
+        </ng-template>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
+                  (click)="delete(episode.episodeGuid)">
+            <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
+            <u>D</u>elete
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                  [disabled]="!episodeEditForm.valid">
+            <u>S</u>ave
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+            <u>C</u>ancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-calendar"></i>
+            Episode Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="episodeName">Episode Name</label>
+                  <input matInput id="episodeName" type="text" class="form-control" placeholder="Episode Name"
+                         formControlName="episodeName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.episodeName">
+                    <mat-error class="error-message"
+                               *ngIf="episodeEditForm.get('episodeName').hasError(validation.type)
+                                && (episodeEditForm.get('episodeName').dirty ||
+                                episodeEditForm.get('episodeName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

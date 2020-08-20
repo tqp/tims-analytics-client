@@ -4,12 +4,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ServerSidePaginationRequest } from '../../../../../../../@tqp/models/ServerSidePaginationRequest';
 import { FormControl } from '@angular/forms';
 import { Person } from '../../../../../../../@tqp/models/Person';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { Router } from '@angular/router';
 import { ServerSidePaginationResponse } from '../../../../../../../@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import { ContestantService } from '../contestant.service';
 
 @Component({
   selector: 'app-contestant-list',
@@ -48,7 +48,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
 
   public isFilterApplied = false;
 
-  constructor(private realityTrackerService: RealityTrackerService,
+  constructor(private contestantService: ContestantService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -63,7 +63,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnDestroy(): void {
-    this.realityTrackerService.setContestantListNameSearchValue(this.contestantListNameSearchFormControl.value);
+    this.contestantService.setContestantListNameSearchValue(this.contestantListNameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -82,8 +82,8 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = 'asc';
 
-    if (this.realityTrackerService.getContestantListNameSearchValue()) {
-      const nameSearchValue = this.realityTrackerService.getContestantListNameSearchValue();
+    if (this.contestantService.getContestantListNameSearchValue()) {
+      const nameSearchValue = this.contestantService.getContestantListNameSearchValue();
       this.contestantListNameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
@@ -92,7 +92,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getContestantList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+    this.contestantService.getContestantList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
         // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
@@ -153,7 +153,7 @@ export class ContestantListComponent implements OnInit, AfterViewInit, OnDestroy
           this.searchParams = serverSideSearchParams;
 
           this.isFilterApplied = nameFilter;
-          return this.realityTrackerService.getContestantList_SSP(serverSideSearchParams);
+          return this.contestantService.getContestantList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;

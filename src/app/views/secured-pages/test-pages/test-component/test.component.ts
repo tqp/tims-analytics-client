@@ -14,7 +14,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildTimestamp = environment.buildTimestamp;
-    this.environmentName = environment.name;
+    this.environmentName = environment.seasonName;
   }
 
 }

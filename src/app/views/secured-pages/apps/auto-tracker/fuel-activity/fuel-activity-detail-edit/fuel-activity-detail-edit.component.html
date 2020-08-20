@@ -1,1 +1,382 @@
-<p>fuel-activity-detail-edit works!</p>
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="fuelActivity">
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <h1 *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
+        New Fuel Activity Record
+      </h1>
+      <ng-template #notShow>
+        <h1>
+          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MM/dd/yyyy'}}
+        </h1>
+      </ng-template>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
+                (click)="delete(fuelActivity.fill.fillGuid)">
+          <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
+          <u>D</u>elete
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                [disabled]="!fuelActivityEditForm.valid">
+          <u>S</u>ave
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+          <u>C</u>ancel
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <form [formGroup]="fillSubForm">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user"></i>
+            Fuel Activity Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillGuid">GUID</label>
+                  <input matInput id="fillGuid" #fillDateInputField type="text" class="form-control" placeholder="GUID"
+                         formControlName="fillGuid" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.fillGuid">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillGuid').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillGuid').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillGuid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillDate">Date</label>
+                  <input matInput id="fillDate" #fillDateInputField type="text" class="form-control" placeholder="Date"
+                         formControlName="fillDate" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.fillDate">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillDate').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillDate').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillDate').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillOdometer">Odometer</label>
+                  <input matInput id="fillOdometer" type="text" class="form-control" placeholder="Odometer"
+                         formControlName="fillOdometer">
+                  <mat-error *ngFor="let validation of validationMessages.fillOdometer">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillOdometer').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillOdometer').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillOdometer').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillGallons">Gallons</label>
+                  <input matInput id="fillGallons" type="text" class="form-control" placeholder="Gallons"
+                         formControlName="fillGallons">
+                  <mat-error *ngFor="let validation of validationMessages.fillGallons">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillGallons').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillGallons').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillGallons').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillCostPerGallon">Cost per Gallon</label>
+                  <input matInput id="fillCostPerGallon" type="text" class="form-control" placeholder="Cost per Gallon"
+                         formControlName="fillCostPerGallon">
+                  <mat-error *ngFor="let validation of validationMessages.fillCostPerGallon">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillCostPerGallon').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillCostPerGallon').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillCostPerGallon').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillTotalCost">Total Cost</label>
+                  <input matInput id="fillTotalCost" type="text" class="form-control" placeholder="Total Cost"
+                         formControlName="fillTotalCost">
+                  <mat-error *ngFor="let validation of validationMessages.fillTotalCost">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillTotalCost').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillTotalCost').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillTotalCost').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillMilesTraveled">Miles Traveled</label>
+                  <input matInput id="fillMilesTraveled" type="text" class="form-control" placeholder="Miles Traveled"
+                         formControlName="fillMilesTraveled">
+                  <mat-error *ngFor="let validation of validationMessages.fillMilesTraveled">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillMilesTraveled').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillMilesTraveled').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillMilesTraveled').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillMilesPerGallon">Miles per Gallon</label>
+                  <input matInput id="fillMilesPerGallon" type="text" class="form-control"
+                         placeholder="Miles per Gallon"
+                         formControlName="fillMilesPerGallon">
+                  <mat-error *ngFor="let validation of validationMessages.fillMilesPerGallon">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillMilesPerGallon').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillMilesPerGallon').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillMilesPerGallon').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillComments">Notes</label>
+                  <input matInput id="fillComments" type="text" class="form-control" placeholder="Notes"
+                         formControlName="fillComments">
+                  <mat-error *ngFor="let validation of validationMessages.fillComments">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillComments').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillComments').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillComments').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <form [formGroup]="stationSubForm">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user"></i>
+            Station Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationGuid">Station GUID</label>
+                  <input matInput id="stationGuid" type="text" class="form-control" placeholder="Station GUID"
+                         formControlName="stationGuid" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationGuid">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('station').get('stationGuid').hasError(validation.type)
+                                && (fuelActivityEditForm.get('station').get('stationGuid').dirty ||
+                                fuelActivityEditForm.get('station').get('stationGuid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationName">Station Name</label>
+                  <input matInput id="stationName" type="text" class="form-control" placeholder="Station Name"
+                         formControlName="stationName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationName">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('station').get('stationName').hasError(validation.type)
+                                && (fuelActivityEditForm.get('station').get('stationName').dirty ||
+                                fuelActivityEditForm.get('station').get('stationName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationAffiliation">Affiliation</label>
+                  <input matInput id="stationAffiliation" type="text" class="form-control" placeholder="Affiliation"
+                         formControlName="stationAffiliation" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationAffiliation">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationAffiliation').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationAffiliation').dirty ||
+                                fuelActivityEditForm.get('stationAffiliation').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationAddress">Address</label>
+                  <input matInput id="stationAddress" type="text" class="form-control" placeholder="Address"
+                         formControlName="stationAddress" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationAddress">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationAddress').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationAddress').dirty ||
+                                fuelActivityEditForm.get('stationAddress').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationCity">City</label>
+                  <input matInput id="stationCity" type="text" class="form-control" placeholder="City"
+                         formControlName="stationCity" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationCity">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationCity').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationCity').dirty ||
+                                fuelActivityEditForm.get('stationCity').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationState">State</label>
+                  <input matInput id="stationState" type="text" class="form-control" placeholder="State"
+                         formControlName="stationState" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationState">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationState').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationState').dirty ||
+                                fuelActivityEditForm.get('stationState').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationZip">Zip Code</label>
+                  <input matInput id="stationZip" type="text" class="form-control" placeholder="Zip Code"
+                         formControlName="stationZip" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationZip">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationZip').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationZip').dirty ||
+                                fuelActivityEditForm.get('stationZip').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationPhone">Phone Number</label>
+                  <input matInput id="stationPhone" type="text" class="form-control" placeholder="Phone Number"
+                         formControlName="stationPhone" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.stationPhone">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('stationPhone').hasError(validation.type)
+                                && (fuelActivityEditForm.get('stationPhone').dirty ||
+                                fuelActivityEditForm.get('stationPhone').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+
+</div>

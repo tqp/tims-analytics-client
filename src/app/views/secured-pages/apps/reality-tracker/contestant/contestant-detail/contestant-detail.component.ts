@@ -2,12 +2,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CrudDetailEditDialogComponent } from '../../../crud/crud-detail-edit-dialog/crud-detail-edit-dialog.component';
-import { RealityTrackerService } from '../../reality-tracker.service';
-import { Contestant } from '../../reality-tracker-models/Contestant';
-import { Season } from '../../reality-tracker-models/Season';
-import { Player } from '../../reality-tracker-models/Player';
-import { environment } from '../../../../../../../environments/environment';
+import { Contestant } from '../Contestant';
+import { Season } from '../../season/Season';
+import { Player } from '../../player/Player';
+import { ContestantService } from '../contestant.service';
+import { SeasonService } from '../../season/season.service';
 
 @Component({
   selector: 'app-contestant-detail',
@@ -24,11 +23,13 @@ export class ContestantDetailComponent implements OnInit {
   public records: Season[] = [];
   public dataSource: Season[] = [];
   public displayedColumns: string[] = [
-    'name'
+    'name',
+    'playerLink'
   ];
 
   constructor(private route: ActivatedRoute,
-              private realityTrackerService: RealityTrackerService,
+              private contestantService: ContestantService,
+              private seasonService: SeasonService,
               private eventService: EventService,
               private router: Router,
               public _matDialog: MatDialog) {
@@ -49,7 +50,7 @@ export class ContestantDetailComponent implements OnInit {
 
   private getContestantDetail(guid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getContestantDetail(guid).subscribe(
+    this.contestantService.getContestantDetail(guid).subscribe(
       response => {
         this.contestant = response;
         // console.log('response', response);
@@ -62,7 +63,7 @@ export class ContestantDetailComponent implements OnInit {
   }
 
   private getSeasonListByContestantGuid(contestantGuid: string): void {
-    this.realityTrackerService.getSeasonListByContestantGuid(contestantGuid).subscribe(
+    this.seasonService.getSeasonListByContestantGuid(contestantGuid).subscribe(
       (playerList: Player[]) => {
         // console.log('playerList', playerList);
         playerList.forEach(item => {

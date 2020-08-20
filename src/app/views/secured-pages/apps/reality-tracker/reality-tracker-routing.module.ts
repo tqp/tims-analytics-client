@@ -10,6 +10,8 @@ import { SeasonDetailComponent } from './season/season-detail/season-detail.comp
 import { SeasonDetailEditComponent } from './season/season-detail-edit/season-detail-edit.component';
 import { PlayerDetailComponent } from './player/player-detail/player-detail.component';
 import { PlayerDetailEditComponent } from './player/player-detail-edit/player-detail-edit.component';
+import { EpisodeDetailComponent } from './episode/episode-detail/episode-detail.component';
+import { EpisodeDetailEditComponent } from './episode/episode-detail-edit/episode-detail-edit.component';
 
 const routes: Routes = [
   {
@@ -69,6 +71,23 @@ const routes: Routes = [
         component: SeasonDetailEditComponent,
         data: {
           title: 'Edit Season'
+        }
+      },
+
+      // EPISODE
+
+      {
+        path: 'episode-detail/:guid',
+        component: EpisodeDetailComponent,
+        data: {
+          title: 'Episode Detail'
+        }
+      },
+      {
+        path: 'episode-detail-edit/:guid',
+        component: EpisodeDetailEditComponent,
+        data: {
+          title: 'Edit Episode'
         }
       },
 

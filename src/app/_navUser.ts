@@ -48,7 +48,7 @@ export const navItemsUser: INavData[] = [
       {
         name: 'Series List',
         url: '/reality-tracker/series-list',
-        icon: 'fa fa-television'
+        icon: 'fa fa-star'
       },
       {
         name: 'Contestant List',

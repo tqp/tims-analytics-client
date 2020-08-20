@@ -3,8 +3,8 @@ import { ListItem } from '../../../../../../../@tqp/models/ListItem';
 import { ListAddRemoveOutputObject } from '../../../../../../../@tqp/models/ListAddRemoveOutputObject';
 import { ListAddRemoveItemsBasicComponent } from '../../../../../../../@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Season } from '../../reality-tracker-models/Season';
-import { RealityTrackerService } from '../../reality-tracker.service';
+import { Season } from '../../season/Season';
+import { SeasonService } from '../../season/season.service';
 
 @Component({
   selector: 'app-contestant-season-edit-dialog',
@@ -17,7 +17,7 @@ export class ContestantSeasonEditDialogComponent implements OnInit {
   public listAddRemoveOutputObject: ListAddRemoveOutputObject = {};
   @ViewChild(ListAddRemoveItemsBasicComponent) listAddRemoveItemsBasicComponent: ListAddRemoveItemsBasicComponent;
 
-  constructor(private realityTrackerService: RealityTrackerService,
+  constructor(private seasonService: SeasonService,
               private dialogRef: MatDialogRef<ContestantSeasonEditDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -29,7 +29,7 @@ export class ContestantSeasonEditDialogComponent implements OnInit {
   }
 
   private getCurrentSeasonsByContestantGuid(contestantGuid: string): void {
-    this.realityTrackerService.getCurrentSeasonsByContestantGuid(contestantGuid).subscribe(
+    this.seasonService.getCurrentSeasonsByContestantGuid(contestantGuid).subscribe(
       (response: Season[]) => {
         // console.log('response', response);
         this.currentSeasonsList = response.map((item) => {
@@ -46,7 +46,7 @@ export class ContestantSeasonEditDialogComponent implements OnInit {
   }
 
   private getAvailableSeasonsByContestantGuid(contestantGuid: string): void {
-    this.realityTrackerService.getAvailableSeasonsByContestantGuid(contestantGuid).subscribe(
+    this.seasonService.getAvailableSeasonsByContestantGuid(contestantGuid).subscribe(
       (response: Season[]) => {
         this.availableSeasonsList = response.map((item) => {
             const listItem: ListItem = new ListItem();

@@ -1,5 +1,5 @@
 export const environment = {
-  name: 'prod',
+  seasonName: 'prod',
   production: true,
   hmr: false,
   apiUrl: 'https://server.timsanalytics.com',

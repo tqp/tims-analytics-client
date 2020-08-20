@@ -2,8 +2,8 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <h1>{{player.seriesAbbreviation}}{{player.seasonAbbreviation}}:
-        {{player.contestantFirstName}} {{player.contestantLastName}}</h1>
+      <h1>{{player.contestantFirstName}} {{player.contestantLastName}}
+        in {{player.seriesAbbreviation}}{{player.seasonAbbreviation}}</h1>
     </div>
     <div class="col-sm-6">
       <div class="form-group float-right">
@@ -29,13 +29,15 @@
           <dl class="row">
             <dt class="col-sm-3">Series:</dt>
             <dd class="col-sm-9">
-              <div class="tqp-nav-link" [routerLink]="['/reality-tracker/series-detail', player.seriesGuid]">{{player.seriesName}}</div>
+              <div class="tqp-nav-link"
+                   [routerLink]="['/reality-tracker/series-detail', player.seriesGuid]">{{player.seriesName}}</div>
             </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Season:</dt>
             <dd class="col-sm-9">
-              <div class="tqp-nav-link" [routerLink]="['/reality-tracker/season-detail', player.seasonGuid]">{{player.seasonName}}</div>
+              <div class="tqp-nav-link"
+                   [routerLink]="['/reality-tracker/season-detail', player.seasonGuid]">{{player.seasonName}}</div>
             </dd>
           </dl>
           <dl class="row">

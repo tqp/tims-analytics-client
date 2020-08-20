@@ -1,10 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { RealityTrackerService } from '../../reality-tracker.service';
 import { EventService } from '../../../../../../../@tqp/services/event.service';
-import { Series } from '../../reality-tracker-models/Series';
-import { Season } from '../../reality-tracker-models/Season';
+import { Series } from '../Series';
+import { Season } from '../../season/Season';
+import { SeriesService } from '../series.service';
+import { SeasonService } from '../../season/season.service';
 
 @Component({
   selector: 'app-series-detail',
@@ -24,7 +25,8 @@ export class SeriesDetailComponent implements OnInit {
   ];
 
   constructor(private route: ActivatedRoute,
-              private realityTrackerService: RealityTrackerService,
+              private seriesService: SeriesService,
+              private seasonService: SeasonService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -44,7 +46,7 @@ export class SeriesDetailComponent implements OnInit {
 
   private getSeriesDetail(guid: string): void {
     this.eventService.loadingEvent.emit(true);
-    this.realityTrackerService.getSeriesDetail(guid).subscribe(
+    this.seriesService.getSeriesDetail(guid).subscribe(
       response => {
         this.series = response;
         // console.log('response', response);
@@ -57,7 +59,7 @@ export class SeriesDetailComponent implements OnInit {
   }
 
   private getSeasonListBySeriesGuid(seriesGuid: string): void {
-    this.realityTrackerService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
+    this.seasonService.getSeasonListBySeriesGuid(seriesGuid).subscribe(
       (seasonList: Season[]) => {
         // console.log('seasonList', seasonList);
         seasonList.forEach(item => {

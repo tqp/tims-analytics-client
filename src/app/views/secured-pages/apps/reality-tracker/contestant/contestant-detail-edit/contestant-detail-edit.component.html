@@ -5,12 +5,12 @@
     <div class="row">
 
       <div class="col-sm-6">
-        <h1 *ngIf="contestant && newRecord && contestantEditForm.controls['lastName'].value == ''; else notShow">
+        <h1 *ngIf="contestant && newRecord && contestantEditForm.controls['contestantLastName'].value == ''; else notShow">
           New Contestant
         </h1>
         <ng-template #notShow>
           <h1>
-            {{contestantEditForm.controls['lastName'].value}}, {{contestantEditForm.controls['firstName'].value}}
+            {{contestantEditForm.controls['contestantFirstName'].value}} {{contestantEditForm.controls['contestantLastName'].value}}
           </h1>
         </ng-template>
       </div>
@@ -40,76 +40,79 @@
         <div class="card">
           <div class="card-header">
             <i class="fa fa-user"></i>
-            Basic Info (Required)
+            Basic Info
           </div>
           <div class="card-body">
 
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="lastName">Last Name</label>
-                  <input matInput id="lastName" #lastNameInputField type="text" class="form-control" placeholder="Last Name"
-                         formControlName="lastName" autocomplete="chrome-off">
-                  <mat-error *ngFor="let validation of validationMessages.lastName">
+                  <label for="contestantLastName">Last Name*</label>
+                  <input matInput id="contestantLastName" #lastNameInputField type="text" class="form-control" placeholder="Last Name"
+                         formControlName="contestantLastName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.contestantLastName">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('lastName').hasError(validation.type)
-                                && (contestantEditForm.get('lastName').dirty ||
-                                contestantEditForm.get('lastName').touched)">
+                               *ngIf="contestantEditForm.get('contestantLastName').hasError(validation.type)
+                                && (contestantEditForm.get('contestantLastName').dirty ||
+                                contestantEditForm.get('contestantLastName').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="firstName">First Name</label>
-                  <input matInput id="firstName" type="text" class="form-control" placeholder="First Name"
-                         formControlName="firstName">
-                  <mat-error *ngFor="let validation of validationMessages.firstName">
+                  <label for="contestantFirstName">First Name*</label>
+                  <input matInput id="contestantFirstName" type="text" class="form-control" placeholder="First Name"
+                         formControlName="contestantFirstName">
+                  <mat-error *ngFor="let validation of validationMessages.contestantFirstName">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('firstName').hasError(validation.type)
-                                && (contestantEditForm.get('firstName').dirty ||
-                                contestantEditForm.get('firstName').touched)">
+                               *ngIf="contestantEditForm.get('contestantFirstName').hasError(validation.type)
+                                && (contestantEditForm.get('contestantFirstName').dirty ||
+                                contestantEditForm.get('contestantFirstName').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="nickname">Nickname</label>
-                  <input matInput id="nickname" type="text" class="form-control" placeholder="Nickname"
-                         formControlName="nickname">
-                  <mat-error *ngFor="let validation of validationMessages.nickname">
+                  <label for="contestantNickname">Nickname</label>
+                  <input matInput id="contestantNickname" type="text" class="form-control" placeholder="Nickname"
+                         formControlName="contestantNickname">
+                  <mat-error *ngFor="let validation of validationMessages.contestantNickname">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('nickname').hasError(validation.type)
-                                && (contestantEditForm.get('nickname').dirty ||
-                                contestantEditForm.get('nickname').touched)">
+                               *ngIf="contestantEditForm.get('contestantNickname').hasError(validation.type)
+                                && (contestantEditForm.get('contestantNickname').dirty ||
+                                contestantEditForm.get('contestantNickname').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="gender">Gender</label>
-                  <select id="gender" class="form-control" formControlName="gender">
+                  <label for="contestantGender">Gender*</label>
+                  <select id="contestantGender" class="form-control" formControlName="contestantGender">
                     <option value="">Pick a Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                     <option value="O">Other</option>
                   </select>
-                  <mat-error *ngFor="let validation of validationMessages.gender">
+                  <mat-error *ngFor="let validation of validationMessages.contestantGender">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('gender').hasError(validation.type)
-                                && (contestantEditForm.get('gender').dirty ||
-                                contestantEditForm.get('gender').touched)">
+                               *ngIf="contestantEditForm.get('contestantGender').hasError(validation.type)
+                                && (contestantEditForm.get('contestantGender').dirty ||
+                                contestantEditForm.get('contestantGender').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
@@ -129,40 +132,42 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="dateOfBirth">Date of Birth</label>
-                  <input matInput id="dateOfBirth" type="text" class="form-control" placeholder="Date of Birth"
-                         formControlName="dateOfBirth" autocomplete="chrome-off">
+                  <label for="contestantDateOfBirth">Date of Birth</label>
+                  <input matInput id="contestantDateOfBirth" type="text" class="form-control" placeholder="Date of Birth"
+                         formControlName="contestantDateOfBirth" autocomplete="chrome-off">
 
 <!--                  <input id="dateOfBirth" type="text" class="form-control" bsDatepicker formControlName="dateOfBirth">-->
 
-                  <mat-error *ngFor="let validation of validationMessages.dateOfBirth">
+                  <mat-error *ngFor="let validation of validationMessages.contestantDateOfBirth">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('dateOfBirth').hasError(validation.type)
-                                && (contestantEditForm.get('dateOfBirth').dirty ||
-                                contestantEditForm.get('dateOfBirth').touched)">
+                               *ngIf="contestantEditForm.get('contestantDateOfBirth').hasError(validation.type)
+                                && (contestantEditForm.get('contestantDateOfBirth').dirty ||
+                                contestantEditForm.get('contestantDateOfBirth').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="twitterHandle">Twitter Handle</label>
-                  <input matInput id="twitterHandle" type="text" class="form-control" placeholder="Twitter Handle"
-                         formControlName="twitterHandle">
-                  <mat-error *ngFor="let validation of validationMessages.twitterHandle">
+                  <label for="contestantTwitterHandle">Twitter Handle</label>
+                  <input matInput id="contestantTwitterHandle" type="text" class="form-control" placeholder="Twitter Handle"
+                         formControlName="contestantTwitterHandle">
+                  <mat-error *ngFor="let validation of validationMessages.contestantTwitterHandle">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('twitterHandle').hasError(validation.type)
-                                && (contestantEditForm.get('twitterHandle').dirty ||
-                                contestantEditForm.get('twitterHandle').touched)">
+                               *ngIf="contestantEditForm.get('contestantTwitterHandle').hasError(validation.type)
+                                && (contestantEditForm.get('contestantTwitterHandle').dirty ||
+                                contestantEditForm.get('contestantTwitterHandle').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -172,23 +177,25 @@
             Metadata
           </div>
           <div class="card-body">
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="comments">Comments</label>
-                  <input matInput id="comments" type="text" class="form-control" placeholder="Comments"
-                         formControlName="comments">
-                  <mat-error *ngFor="let validation of validationMessages.comments">
+                  <label for="contestantComments">Comments</label>
+                  <input matInput id="contestantComments" type="text" class="form-control" placeholder="Comments"
+                         formControlName="contestantComments">
+                  <mat-error *ngFor="let validation of validationMessages.contestantComments">
                     <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('comments').hasError(validation.type)
-                                && (contestantEditForm.get('comments').dirty ||
-                                contestantEditForm.get('comments').touched)">
+                               *ngIf="contestantEditForm.get('contestantComments').hasError(validation.type)
+                                && (contestantEditForm.get('contestantComments').dirty ||
+                                contestantEditForm.get('contestantComments').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -199,7 +206,7 @@
         <div class="card">
           <div class="card-header">
             <div class="float-left" style="line-height: 28px;">
-              <i class="fa fa-leaf mr-2"></i>
+              <i class="fa fa-calendar mr-2"></i>
               Seasons Played
             </div>
             <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openContestantSeasonEditDialog()"
@@ -216,11 +223,24 @@
 
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef>Series Name</th>
-                  <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/reality-tracker/season-detail', row.seasonGuid]">
+                      {{row.seriesName}} {{row.seasonName}}
+                    </a>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="playerLink">
+                  <th mat-header-cell *matHeaderCellDef>Player Link</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/reality-tracker/player-detail', row.playerGuid]">
+                      {{row.contestantFirstName}} {{row.contestantLastName}} in {{row.seriesAbbreviation}}{{row.seasonAbbreviation}}
+                    </a>
+                  </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
 
               <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">

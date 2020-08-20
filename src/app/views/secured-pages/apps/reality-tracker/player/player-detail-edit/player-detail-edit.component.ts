@@ -1,11 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Player } from '../../reality-tracker-models/Player';
+import { Player } from '../Player';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../../../../../../@tqp/services/auth.service';
-import { RealityTrackerService } from '../../reality-tracker.service';
 
 @Component({
   selector: 'app-player-detail-edit',
@@ -30,7 +29,7 @@ export class PlayerDetailEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               public authService: AuthService,
-              private realityTrackerService: RealityTrackerService,
+              private playerService: PlayerService,
               private router: Router,
               private formBuilder: FormBuilder,
               public _matDialog: MatDialog) {
@@ -62,7 +61,7 @@ export class PlayerDetailEditComponent implements OnInit {
   }
 
   private getPlayerDetail(guid: string): void {
-    this.realityTrackerService.getPlayerDetail(guid).subscribe(
+    this.playerService.getPlayerDetail(guid).subscribe(
       response => {
         this.player = response;
         console.log('response', response);
@@ -84,7 +83,7 @@ export class PlayerDetailEditComponent implements OnInit {
     player.playerGuid = this.playerEditForm.value.guid;
     player.playerOccupation = this.playerEditForm.value.occupation;
     player.playerAgeOnEntry = this.playerEditForm.value.ageOnEntry;
-    this.realityTrackerService.updatePlayer(player).subscribe(
+    this.playerService.updatePlayer(player).subscribe(
       response => {
         // console.log('response: ', response);
         this.router.navigate(['reality-tracker/player-detail', response.playerGuid]).then();

@@ -1,4 +1,4 @@
-import {FuseUtils} from '../../../../../@fuse/utils';
+import { CustomUtils } from '@tqp/utils/custom-utils';
 
 export class FuelVehicle {
     vehicleGuid?: string;
@@ -10,7 +10,7 @@ export class FuelVehicle {
 
     constructor(vehicle) {
         {
-            this.vehicleGuid = vehicle.vehicleGuid || FuseUtils.generateGUID();
+            this.vehicleGuid = vehicle.vehicleGuid || CustomUtils.generateGUID();
             this.vehicleName = vehicle.vehicleName || '';
             this.vehicleMake = vehicle.vehicleMake || '';
             this.vehicleModel = vehicle.vehicleModel || '';

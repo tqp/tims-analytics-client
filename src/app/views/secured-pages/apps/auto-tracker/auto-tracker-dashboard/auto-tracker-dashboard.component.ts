@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
-import { AutoTrackerService } from '../auto-tracker.service';
-import { FuelFill } from '../auto-tracker-models/FuelFill';
+import { Fill } from '../auto-tracker-models/Fill';
 import { KeyValue } from '../../../../../../@tqp/models/KeyValue';
+import { AutoTrackerDashboardService } from './auto-tracker-dashboard.service';
 
 @Component({
   selector: 'app-auto-tracker-dashboard',
@@ -27,7 +27,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
   public mpgChartOptions: any = {};
   public mpgChartColors: Array<any> = [];
 
-  constructor(protected autoTrackerService: AutoTrackerService) {
+  constructor(protected autoTrackerDashboardService: AutoTrackerDashboardService) {
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
 
   private getLongestTimeBetweenFills() {
     this.statLongestTimeBetweenFills = '25 Days';
-    this.autoTrackerService.getLongestTimeBetweenFills().subscribe(
+    this.autoTrackerDashboardService.getLongestTimeBetweenFills().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
         this.statLongestTimeBetweenFills = result.value + ' Miles';
@@ -58,7 +58,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   private getLongestDistanceBetweenFills() {
-    this.autoTrackerService.getLongestDistanceBetweenFills().subscribe(
+    this.autoTrackerDashboardService.getLongestDistanceBetweenFills().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
         this.statLongestDistance = result.value + ' Miles';
@@ -70,7 +70,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   private getEstimated1kDate() {
-    this.autoTrackerService.getEstimated1kDate().subscribe(
+    this.autoTrackerDashboardService.getEstimated1kDate().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
         this.statEstimated1kDate = result.value;
@@ -82,7 +82,7 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   public drawOdometerChart() {
-    this.autoTrackerService.getOdometerData().subscribe(
+    this.autoTrackerDashboardService.getOdometerData().subscribe(
       (result: any) => {
         this.odometerChartLabels = result.map(res => res.key);
         this.odometerChartData = [
@@ -147,12 +147,12 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   public drawMpgChart() {
-    this.autoTrackerService.getMpgData().subscribe(
+    this.autoTrackerDashboardService.getMpgData().subscribe(
       (result: any) => {
-        let mpgResult: FuelFill[] = [];
+        let mpgResult: Fill[] = [];
         mpgResult = result
           .map(item => {
-            const fuelFill: FuelFill = {};
+            const fuelFill: Fill = {};
             fuelFill.fillDate = item.key;
             fuelFill.fillMilesPerGallon = item.value;
             return fuelFill;

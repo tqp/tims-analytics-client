@@ -1,5 +1,5 @@
 export const environment = {
-  name: 'dev',
+  seasonName: 'dev',
   production: false,
   hmr: false,
   apiUrl: 'http://localhost:8080',
