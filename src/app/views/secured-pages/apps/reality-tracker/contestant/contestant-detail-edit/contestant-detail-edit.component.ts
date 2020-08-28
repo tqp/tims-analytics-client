@@ -13,6 +13,8 @@ import { forkJoin } from 'rxjs';
 import { ContestantService } from '../contestant.service';
 import { SeasonService } from '../../season/season.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-contestant-detail-edit',
   templateUrl: './contestant-detail-edit.component.html',
@@ -106,13 +108,13 @@ export class ContestantDetailEditComponent implements OnInit {
     this.contestantService.getContestantDetail(guid).subscribe(
       response => {
         this.contestant = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.contestantEditForm.controls['contestantGuid'].patchValue(this.contestant.contestantGuid);
         this.contestantEditForm.controls['contestantLastName'].patchValue(this.contestant.contestantLastName);
         this.contestantEditForm.controls['contestantFirstName'].patchValue(this.contestant.contestantFirstName);
         this.contestantEditForm.controls['contestantNickname'].patchValue(this.contestant.contestantNickname);
         this.contestantEditForm.controls['contestantGender'].patchValue(this.contestant.contestantGender);
-        this.contestantEditForm.controls['contestantDateOfBirth'].patchValue(this.contestant.contestantDateOfBirth);
+        this.contestantEditForm.controls['contestantDateOfBirth'].patchValue(moment(this.contestant.contestantDateOfBirth).format('MM/DD/YYYY'));
         this.contestantEditForm.controls['contestantTwitterHandle'].patchValue(this.contestant.contestantTwitterHandle);
         this.contestantEditForm.controls['contestantComments'].patchValue(this.contestant.contestantComments);
       },
@@ -204,7 +206,7 @@ export class ContestantDetailEditComponent implements OnInit {
     contestant.contestantFirstName = this.contestantEditForm.value.contestantFirstName;
     contestant.contestantNickname = this.contestantEditForm.value.contestantNickname;
     contestant.contestantGender = this.contestantEditForm.value.contestantGender;
-    contestant.contestantDateOfBirth = this.contestantEditForm.value.contestantDateOfBirth;
+    contestant.contestantDateOfBirth = moment(this.contestantEditForm.value.contestantDateOfBirth).format('YYYY-MM-DD');
     contestant.contestantTwitterHandle = this.contestantEditForm.value.twitterHandle;
     contestant.contestantComments = this.contestantEditForm.value.comments;
 

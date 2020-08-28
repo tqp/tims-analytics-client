@@ -112,6 +112,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
           this.eventService.loadingEvent.emit(false);
         });
         this.loadedFirstPage = true;
+
         this.pageStart = ((this.paginator.pageIndex + 1) - 1) * this.paginator.pageSize + 1;
         this.totalRecords = response.totalRecords;
         const pageEnd = this.pageStart + this.paginator.pageSize - 1;
@@ -193,7 +194,11 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
           const pageEnd = this.pageStart + this.paginator.pageSize - 1;
           this.pageEnd = pageEnd >= this.totalRecords ? this.totalRecords : pageEnd;
           this.totalNumberOfPages = Math.ceil(this.totalRecords / this.pageSize);
-          this.dataSource = this.records;
+
+          const flat: any = this.fuelActivityService.flattenFuelActivityObject(this.records);
+          // console.log('flat', flat);
+
+          this.dataSource = flat;
           this.isLoading = false;
           this.eventService.loadingEvent.emit(false);
         },
