@@ -92,9 +92,14 @@
             <table mat-table [dataSource]="episodeDataSource" *ngIf="episodeDataSource && episodeDataSource.length > 0"
                    class="table table-striped">
 
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>GUID</th>
+              <ng-container matColumnDef="episodeName">
+                <th mat-header-cell *matHeaderCellDef>Episode Name</th>
                 <td mat-cell *matCellDef="let row">{{row.episodeName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="episodeDate">
+                <th mat-header-cell *matHeaderCellDef>Episode Date</th>
+                <td mat-cell *matCellDef="let row">{{row.episodeDate}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="episodeDisplayedColumns; sticky: true" [hidden]="true"></tr>

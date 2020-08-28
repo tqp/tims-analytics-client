@@ -109,12 +109,17 @@ export class ContestantDetailEditComponent implements OnInit {
       response => {
         this.contestant = response;
         // console.log('response', response);
+
+        const contestantDateOfBirth = this.contestant.contestantDateOfBirth !== undefined
+          ? moment(this.contestant.contestantDateOfBirth, 'YYYY-MM-DD').format('MM/DD/YYYY')
+          : null;
+
         this.contestantEditForm.controls['contestantGuid'].patchValue(this.contestant.contestantGuid);
         this.contestantEditForm.controls['contestantLastName'].patchValue(this.contestant.contestantLastName);
         this.contestantEditForm.controls['contestantFirstName'].patchValue(this.contestant.contestantFirstName);
         this.contestantEditForm.controls['contestantNickname'].patchValue(this.contestant.contestantNickname);
         this.contestantEditForm.controls['contestantGender'].patchValue(this.contestant.contestantGender);
-        this.contestantEditForm.controls['contestantDateOfBirth'].patchValue(moment(this.contestant.contestantDateOfBirth).format('MM/DD/YYYY'));
+        this.contestantEditForm.controls['contestantDateOfBirth'].patchValue(contestantDateOfBirth);
         this.contestantEditForm.controls['contestantTwitterHandle'].patchValue(this.contestant.contestantTwitterHandle);
         this.contestantEditForm.controls['contestantComments'].patchValue(this.contestant.contestantComments);
       },
@@ -201,14 +206,19 @@ export class ContestantDetailEditComponent implements OnInit {
   public save(): void {
     const contestant = new Contestant();
     // console.log('crudEditForm', this.contestantEditForm.value);
+
+    const contestantDateOfBirth = this.contestantEditForm.value.contestantDateOfBirth !== null
+      ? moment(this.contestantEditForm.value.contestantDateOfBirth, 'MM/DD/YYYY').format('YYYY-MM-DD')
+      : null;
+
     contestant.contestantGuid = this.contestantEditForm.value.contestantGuid;
     contestant.contestantLastName = this.contestantEditForm.value.contestantLastName;
     contestant.contestantFirstName = this.contestantEditForm.value.contestantFirstName;
     contestant.contestantNickname = this.contestantEditForm.value.contestantNickname;
     contestant.contestantGender = this.contestantEditForm.value.contestantGender;
-    contestant.contestantDateOfBirth = moment(this.contestantEditForm.value.contestantDateOfBirth).format('YYYY-MM-DD');
-    contestant.contestantTwitterHandle = this.contestantEditForm.value.twitterHandle;
-    contestant.contestantComments = this.contestantEditForm.value.comments;
+    contestant.contestantDateOfBirth = contestantDateOfBirth;
+    contestant.contestantTwitterHandle = this.contestantEditForm.value.contestantTwitterHandle;
+    contestant.contestantComments = this.contestantEditForm.value.contestantComments;
 
     if (this.newRecord) {
       this.contestantService.createContestant(contestant).subscribe(
@@ -223,7 +233,7 @@ export class ContestantDetailEditComponent implements OnInit {
     } else {
       this.contestantService.updateContestant(contestant).subscribe(
         response => {
-          // console.log('response: ', response);
+          console.log('response: ', response);
           this.router.navigate(['reality-tracker/contestant-detail', response.contestantGuid]).then();
         },
         error => {

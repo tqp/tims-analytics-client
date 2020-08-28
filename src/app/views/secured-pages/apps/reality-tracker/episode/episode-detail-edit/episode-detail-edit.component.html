@@ -66,8 +66,11 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="episodeDate">Original Air Date</label>
+                  <!--
                   <input matInput id="episodeDate" type="text" class="form-control" placeholder="Original Air Date"
                          formControlName="episodeDate" autocomplete="chrome-off">
+                  -->
+                  <input id="episodeDate" type="text" class="form-control" bsDatepicker formControlName="episodeDate">
                   <mat-error *ngFor="let validation of validationMessages.episodeDate">
                     <mat-error class="error-message"
                                *ngIf="episodeEditForm.get('episodeDate').hasError(validation.type)

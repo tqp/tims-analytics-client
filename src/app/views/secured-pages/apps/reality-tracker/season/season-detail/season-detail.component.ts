@@ -23,15 +23,16 @@ export class SeasonDetailComponent implements OnInit {
   public playerDataSource: Player[] = [];
   public playerDataSourceLoaded = false;
   public playerDisplayedColumns: string[] = [
-    'name'
+    'name',
   ];
 
-  // Player List
+  // Episode List
   public episodeRecords: Player[] = [];
   public episodeDataSource: Player[] = [];
   public episodeDataSourceLoaded = false;
   public episodeDisplayedColumns: string[] = [
-    'name'
+    'episodeName',
+    'episodeDate'
   ];
 
   constructor(private route: ActivatedRoute,

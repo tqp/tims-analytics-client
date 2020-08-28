@@ -8,6 +8,7 @@ import { ListAddRemoveItemsBasicModule } from '../../../../../../@tqp/components
 import { EpisodeCreateDialogComponent } from './episode-create-dialog/episode-create-dialog.component';
 import { EpisodeDetailComponent } from './episode-detail/episode-detail.component';
 import { EpisodeDetailEditComponent } from './episode-detail-edit/episode-detail-edit.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { EpisodeDetailEditComponent } from './episode-detail-edit/episode-detail
     FlexLayoutModule,
     RouterModule,
     ListAddRemoveItemsBasicModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    BsDatepickerModule.forRoot(),
   ],
   entryComponents: [
     EpisodeCreateDialogComponent

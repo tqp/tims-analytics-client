@@ -9,7 +9,7 @@
         <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">
           <u>E</u>dit
         </button>
-        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 110px">
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 120px">
           <u>R</u>eturn to Season
         </button>
       </div>
@@ -45,7 +45,7 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Original Air Date:</dt>
-            <dd class="col-sm-8">{{episode.episodeDate}}</dd>
+            <dd class="col-sm-8">{{episode.episodeDate | date: 'MM/dd/yyyy'}}</dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Number in Season:</dt>

@@ -101,29 +101,6 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="contestantDateOfBirth">Date of Birth</label>
-                  <!--
-                  <input matInput id="contestantDateOfBirth" type="text" class="form-control" placeholder="Date of Birth"
-                         formControlName="contestantDateOfBirth" autocomplete="chrome-off">
-                  -->
-
-                  <input id="contestantDateOfBirth" type="text" class="form-control" bsDatepicker formControlName="contestantDateOfBirth">
-
-                  <mat-error *ngFor="let validation of validationMessages.contestantDateOfBirth">
-                    <mat-error class="error-message"
-                               *ngIf="contestantEditForm.get('contestantDateOfBirth').hasError(validation.type)
-                                && (contestantEditForm.get('contestantDateOfBirth').dirty ||
-                                contestantEditForm.get('contestantDateOfBirth').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
                   <label for="contestantGender">Gender*</label>
                   <select id="contestantGender" class="form-control" formControlName="contestantGender">
                     <option value="">Pick a Gender</option>
@@ -151,6 +128,23 @@
             Additional Info
           </div>
           <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="contestantDateOfBirth">Date of Birth</label>
+                  <input id="contestantDateOfBirth" type="text" class="form-control" bsDatepicker formControlName="contestantDateOfBirth">
+                  <mat-error *ngFor="let validation of validationMessages.contestantDateOfBirth">
+                    <mat-error class="error-message"
+                               *ngIf="contestantEditForm.get('contestantDateOfBirth').hasError(validation.type)
+                                && (contestantEditForm.get('contestantDateOfBirth').dirty ||
+                                contestantEditForm.get('contestantDateOfBirth').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
 
             <div class="row">
               <div class="col-sm-12">

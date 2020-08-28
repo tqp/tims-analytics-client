@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
@@ -8,11 +8,13 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../../../../../../@tqp/services/auth.service';
 import { EpisodeService } from '../episode.service';
 import { Episode } from '../Episode';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-episode-detail-edit',
   templateUrl: './episode-detail-edit.component.html',
-  styleUrls: ['./episode-detail-edit.component.css']
+  styleUrls: ['./episode-detail-edit.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EpisodeDetailEditComponent implements OnInit {
   public pageSource: string;
@@ -84,9 +86,14 @@ export class EpisodeDetailEditComponent implements OnInit {
       response => {
         this.episode = response;
         // console.log('response', response);
+
+        const episodeDate = this.episode.episodeDate !== null
+          ? moment(this.episode.episodeDate, 'YYYY-MM-DD').format('MM/DD/YYYY')
+          : null;
+
         this.episodeEditForm.controls['episodeGuid'].patchValue(this.episode.episodeGuid);
         this.episodeEditForm.controls['episodeName'].patchValue(this.episode.episodeName);
-        this.episodeEditForm.controls['episodeDate'].patchValue(this.episode.episodeDate);
+        this.episodeEditForm.controls['episodeDate'].patchValue(episodeDate);
         this.episodeEditForm.controls['episodeNumberInSeason'].patchValue(this.episode.episodeNumberInSeason);
         this.episodeEditForm.controls['episodeNumberInSeries'].patchValue(this.episode.episodeNumberInSeries);
         this.episodeEditForm.controls['episodeComments'].patchValue(this.episode.episodeComments);
@@ -122,13 +129,18 @@ export class EpisodeDetailEditComponent implements OnInit {
 
   public save(): void {
     const episode = new Episode();
+
+    const episodeDate = this.episodeEditForm.value.episodeDate !== null
+      ? moment(this.episodeEditForm.value.episodeDate, 'MM/DD/YYYY').format('YYYY-MM-DD')
+      : null;
+
     episode.episodeGuid = this.episodeEditForm.value.episodeGuid;
     episode.episodeName = this.episodeEditForm.value.episodeName;
-    episode.episodeDate = this.episodeEditForm.value.episodeDate;
+    episode.episodeDate = episodeDate;
     episode.episodeNumberInSeason = this.episodeEditForm.value.episodeNumberInSeason;
     episode.episodeNumberInSeries = this.episodeEditForm.value.episodeNumberInSeries;
     episode.episodeComments = this.episodeEditForm.value.episodeComments;
-    console.log('episode', episode);
+    // console.log('episode', episode);
     if (this.newRecord) {
       this.episodeService.createEpisode(episode).subscribe(
         response => {
