@@ -12,6 +12,7 @@ import { PlayerDetailComponent } from './player/player-detail/player-detail.comp
 import { PlayerDetailEditComponent } from './player/player-detail-edit/player-detail-edit.component';
 import { EpisodeDetailComponent } from './episode/episode-detail/episode-detail.component';
 import { EpisodeDetailEditComponent } from './episode/episode-detail-edit/episode-detail-edit.component';
+import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,16 @@ const routes: Routes = [
         path: '',
         redirectTo: 'series-list',
         pathMatch: 'full'
+      },
+
+      // DASHBOARDS
+
+      {
+        path: 'user-dashboard',
+        component: UserDashboardComponent,
+        data: {
+          title: 'User Dashboard'
+        }
       },
 
       // SERIES

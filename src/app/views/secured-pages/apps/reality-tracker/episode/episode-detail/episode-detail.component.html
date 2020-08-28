@@ -10,7 +10,7 @@
           <u>E</u>dit
         </button>
         <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 110px">
-          <u>R</u>eturn to Series
+          <u>R</u>eturn to Season
         </button>
       </div>
     </div>
@@ -26,22 +26,38 @@
         </div>
         <div class="card-body">
           <dl class="row">
-            <dt class="col-sm-3">Series Name:</dt>
-            <dd class="col-sm-9">
+            <dt class="col-sm-4">Series Name:</dt>
+            <dd class="col-sm-8">
               <span class="tqp-nav-link"
                     [routerLink]="['/reality-tracker/series-detail', episode.seriesGuid]">{{episode.seriesName}}</span>
             </dd>
           </dl>
           <dl class="row">
-            <dt class="col-sm-3">Season Name:</dt>
-            <dd class="col-sm-9">
+            <dt class="col-sm-4">Season Name:</dt>
+            <dd class="col-sm-8">
               <span class="tqp-nav-link"
                     [routerLink]="['/reality-tracker/season-detail', episode.seasonGuid]">{{episode.seasonName}}</span>
             </dd>
           </dl>
           <dl class="row">
-            <dt class="col-sm-3">Episode Name:</dt>
-            <dd class="col-sm-9">{{episode.episodeName}}</dd>
+            <dt class="col-sm-4">Episode Name:</dt>
+            <dd class="col-sm-8">{{episode.episodeName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Original Air Date:</dt>
+            <dd class="col-sm-8">{{episode.episodeDate}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Number in Season:</dt>
+            <dd class="col-sm-8">{{episode.episodeNumberInSeason}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Number in Series:</dt>
+            <dd class="col-sm-8">{{episode.episodeNumberInSeries}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Comments:</dt>
+            <dd class="col-sm-8">{{episode.episodeComments}}</dd>
           </dl>
         </div>
       </div>

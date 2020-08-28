@@ -46,6 +46,11 @@ export const navItemsUser: INavData[] = [
     icon: 'fa fa-trophy',
     children: [
       {
+        name: 'User Dashboard',
+        url: '/reality-tracker/user-dashboard',
+        icon: 'fa fa-bar-chart'
+      },
+      {
         name: 'Series List',
         url: '/reality-tracker/series-list',
         icon: 'fa fa-star'

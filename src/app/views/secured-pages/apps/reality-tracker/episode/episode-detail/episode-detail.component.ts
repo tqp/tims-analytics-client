@@ -50,19 +50,11 @@ export class EpisodeDetailComponent implements OnInit {
   }
 
   public returnToList(): void {
-    this.router.navigate(['reality-tracker/series-detail', this.episode.seriesGuid]).then();
+    this.router.navigate(['reality-tracker/season-detail', this.episode.seasonGuid]).then();
   }
 
   public openEditPage(): void {
     this.router.navigate(['reality-tracker/episode-detail-edit', this.episode.episodeGuid]).then();
-  }
-
-  public openPlayerDetailPage(row: Player): void {
-    this.router.navigate(['reality-tracker/player-detail', row.playerGuid]).then();
-  }
-
-  public openEpisodeDetailPage(row: Episode): void {
-    this.router.navigate(['reality-tracker/episode-detail', row.episodeGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

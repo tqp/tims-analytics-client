@@ -32,9 +32,16 @@ export class EpisodeDetailEditComponent implements OnInit {
     'episodeName': [
       {type: 'required', message: 'A Episode Name is required'}
     ],
-    'seriesName': [
-      {type: 'required', message: 'A Series Name is required'}
+    'episodeDate': [
+      {type: 'required', message: 'Episode Date is required'}
     ],
+    'episodeNumberInSeason': [
+      {type: 'required', message: 'Number in Season is required'}
+    ],
+    'episodeNumberInSeries': [
+      {type: 'required', message: 'Number in Series is required'}
+    ],
+    'episodeComments': [],
   };
 
   constructor(private route: ActivatedRoute,
@@ -65,7 +72,10 @@ export class EpisodeDetailEditComponent implements OnInit {
     this.episodeEditForm = this.formBuilder.group({
       episodeGuid: new FormControl('', Validators.required),
       episodeName: new FormControl('', Validators.required),
-      seriesName: new FormControl('', Validators.required),
+      episodeDate: new FormControl('', Validators.required),
+      episodeNumberInSeason: new FormControl('', Validators.required),
+      episodeNumberInSeries: new FormControl('', Validators.required),
+      episodeComments: new FormControl(''),
     });
   }
 
@@ -76,7 +86,10 @@ export class EpisodeDetailEditComponent implements OnInit {
         // console.log('response', response);
         this.episodeEditForm.controls['episodeGuid'].patchValue(this.episode.episodeGuid);
         this.episodeEditForm.controls['episodeName'].patchValue(this.episode.episodeName);
-        this.episodeEditForm.controls['seriesName'].patchValue(this.episode.seriesName);
+        this.episodeEditForm.controls['episodeDate'].patchValue(this.episode.episodeDate);
+        this.episodeEditForm.controls['episodeNumberInSeason'].patchValue(this.episode.episodeNumberInSeason);
+        this.episodeEditForm.controls['episodeNumberInSeries'].patchValue(this.episode.episodeNumberInSeries);
+        this.episodeEditForm.controls['episodeComments'].patchValue(this.episode.episodeComments);
       },
       error => {
         console.error('Error: ', error);
@@ -111,6 +124,11 @@ export class EpisodeDetailEditComponent implements OnInit {
     const episode = new Episode();
     episode.episodeGuid = this.episodeEditForm.value.episodeGuid;
     episode.episodeName = this.episodeEditForm.value.episodeName;
+    episode.episodeDate = this.episodeEditForm.value.episodeDate;
+    episode.episodeNumberInSeason = this.episodeEditForm.value.episodeNumberInSeason;
+    episode.episodeNumberInSeries = this.episodeEditForm.value.episodeNumberInSeries;
+    episode.episodeComments = this.episodeEditForm.value.episodeComments;
+    console.log('episode', episode);
     if (this.newRecord) {
       this.episodeService.createEpisode(episode).subscribe(
         response => {

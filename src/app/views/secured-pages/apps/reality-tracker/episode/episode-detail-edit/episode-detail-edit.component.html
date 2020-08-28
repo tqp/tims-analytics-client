@@ -62,6 +62,78 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="episodeDate">Original Air Date</label>
+                  <input matInput id="episodeDate" type="text" class="form-control" placeholder="Original Air Date"
+                         formControlName="episodeDate" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.episodeDate">
+                    <mat-error class="error-message"
+                               *ngIf="episodeEditForm.get('episodeDate').hasError(validation.type)
+                                && (episodeEditForm.get('episodeDate').dirty ||
+                                episodeEditForm.get('episodeDate').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="episodeNumberInSeason">Number in Season</label>
+                  <input matInput id="episodeNumberInSeason" type="text" class="form-control" placeholder="Number in Season"
+                         formControlName="episodeNumberInSeason" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.episodeNumberInSeason">
+                    <mat-error class="error-message"
+                               *ngIf="episodeEditForm.get('episodeNumberInSeason').hasError(validation.type)
+                                && (episodeEditForm.get('episodeNumberInSeason').dirty ||
+                                episodeEditForm.get('episodeNumberInSeason').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="episodeNumberInSeries">Number in Series</label>
+                  <input matInput id="episodeNumberInSeries" type="text" class="form-control" placeholder="Number in Series"
+                         formControlName="episodeNumberInSeries" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.episodeNumberInSeries">
+                    <mat-error class="error-message"
+                               *ngIf="episodeEditForm.get('episodeNumberInSeries').hasError(validation.type)
+                                && (episodeEditForm.get('episodeNumberInSeries').dirty ||
+                                episodeEditForm.get('episodeNumberInSeries').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="episodeComments">Comments</label>
+                  <input matInput id="episodeComments" type="text" class="form-control" placeholder="Comments"
+                         formControlName="episodeComments" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.episodeComments">
+                    <mat-error class="error-message"
+                               *ngIf="episodeEditForm.get('episodeComments').hasError(validation.type)
+                                && (episodeEditForm.get('episodeComments').dirty ||
+                                episodeEditForm.get('episodeComments').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

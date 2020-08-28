@@ -6,6 +6,7 @@ import { SeasonModule } from './season/season.module';
 import { SeriesModule } from './series/series.module';
 import { PlayerModule } from './player/player.module';
 import { EpisodeModule } from './episode/episode.module';
+import { DashboardsModule } from './dashboards/dashboards.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EpisodeModule } from './episode/episode.module';
     SeasonModule,
     ContestantModule,
     PlayerModule,
-    EpisodeModule
+    EpisodeModule,
+    DashboardsModule
   ]
 })
 export class RealityTrackerModule {

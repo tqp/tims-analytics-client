@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../../../../../../@tqp/services/auth.service';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-player-detail-edit',
