@@ -65,7 +65,7 @@ export class PlayerDetailEditComponent implements OnInit {
     this.playerService.getPlayerDetail(guid).subscribe(
       response => {
         this.player = response;
-        console.log('response', response);
+        // console.log('response', response);
         this.playerEditForm.controls['guid'].patchValue(this.player.playerGuid);
         this.playerEditForm.controls['seriesName'].patchValue(this.player.seriesName);
         this.playerEditForm.controls['occupation'].patchValue(this.player.playerOccupation);
