@@ -1,11 +1,11 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { EpisodeCreateDialogComponent } from '../episode-create-dialog/episode-create-dialog.component';
-import { ListAddRemoveOutputObject } from '../../../../../../../@tqp/models/ListAddRemoveOutputObject';
+import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from '../../../../../../../@tqp/services/auth.service';
+import { AuthService } from '@tqp/services/auth.service';
 import { EpisodeService } from '../episode.service';
 import { Episode } from '../Episode';
 import * as moment from 'moment';

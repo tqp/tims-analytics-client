@@ -1,14 +1,14 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from '../../../../../../../@tqp/services/auth.service';
+import { AuthService } from '@tqp/services/auth.service';
 import { Season } from '../Season';
 import { Player } from '../../player/Player';
 import { forkJoin } from 'rxjs';
 import { SeasonContestantEditDialogComponent } from '../season-contestant-edit-dialog/season-contestant-edit-dialog.component';
-import { ListAddRemoveOutputObject } from '../../../../../../../@tqp/models/ListAddRemoveOutputObject';
+import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
 import { EpisodeCreateDialogComponent } from '../../episode/episode-create-dialog/episode-create-dialog.component';
 import { Episode } from '../../episode/Episode';
 import { SeasonService } from '../season.service';

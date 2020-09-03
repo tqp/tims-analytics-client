@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Person } from '../../../../../@tqp/models/Person';
+import { Person } from '@tqp/models/Person';
 import { environment } from '../../../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { HttpService } from '../../../../../@tqp/services/http.service';
-import { TokenService } from '../../../../../@tqp/services/token.service';
+import { HttpService } from '@tqp/services/http.service';
+import { TokenService } from '@tqp/services/token.service';
 
 @Injectable({
   providedIn: 'root'

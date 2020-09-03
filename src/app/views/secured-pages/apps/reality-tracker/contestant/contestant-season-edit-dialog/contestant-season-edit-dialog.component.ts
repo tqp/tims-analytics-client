@@ -1,7 +1,7 @@
 import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
-import { ListItem } from '../../../../../../../@tqp/models/ListItem';
-import { ListAddRemoveOutputObject } from '../../../../../../../@tqp/models/ListAddRemoveOutputObject';
-import { ListAddRemoveItemsBasicComponent } from '../../../../../../../@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.component';
+import { ListItem } from '@tqp/models/ListItem';
+import { ListAddRemoveOutputObject } from '@tqp/models/ListAddRemoveOutputObject';
+import { ListAddRemoveItemsBasicComponent } from '@tqp/components/list-add-remove-items-basic/list-add-remove-items-basic.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Season } from '../../season/Season';
 import { SeasonService } from '../../season/season.service';
