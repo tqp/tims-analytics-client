@@ -9,18 +9,13 @@
       </h1>
       <ng-template #notShow>
         <h1>
-<!--          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MM/dd/yyyy'}}-->
-          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value}}
+          {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MMMM dd, yyyy'}}
         </h1>
       </ng-template>
     </div>
 
     <div class="col-lg-6 col-sm-12">
       <div class="form-group float-right">
-        <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;"
-                (click)="test()">
-          Test
-        </button>
         <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
                 (click)="delete(fuelActivity.fill.fillGuid)">
           <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
@@ -50,7 +45,7 @@
           </div>
           <div class="card-body">
 
-            <div class="row">
+            <div class="row" [hidden]="true">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="fillGuid">GUID</label>
@@ -102,7 +97,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" [hidden]="true">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="fillDateTime">Date-Time</label>
