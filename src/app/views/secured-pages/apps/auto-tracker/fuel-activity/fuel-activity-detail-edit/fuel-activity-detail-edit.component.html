@@ -2,19 +2,25 @@
 
   <div class="row">
 
-    <div class="col-sm-6">
-      <h1 *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
+    <div class="col-lg-6 col-sm-12">
+      <h1
+        *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
         New Fuel Activity Record
       </h1>
       <ng-template #notShow>
         <h1>
-          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MM/dd/yyyy'}}
+<!--          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MM/dd/yyyy'}}-->
+          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value}}
         </h1>
       </ng-template>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-lg-6 col-sm-12">
       <div class="form-group float-right">
+        <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;"
+                (click)="test()">
+          Test
+        </button>
         <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
                 (click)="delete(fuelActivity.fill.fillGuid)">
           <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
@@ -66,13 +72,46 @@
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="fillDate">Date</label>
-                  <input matInput id="fillDate" #fillDateInputField type="text" class="form-control" placeholder="Date"
-                         formControlName="fillDate" autocomplete="chrome-off">
+                  <input id="fillDate" type="text" class="form-control" formControlName="fillDate" (change)="constructDateTime()">
                   <mat-error *ngFor="let validation of validationMessages.fillDate">
                     <mat-error class="error-message"
                                *ngIf="fuelActivityEditForm.get('fill').get('fillDate').hasError(validation.type)
                                 && (fuelActivityEditForm.get('fill').get('fillDate').dirty ||
                                 fuelActivityEditForm.get('fill').get('fillDate').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillTime">Time</label>
+                  <input id="fillTime" type="text" class="form-control" formControlName="fillTime" (change)="constructDateTime()">
+                  <mat-error *ngFor="let validation of validationMessages.fillTime">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillTime').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillTime').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillTime').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillDateTime">Date-Time</label>
+                  <input id="fillDateTime" type="text" class="form-control" formControlName="fillDateTime">
+                  <mat-error *ngFor="let validation of validationMessages.fillDateTime">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillDateTime').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillDateTime').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillDateTime').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>

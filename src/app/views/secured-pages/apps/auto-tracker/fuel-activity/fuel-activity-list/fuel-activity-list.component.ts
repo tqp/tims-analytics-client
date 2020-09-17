@@ -10,7 +10,6 @@ import { ServerSidePaginationResponse } from '../../../../../../../@tqp/models/S
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { FuelActivityService } from '../fuel-activity.service';
-import { FuelActivityFlat } from '../../auto-tracker-models/FuelActivityFlat';
 
 @Component({
   selector: 'app-fuel-activity-list',
@@ -25,7 +24,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
   public listTitle = 'Fuel Activity';
-  private defaultSortColumn = 'FILL_DATE';
+  private defaultSortColumn = 'FILL_DATE_TIME';
   private defaultSortDirection = 'DESC';
   private pageIndex = 0;
   public pageSize = 10;
@@ -42,6 +41,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     'fillCostPerGallon',
     'fillTotalCost',
     'fillMilesPerGallon',
+    'actions'
   ];
 
   public fuelActivityListNameSearchFormControl = new FormControl();
@@ -103,7 +103,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.fuelActivityService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        // console.log('getPage response', response);
+        console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {

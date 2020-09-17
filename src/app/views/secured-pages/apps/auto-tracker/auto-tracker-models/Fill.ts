@@ -4,6 +4,7 @@ import { CustomUtils } from '@tqp/utils/custom-utils';
 export class Fill {
   fillGuid?: string;
   stationGuid?: string;
+  fillDateTime?: string;
   fillDate?: string;
   fillTime?: string;
   fillOdometer?: number;

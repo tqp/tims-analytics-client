@@ -65,7 +65,7 @@ import { SharedModule } from '@tqp/shared.module';
     // CUSTOM ADD-ONS
     AngularMaterialModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,

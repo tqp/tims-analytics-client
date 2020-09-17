@@ -1,6 +1,6 @@
 export interface FuelActivityFlat {
     fillGuid?: string;
-    fillDate?: string;
+    fillDateTime?: string;
     stationGuid?: string;
     stationAffiliation?: string;
     stationLocation?: string;

@@ -1,20 +1,23 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../../../../../../@tqp/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from '../../../../../../../@tqp/services/auth.service';
+import { AuthService } from '@tqp/services/auth.service';
 import { FuelActivity } from '../../auto-tracker-models/FuelActivity';
 import { FuelActivityService } from '../fuel-activity.service';
 import { Fill } from '../../auto-tracker-models/Fill';
 import { Station } from '../../auto-tracker-models/Station';
 import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map } from 'rxjs/operators';
+import { customDateValidator, customTimeValidator } from '../../../../../../../@tqp/validators/custom.validators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-fuel-activity-detail-edit',
   templateUrl: './fuel-activity-detail-edit.component.html',
-  styleUrls: ['./fuel-activity-detail-edit.component.css']
+  styleUrls: ['./fuel-activity-detail-edit.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FuelActivityDetailEditComponent implements OnInit {
   @ViewChild('fillDateInputField', {static: false}) fillDateInputField: ElementRef;
@@ -27,15 +30,23 @@ export class FuelActivityDetailEditComponent implements OnInit {
   public fuelActivityLoaded = false;
   public fuelActivityEditForm: FormGroup;
   public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
-  bsValue: Date = new Date();
+  public bsValue: Date = new Date();
 
   public stationNameAutoCompleteOptions: Observable<any[]>;
 
   public validationMessages = {
     // Fill
     'fillGuid': [],
+    'fillDateTime': [
+      {type: 'required', message: 'A Date-Time is required'}
+    ],
     'fillDate': [
-      {type: 'required', message: 'A Date is required'}
+      {type: 'required', message: 'A Date is required.'},
+      {type: 'dateValid', message: 'Date must be in MM/DD/YYYY format (e.g. 1/1/2020 or 10/12/2020)'},
+    ],
+    'fillTime': [
+      {type: 'required', message: 'A Time is required'},
+      {type: 'timeValid', message: 'Time must be formatted as hh:mm:ss a (e.g. 2:15:00 am or 12:32:12 pm)'}
     ],
     'fillOdometer': [
       {type: 'required', message: 'An Odometer value is required'}
@@ -104,11 +115,15 @@ export class FuelActivityDetailEditComponent implements OnInit {
   }
 
   private initializeForm(): void {
+    const dateRegex = '(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d';
+    const timeRegex = '^ *(1[0-2]|[1-9]):[0-5][0-9]:[0-5][0-9] (a|p|A|P)(m|M) *$';
 
     this.fuelActivityEditForm = this.formBuilder.group({
       fill: this.formBuilder.group({
         fillGuid: new FormControl(''),
-        fillDate: new FormControl('', Validators.required),
+        fillDateTime: new FormControl({value: '', disabled: true}, Validators.required),
+        fillDate: new FormControl('', [Validators.required, customDateValidator]),
+        fillTime: new FormControl('', [Validators.required, customTimeValidator]),
         fillOdometer: new FormControl('', Validators.required),
         fillGallons: new FormControl('', Validators.required),
         fillCostPerGallon: new FormControl('', Validators.required),
@@ -135,14 +150,15 @@ export class FuelActivityDetailEditComponent implements OnInit {
     this.fuelActivityService.getFuelActivityDetail(guid).subscribe(
       response => {
         this.fuelActivity = response;
-        // console.log('response', response);
+        console.log('response', response);
         this.fuelActivityLoaded = true;
 
         const fillSubForm = this.fuelActivityEditForm.get('fill') as FormGroup;
         // fillSubForm.controls['stationGuid'].patchValue(this.fuelActivity.fill.stationGuid, {emitEvent: false});
         fillSubForm.controls['fillGuid'].patchValue(this.fuelActivity.fill.fillGuid);
-        fillSubForm.controls['fillDate'].patchValue(this.fuelActivity.fill.fillDate);
-        // fillSubForm.controls['fillTime'].patchValue(this.fuelActivity.fill.fillTime);
+        fillSubForm.controls['fillDate'].patchValue(moment.utc(this.fuelActivity.fill.fillDateTime).local().format('M/D/YYYY'));
+        fillSubForm.controls['fillTime'].patchValue(moment.utc(this.fuelActivity.fill.fillDateTime).local().format('h:mm:ss a'));
+        fillSubForm.controls['fillDateTime'].patchValue(moment.utc(this.fuelActivity.fill.fillDateTime).local());
         fillSubForm.controls['fillOdometer'].patchValue(this.fuelActivity.fill.fillOdometer);
         fillSubForm.controls['fillMilesTraveled'].patchValue(this.fuelActivity.fill.fillMilesTraveled.toFixed(1));
         fillSubForm.controls['fillMilesPerGallon'].patchValue(this.fuelActivity.fill.fillMilesPerGallon.toFixed(1));
@@ -175,11 +191,49 @@ export class FuelActivityDetailEditComponent implements OnInit {
     return this.fuelActivityEditForm.get('station') as FormGroup;
   }
 
+  public constructDateTime(): void {
+    let dateFieldValue: string;
+    let timeFieldValue: string;
+    let dateString: string;
+    let timeString: string;
+    let dateValid = false;
+    let timeValid = false;
+
+    // Validate and format date
+    if (this.fuelActivityEditForm && this.fuelActivityEditForm.get('fill') && this.fuelActivityEditForm.get('fill').get('fillDate')) {
+      dateFieldValue = this.fuelActivityEditForm.get('fill').get('fillDate').value;
+      if (moment(dateFieldValue, 'M/D/YYYY', true).isValid()) {
+        dateValid = true;
+        dateString = dateFieldValue;
+      }
+    }
+
+    // Validate and format time
+    if (this.fuelActivityEditForm && this.fuelActivityEditForm.get('fill') && this.fuelActivityEditForm.get('fill').get('fillTime')) {
+      timeFieldValue = this.fuelActivityEditForm.get('fill').get('fillTime').value;
+      if (moment(timeFieldValue, 'h:mm:ss A', true).isValid()) {
+        timeValid = true;
+        timeString = timeFieldValue;
+      }
+    }
+
+    // Construct date-time
+    if (dateValid && timeValid) {
+      console.log('date', dateString);
+      console.log('time', timeString);
+
+      const dateTime = moment(dateString + ' ' + timeString, 'DD/MM/YYYY h:mm:ss a');
+      console.log('datetime', dateTime);
+      this.fuelActivityEditForm.get('fill').get('fillDateTime').patchValue(moment(dateString + ' ' + timeString, 'M/D/YYYY h:mm:ss a'));
+    } else {
+      this.fuelActivityEditForm.get('fill').get('fillDateTime').patchValue(null);
+    }
+  }
+
   // AUTO-COMPLETE
 
   public createStationNameListener() {
-    console.log('createStationNameListener', this.fuelActivityEditForm);
-
+    // console.log('createStationNameListener', this.fuelActivityEditForm);
     this.fuelActivityEditForm.get('station').get('stationName').valueChanges.pipe(
       debounceTime(300)
     ).subscribe((value: string) => {
@@ -199,7 +253,23 @@ export class FuelActivityDetailEditComponent implements OnInit {
     });
   }
 
+  public fillDateChange(event: any): void {
+    console.log('fillDateChange', event.target.value);
+  }
+
+  public fillTimeChange(event: any): void {
+    console.log('fillTimeChange', event.target.value);
+  }
+
   // BUTTONS
+
+  public test(): void {
+    // this.fuelActivityEditForm.get('fill').get('fillDateTime').patchValue(moment());
+    const dateString = '12/16/2020';
+    const timeString = '12:24:00 pm';
+    console.log('isValid', moment(dateString + ' ' + timeString, 'M/D/YYYY h:mm:ss a').isValid());
+    this.fuelActivityEditForm.get('fill').get('fillDateTime').patchValue(moment(dateString + ' ' + timeString, 'M/D/YYYY h:mm:ss a'));
+  }
 
   public delete(fuelActivityGuid: string): void {
     this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
@@ -211,7 +281,7 @@ export class FuelActivityDetailEditComponent implements OnInit {
         this.fuelActivityService.deleteFuelActivity(fuelActivityGuid).subscribe(
           response => {
             // console.log('response: ', response);
-            this.router.navigate(['reality-tracker/fuelActivity-list']).then();
+            this.router.navigate(['auto-tracker/fuel-activity-list']).then();
           },
           error => {
             console.error('Error: ' + error.message);
@@ -227,7 +297,7 @@ export class FuelActivityDetailEditComponent implements OnInit {
       this.fuelActivityService.createFuelActivity(this.fuelActivityEditForm.getRawValue().fill).subscribe(
         response => {
           console.log('response: ', response);
-          this.router.navigate(['reality-tracker/fuelActivity-detail', response.fill.fillGuid]).then();
+          this.router.navigate(['auto-tracker/fuel-activity-detail', response.fill.fillGuid]).then();
         },
         error => {
           console.error('Error: ' + error.message);
@@ -237,7 +307,7 @@ export class FuelActivityDetailEditComponent implements OnInit {
       this.fuelActivityService.updateFuelActivity(this.fuelActivityEditForm.getRawValue().fill).subscribe(
         response => {
           console.log('response: ', response);
-          this.router.navigate(['auto-tracker/fuel-activity-detail', response.fill.fillGuid]).then();
+          this.router.navigate(['auto-tracker/fuel-activity-detail', response.fillGuid]).then();
         },
         error => {
           console.error('Error: ' + error.message);

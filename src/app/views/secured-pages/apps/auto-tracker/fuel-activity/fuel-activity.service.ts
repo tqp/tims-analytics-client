@@ -23,7 +23,7 @@ export class FuelActivityService {
               protected tokenService: TokenService) { }
 
   public createFuelActivity(fuelActivity: FuelActivity): Observable<FuelActivity> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/fuel-activity/';
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.post<FuelActivity>(url,
@@ -45,7 +45,7 @@ export class FuelActivityService {
   }
 
   public getFuelActivityList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/fuel-activity/ssp';
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/ssp';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.post<ServerSidePaginationResponse>(url,
@@ -67,7 +67,7 @@ export class FuelActivityService {
   }
 
   public getFuelActivityDetail(guid: string) {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/fuel-activity/' + guid;
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/' + guid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<FuelActivity>(url,
@@ -87,11 +87,11 @@ export class FuelActivityService {
     }
   }
 
-  public updateFuelActivity(fill: Fill): Observable<FuelActivity> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/fuel-activity/';
+  public updateFuelActivity(fill: Fill): Observable<Fill> {
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/';
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.put<FuelActivity>(url,
+      return this.http.put<Fill>(url,
         fill,
         {
           headers: this.httpService.setHeadersWithToken(),
@@ -110,7 +110,7 @@ export class FuelActivityService {
   }
 
   public deleteFuelActivity(fuelActivityGuid: string): Observable<string> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/fuel-activity/' + fuelActivityGuid;
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/' + fuelActivityGuid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.delete<string>(url,
@@ -132,7 +132,7 @@ export class FuelActivityService {
 
   retrieveStationNameOptions(filter: string): Observable<Station> {
     console.log('FuelActivityService -> retrieveStationNameOptions: filter=', filter);
-    const url = environment.apiUrl + '/api/v1/auto-tracker-two/station/auto-complete/station-name';
+    const url = environment.apiUrl + '/api/v1/auto-tracker-api/station/auto-complete/station-name';
     const token = this.tokenService.getToken();
     if (token) {
       console.log('do it');
@@ -160,7 +160,7 @@ export class FuelActivityService {
     return object.map(item => {
       const fuelActivityFlatObject: FuelActivityFlat = {};
       fuelActivityFlatObject.fillGuid = item.fill.fillGuid;
-      fuelActivityFlatObject.fillDate = item.fill.fillDate;
+      fuelActivityFlatObject.fillDateTime = item.fill.fillDateTime;
       fuelActivityFlatObject.fillOdometer = item.fill.fillOdometer;
       fuelActivityFlatObject.stationAffiliation = item.station.stationAffiliation;
       fuelActivityFlatObject.stationLocation = item.station.stationCity + ', ' + item.station.stationState;
