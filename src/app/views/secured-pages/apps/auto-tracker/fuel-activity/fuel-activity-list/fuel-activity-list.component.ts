@@ -103,7 +103,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
     this.fuelActivityService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        console.log('getPage response', response);
+        // console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
