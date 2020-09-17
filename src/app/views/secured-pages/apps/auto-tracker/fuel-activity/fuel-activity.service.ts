@@ -22,11 +22,11 @@ export class FuelActivityService {
               private httpService: HttpService,
               protected tokenService: TokenService) { }
 
-  public createFuelActivity(fuelActivity: FuelActivity): Observable<FuelActivity> {
+  public createFuelActivity(fuelActivity: FuelActivity): Observable<Fill> {
     const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/';
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.post<FuelActivity>(url,
+      return this.http.post<Fill>(url,
         fuelActivity,
         {
           headers: this.httpService.setHeadersWithToken(),
@@ -131,11 +131,10 @@ export class FuelActivityService {
   }
 
   retrieveStationNameOptions(filter: string): Observable<Station> {
-    console.log('FuelActivityService -> retrieveStationNameOptions: filter=', filter);
+    // console.log('FuelActivityService -> retrieveStationNameOptions: filter=', filter);
     const url = environment.apiUrl + '/api/v1/auto-tracker-api/station/auto-complete/station-name';
     const token = this.tokenService.getToken();
     if (token) {
-      console.log('do it');
       return this.http.get<any>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
@@ -146,7 +145,7 @@ export class FuelActivityService {
         })
         .pipe(
           map(res => {
-            console.log('res', res);
+            // console.log('res', res);
             return res.body;
           })
         );

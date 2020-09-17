@@ -9,9 +9,10 @@ import { FuelActivityService } from '../fuel-activity.service';
 import { Fill } from '../../auto-tracker-models/Fill';
 import { Station } from '../../auto-tracker-models/Station';
 import { Observable, of } from 'rxjs';
-import { catchError, debounceTime, map } from 'rxjs/operators';
+import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 import { customDateValidator, customTimeValidator } from '../../../../../../../@tqp/validators/custom.validators';
 import * as moment from 'moment';
+import { Person } from '../../../../../../../@tqp/models/Person';
 
 @Component({
   selector: 'app-fuel-activity-detail-edit',
@@ -67,8 +68,10 @@ export class FuelActivityDetailEditComponent implements OnInit {
       {type: 'required', message: 'Miles per Gallon is required'}
     ],
     'fillComments': [],
+    'stationGuid': [
+      {type: 'required', message: 'Station GUID is required'}
+    ],
     // Station
-    'stationGuid': [],
     'stationName': [],
     'stationAffiliation': [],
     'stationAddress': [],
@@ -112,12 +115,41 @@ export class FuelActivityDetailEditComponent implements OnInit {
         // }, 0);
       }
     }).then();
+
+    this.stationNameAutoCompleteOptions = this.fuelActivityEditForm.get('station').get('stationName').valueChanges.pipe(
+      startWith(''),
+      debounceTime(300),
+      switchMap(value => {
+        // console.log('value', value);
+        if (value !== '') {
+          return this.fuelActivityService.retrieveStationNameOptions(value.toLowerCase()).pipe(
+            map(results => {
+              // console.log('results', results);
+              return results;
+            }),
+            catchError(() => {
+              return of(null);
+            })
+          );
+        } else {
+          return of(null);
+        }
+      })
+    );
+  }
+
+  public populateStationNameGroup(option: any) {
+    // console.log('option', option);
+    this.stationSubForm.get('stationAffiliation').patchValue(option.stationAffiliation);
+    this.stationSubForm.get('stationAddress').patchValue(option.stationAddress);
+    this.stationSubForm.get('stationCity').patchValue(option.stationCity);
+    this.stationSubForm.get('stationState').patchValue(option.stationState);
+    this.stationSubForm.get('stationZip').patchValue(option.stationZip);
+    this.stationSubForm.get('stationPhone').patchValue(option.stationPhone);
+    this.fillSubForm.get('stationGuid').patchValue(option.stationGuid);
   }
 
   private initializeForm(): void {
-    const dateRegex = '(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d';
-    const timeRegex = '^ *(1[0-2]|[1-9]):[0-5][0-9]:[0-5][0-9] (a|p|A|P)(m|M) *$';
-
     this.fuelActivityEditForm = this.formBuilder.group({
       fill: this.formBuilder.group({
         fillGuid: new FormControl(''),
@@ -130,10 +162,10 @@ export class FuelActivityDetailEditComponent implements OnInit {
         fillMilesTraveled: new FormControl('', Validators.required),
         fillMilesPerGallon: new FormControl('', Validators.required),
         fillTotalCost: new FormControl('', Validators.required),
-        fillComments: new FormControl('')
+        fillComments: new FormControl(''),
+        stationGuid: new FormControl({value: '', disabled: true}, Validators.required)
       }),
       station: this.formBuilder.group({
-        stationGuid: new FormControl(''),
         stationName: new FormControl('', Validators.required),
         stationAffiliation: new FormControl('', Validators.required),
         stationAddress: new FormControl('', Validators.required),
@@ -143,7 +175,6 @@ export class FuelActivityDetailEditComponent implements OnInit {
         stationPhone: new FormControl(''),
       })
     });
-
   }
 
   private getFuelActivityDetail(guid: string): void {
@@ -166,9 +197,9 @@ export class FuelActivityDetailEditComponent implements OnInit {
         fillSubForm.controls['fillCostPerGallon'].patchValue(this.fuelActivity.fill.fillCostPerGallon.toFixed(3));
         fillSubForm.controls['fillTotalCost'].patchValue(this.fuelActivity.fill.fillTotalCost.toFixed(2));
         fillSubForm.controls['fillComments'].patchValue(this.fuelActivity.fill.fillComments);
+        fillSubForm.controls['stationGuid'].patchValue(this.fuelActivity.fill.stationGuid);
 
         const stationSubForm = this.fuelActivityEditForm.get('station') as FormGroup;
-        stationSubForm.controls['stationGuid'].patchValue(this.fuelActivity.station.stationGuid, {emitEvent: false});
         stationSubForm.controls['stationName'].patchValue(this.fuelActivity.station.stationName, {emitEvent: false});
         stationSubForm.controls['stationAffiliation'].patchValue(this.fuelActivity.station.stationAffiliation);
         stationSubForm.controls['stationAddress'].patchValue(this.fuelActivity.station.stationAddress);
@@ -276,7 +307,7 @@ export class FuelActivityDetailEditComponent implements OnInit {
       this.fuelActivityService.createFuelActivity(this.fuelActivityEditForm.getRawValue().fill).subscribe(
         response => {
           console.log('response: ', response);
-          this.router.navigate(['auto-tracker/fuel-activity-detail', response.fill.fillGuid]).then();
+          this.router.navigate(['auto-tracker/fuel-activity-detail', response.fillGuid]).then();
         },
         error => {
           console.error('Error: ' + error.message);
