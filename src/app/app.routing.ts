@@ -83,6 +83,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'reality-competition',
+        loadChildren: () => import('./views/secured-pages/apps/reality-competition/reality-competition.module').then(m => m.RealityCompetitionModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
         path: 'secured-pages',
         loadChildren: () => import('./views/secured-pages/secured-pages.module').then(m => m.SecuredPagesModule),
         resolve: {

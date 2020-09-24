@@ -1,0 +1,90 @@
+table {
+  /*width: unset !important;*/
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+/* Table Header */
+
+th.mat-header-cell {
+  padding: 0.3rem !important;
+}
+
+th.mat-header-cell {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+/* Table Body */
+
+tr.mat-row {
+  /*height: 30px !important;*/
+  height: unset !important;
+}
+
+td.mat-cell {
+  padding: 0.3rem !important;
+  color: rgb(228, 231, 234) !important
+}
+
+/* Table Footer */
+
+tr.mat-footer-row {
+  height: unset !important;
+}
+
+td.mat-footer-cell {
+  padding: 0.3rem !important;
+  text-align: left !important;
+}
+
+/* Table Conditional Styles */
+th.mat-header-cell.results-header {
+  text-align: center !important;
+  width: 36px;
+}
+
+.results-col {
+  text-align: center;
+}
+
+.active {
+  /*background-color: green;*/
+}
+
+.mat-row:nth-child(odd) .active {
+  background-color: rgba(0, 149, 255, 0.25) !important;
+}
+
+.mat-row:nth-child(even) .active {
+  background-color: rgba(0, 149, 255, 0.50) !important;
+}
+
+.temp {
+  /*width: 30px;*/
+}
+
+td.mat-cell.pick-cell {
+  /*color: rgba(35, 40, 44, 1) !important;*/
+  text-align: center;
+}
+
+th.mat-header-cell.pick-header {
+  text-align: center;
+}
+
+.correct {
+  background-color: rgba(77, 189, 116, 0.5) !important;
+}
+
+.projected {
+  background-color: rgba(32, 168, 216, 0.5) !important;
+}
+
+.wrong {
+  background-color: rgba(248, 108, 107, 0.5) !important;
+}
+
+.eliminated {
+  background-color: transparent !important;
+}

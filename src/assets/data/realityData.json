@@ -1,14 +1,1201 @@
-[
-  {
-    "contestantKey": "",
-    "round": 1,
-    "position": 1,
-    "status": "CORRECT"
-  },
-  {
-    "contestantKey": "",
-    "round": 1,
-    "position": 2,
-    "status": "CORRECT"
-  }
-]
+[ {
+  "contestantKey" : "key_David",
+  "roundNumber" : 1,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 2,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 3,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 4,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 5,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 6,
+  "position" : 1,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 7,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 8,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 9,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 10,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 11,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 12,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 13,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 14,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_David",
+  "roundNumber" : 15,
+  "position" : 1,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 1,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 2,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 3,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 4,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 5,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 6,
+  "position" : 2,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 7,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 8,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 9,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 10,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 11,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 12,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 13,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 14,
+  "position" : 2,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_NicoleF",
+  "roundNumber" : 15,
+  "position" : 2,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 1,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 2,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 3,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 4,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 5,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 6,
+  "position" : 3,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 7,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 8,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 9,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 10,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 11,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 12,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 13,
+  "position" : 3,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 14,
+  "position" : 3,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Tyler",
+  "roundNumber" : 15,
+  "position" : 3,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 1,
+  "position" : 4,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 2,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 3,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 4,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 5,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 6,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 7,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 8,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 9,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 10,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 11,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 12,
+  "position" : 4,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 13,
+  "position" : 4,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 14,
+  "position" : 4,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_NicoleA",
+  "roundNumber" : 15,
+  "position" : 4,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 1,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 2,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 3,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 4,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 5,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 6,
+  "position" : 5,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 7,
+  "position" : 5,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 8,
+  "position" : 5,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 9,
+  "position" : 5,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 10,
+  "position" : 5,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 11,
+  "position" : 5,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 12,
+  "position" : 5,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 13,
+  "position" : 5,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 14,
+  "position" : 5,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Cody",
+  "roundNumber" : 15,
+  "position" : 5,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 1,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 2,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 3,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 4,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 5,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 6,
+  "position" : 6,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 7,
+  "position" : 6,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 8,
+  "position" : 6,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 9,
+  "position" : 6,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 10,
+  "position" : 6,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 11,
+  "position" : 6,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 12,
+  "position" : 6,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 13,
+  "position" : 6,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 14,
+  "position" : 6,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Christmas",
+  "roundNumber" : 15,
+  "position" : 6,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 1,
+  "position" : 7,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 2,
+  "position" : 7,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 3,
+  "position" : 7,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 4,
+  "position" : 7,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 5,
+  "position" : 7,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 6,
+  "position" : 7,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 7,
+  "position" : 7,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 8,
+  "position" : 7,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 9,
+  "position" : 7,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 10,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 11,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 12,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 13,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 14,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Ian",
+  "roundNumber" : 15,
+  "position" : 7,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 1,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 2,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 3,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 4,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 5,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 6,
+  "position" : 8,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 7,
+  "position" : 8,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 8,
+  "position" : 8,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 9,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 10,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 11,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 12,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 13,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 14,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Dani",
+  "roundNumber" : 15,
+  "position" : 8,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 1,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 2,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 3,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 4,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 5,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 6,
+  "position" : 9,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 7,
+  "position" : 9,
+  "status" : "PROJECTED"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 8,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 9,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 10,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 11,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 12,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 13,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 14,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Memphis",
+  "roundNumber" : 15,
+  "position" : 9,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 1,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 2,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 3,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 4,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 5,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 6,
+  "position" : 10,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 7,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 8,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 9,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 10,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 11,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 12,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 13,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 14,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kevin",
+  "roundNumber" : 15,
+  "position" : 10,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 1,
+  "position" : 11,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 2,
+  "position" : 11,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 3,
+  "position" : 11,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 4,
+  "position" : 11,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 5,
+  "position" : 11,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 6,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 7,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 8,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 9,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 10,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 11,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 12,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 13,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 14,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Enzo",
+  "roundNumber" : 15,
+  "position" : 11,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 1,
+  "position" : 12,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 2,
+  "position" : 12,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 3,
+  "position" : 12,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 4,
+  "position" : 12,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 5,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 6,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 7,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 8,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 9,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 10,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 11,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 12,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 13,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 14,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Kaysar",
+  "roundNumber" : 15,
+  "position" : 12,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 1,
+  "position" : 13,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 2,
+  "position" : 13,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 3,
+  "position" : 13,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 4,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 5,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 6,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 7,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 8,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 9,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 10,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 11,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 12,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 13,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 14,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Bayleigh",
+  "roundNumber" : 15,
+  "position" : 13,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 1,
+  "position" : 14,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 2,
+  "position" : 14,
+  "status" : "WRONG"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 3,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 4,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 5,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 6,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 7,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 8,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 9,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 10,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 11,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 12,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 13,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 14,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Keesha",
+  "roundNumber" : 15,
+  "position" : 14,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 1,
+  "position" : 15,
+  "status" : "CORRECT"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 2,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 3,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 4,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 5,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 6,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 7,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 8,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 9,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 10,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 11,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 12,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 13,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 14,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_DaVonne",
+  "roundNumber" : 15,
+  "position" : 15,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 1,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 2,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 3,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 4,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 5,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 6,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 7,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 8,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 9,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 10,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 11,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 12,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 13,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 14,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+}, {
+  "contestantKey" : "key_Janelle",
+  "roundNumber" : 15,
+  "position" : 16,
+  "status" : "OUT_OF_SCOPE"
+} ]

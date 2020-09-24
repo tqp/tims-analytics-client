@@ -43,7 +43,7 @@ export const navItemsUser: INavData[] = [
   {
     name: 'Reality TV Tracker',
     url: '/reality-tracker',
-    icon: 'fa fa-trophy',
+    icon: 'fa fa-television',
     children: [
       {
         name: 'User Dashboard',
@@ -59,6 +59,11 @@ export const navItemsUser: INavData[] = [
         name: 'Contestant List',
         url: '/reality-tracker/contestant-list',
         icon: 'fa fa-users'
+      },
+      {
+        name: 'Competition',
+        url: '/reality-competition/dashboard',
+        icon: 'fa fa-trophy'
       }
     ]
   },
