@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PlayerService } from '../../player/player.service';
-import { EventService } from '../../../../../../../@tqp/services/event.service';
+import { EventService } from '@tqp/services/event.service';
 import { Episode } from '../Episode';
 import { EpisodeService } from '../episode.service';
 import { Player } from '../../player/Player';

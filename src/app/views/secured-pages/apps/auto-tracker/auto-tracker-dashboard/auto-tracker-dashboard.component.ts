@@ -10,10 +10,13 @@ import { AutoTrackerDashboardService } from './auto-tracker-dashboard.service';
   styleUrls: ['./auto-tracker-dashboard.component.css']
 })
 export class AutoTrackerDashboardComponent implements OnInit {
-  public statLongestDistance: string;
   public statCostPerMile: string;
+  public statLongestDistanceBetweenFills: string;
+  public statLongestDistanceBetweenFillsLoading = false;
   public statLongestTimeBetweenFills: string;
+  public statLongestTimeBetweenFillsLoading = false;
   public statEstimated1kDate: string;
+  public statEstimated1kDateLoading = false;
 
   public odometerChartLabels: any;
   public odometerChartData: Array<any> = [];
@@ -41,42 +44,50 @@ export class AutoTrackerDashboardComponent implements OnInit {
   }
 
   private getCostPerMile() {
-    this.statCostPerMile = '$1.25';
+    this.statCostPerMile = 'TBD';
   }
 
   private getLongestTimeBetweenFills() {
-    this.statLongestTimeBetweenFills = '25 Days';
+    this.statLongestTimeBetweenFillsLoading = true;
     this.autoTrackerDashboardService.getLongestTimeBetweenFills().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
-        this.statLongestTimeBetweenFills = result.value + ' Miles';
+        this.statLongestTimeBetweenFills = result.value + ' Days';
+        this.statLongestTimeBetweenFillsLoading = false;
       },
       error => {
         console.error('Error: ' + error.message);
+        this.statLongestTimeBetweenFillsLoading = false;
       }
     );
   }
 
   private getLongestDistanceBetweenFills() {
+    this.statLongestDistanceBetweenFillsLoading = true;
     this.autoTrackerDashboardService.getLongestDistanceBetweenFills().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
-        this.statLongestDistance = result.value + ' Miles';
+        this.statLongestDistanceBetweenFills = result.value + ' Miles';
+        this.statLongestDistanceBetweenFillsLoading = false;
       },
       error => {
         console.error('Error: ' + error.message);
+        this.statLongestDistanceBetweenFillsLoading = false;
       }
     );
   }
 
   private getEstimated1kDate() {
+    this.statEstimated1kDateLoading = true;
     this.autoTrackerDashboardService.getEstimated1kDate().subscribe(
       (result: KeyValue) => {
         // console.log('result', result);
         this.statEstimated1kDate = result.value;
+        this.statEstimated1kDateLoading = false;
       },
       error => {
         console.error('Error: ' + error.message);
+        this.statEstimated1kDateLoading = false;
       }
     );
   }

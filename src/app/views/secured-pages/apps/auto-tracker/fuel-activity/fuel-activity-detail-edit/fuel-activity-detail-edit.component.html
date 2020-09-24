@@ -2,18 +2,19 @@
 
   <div class="row">
 
-    <div class="col-sm-6">
-      <h1 *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
+    <div class="col-lg-6 col-sm-12">
+      <h1
+        *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
         New Fuel Activity Record
       </h1>
       <ng-template #notShow>
         <h1>
-          Fuel Activity on {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MM/dd/yyyy'}}
+          {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MMMM dd, yyyy'}}
         </h1>
       </ng-template>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-lg-6 col-sm-12">
       <div class="form-group float-right">
         <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
                 (click)="delete(fuelActivity.fill.fillGuid)">
@@ -44,7 +45,7 @@
           </div>
           <div class="card-body">
 
-            <div class="row">
+            <div class="row" [hidden]="true">
               <div class="col-sm-12">
                 <div class="form-group">
                   <label for="fillGuid">GUID</label>
@@ -65,14 +66,49 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="fillDate">Date</label>
-                  <input matInput id="fillDate" #fillDateInputField type="text" class="form-control" placeholder="Date"
-                         formControlName="fillDate" autocomplete="chrome-off">
+                  <label for="fillDate">Date <span style="font-size: 9px; font-style: italic">(MM/DD/YYYY)</span></label>
+                  <input id="fillDate" type="text" class="form-control" placeholder="Date" formControlName="fillDate"
+                         (change)="constructDateTime()">
                   <mat-error *ngFor="let validation of validationMessages.fillDate">
                     <mat-error class="error-message"
                                *ngIf="fuelActivityEditForm.get('fill').get('fillDate').hasError(validation.type)
                                 && (fuelActivityEditForm.get('fill').get('fillDate').dirty ||
                                 fuelActivityEditForm.get('fill').get('fillDate').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillTime">Time <span style="font-size: 9px; font-style: italic">(HH:MM:SS AM)</span></label>
+                  <input id="fillTime" type="text" class="form-control" placeholder="Time" formControlName="fillTime"
+                         (change)="constructDateTime()">
+                  <mat-error *ngFor="let validation of validationMessages.fillTime">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillTime').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillTime').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillTime').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" [hidden]="true">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="fillDateTime">Date-Time</label>
+                  <input id="fillDateTime" type="text" class="form-control" formControlName="fillDateTime">
+                  <mat-error *ngFor="let validation of validationMessages.fillDateTime">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('fillDateTime').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('fillDateTime').dirty ||
+                                fuelActivityEditForm.get('fill').get('fillDateTime').touched)">
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
@@ -207,6 +243,24 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="stationGuid">Station Guid</label>
+                  <input matInput id="stationGuid" type="text" class="form-control" placeholder="Notes"
+                         formControlName="stationGuid">
+                  <mat-error *ngFor="let validation of validationMessages.stationGuid">
+                    <mat-error class="error-message"
+                               *ngIf="fuelActivityEditForm.get('fill').get('stationGuid').hasError(validation.type)
+                                && (fuelActivityEditForm.get('fill').get('stationGuid').dirty ||
+                                fuelActivityEditForm.get('fill').get('stationGuid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -228,25 +282,9 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label for="stationGuid">Station GUID</label>
-                  <input matInput id="stationGuid" type="text" class="form-control" placeholder="Station GUID"
-                         formControlName="stationGuid" autocomplete="chrome-off">
-                  <mat-error *ngFor="let validation of validationMessages.stationGuid">
-                    <mat-error class="error-message"
-                               *ngIf="fuelActivityEditForm.get('station').get('stationGuid').hasError(validation.type)
-                                && (fuelActivityEditForm.get('station').get('stationGuid').dirty ||
-                                fuelActivityEditForm.get('station').get('stationGuid').touched)">
-                      {{validation.message}}
-                    </mat-error>
-                  </mat-error>
-                </div>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="stationName">Station Name</label>
+                  <!--
+                  <label for="stationName">Station Name (Auto-Complete)</label>
                   <input matInput id="stationName" type="text" class="form-control" placeholder="Station Name"
                          formControlName="stationName" autocomplete="chrome-off">
                   <mat-error *ngFor="let validation of validationMessages.stationName">
@@ -257,6 +295,19 @@
                       {{validation.message}}
                     </mat-error>
                   </mat-error>
+                  -->
+
+                  <label for="stationName" *ngIf="false"></label>
+                  <input matInput id="stationName" type="text" class="form-control" placeholder="Station Name"
+                         formControlName="stationName" [matAutocomplete]="stationName" autocomplete="chrome-off">
+                  <mat-autocomplete [autoActiveFirstOption]="true" #stationName="matAutocomplete" panelWidth="400px">
+                    <mat-option *ngFor="let option of stationNameAutoCompleteOptions | async"
+                                [value]="option.stationName"
+                                (onSelectionChange)="populateStationNameGroup(option)">
+                      {{option.stationName}} ({{option.stationAffiliation}}) {{option.stationCity}}, {{option.stationState}}
+                    </mat-option>
+                  </mat-autocomplete>
+
                 </div>
               </div>
             </div>

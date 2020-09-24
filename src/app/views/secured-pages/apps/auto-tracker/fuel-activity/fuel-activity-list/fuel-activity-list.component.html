@@ -45,13 +45,13 @@
       <div class="table-container" #tableContainer>
 
         <table mat-table [dataSource]="dataSource"
-               matSort matSortActive="fuelActivityDate" matSortDirection="asc" matSortDisableClear="true"
+               matSort matSortActive="fillOdometer" matSortDirection="desc" matSortDisableClear="true"
                class="table table-striped">
 
           <ng-container matColumnDef="fillDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
             <td mat-cell *matCellDef="let row">
-              {{row.fillDate | date: 'MM/dd/yyyy'}}
+              {{row.fillDateTime | date: 'MM/dd/yyyy'}}
               {{row.fillComments != null ? '*' : ''}}
             </td>
           </ng-container>
@@ -103,9 +103,22 @@
             </td>
           </ng-container>
 
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row">
+              <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-transparent p-0" dropdownToggle>
+                  <i class="icon-options-vertical"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                  <a class="dropdown-item" (click)="openDetailPage(row)">View Detail</a>
+                </div>
+              </div>
+            </td>
+          </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailPage(row);"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
         <mat-card class="spinner-container" *ngIf="isLoading">

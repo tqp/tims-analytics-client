@@ -9,7 +9,8 @@
               Auto Tracker Data <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/auto-tracker/fuel-activity-list']">Fuel Activity</a></li>
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/auto-tracker/fuel-activity-list']">Fuel
+                Activity</a></li>
             </ul>
           </div>
 
@@ -48,7 +49,12 @@
               <div class="callout callout-info">
                 <small class="text-muted">Longest Time Between Fills</small>
                 <br/>
-                <strong class="h4">{{statLongestTimeBetweenFills}}</strong>
+                <strong *ngIf="!statLongestTimeBetweenFillsLoading; else statLongestTimeBetweenFillsSpinner" class="h4">
+                  {{statLongestTimeBetweenFills}}
+                </strong>
+                <ng-template #statLongestTimeBetweenFillsSpinner>
+                  <i class="fa fa-spinner fa-spin" style="color: rgb(99, 194, 222);"></i>
+                </ng-template>
               </div>
             </div>
 
@@ -56,7 +62,12 @@
               <div class="callout callout-info">
                 <small class="text-muted">Farthest Single-Tank Distance</small>
                 <br/>
-                <strong class="h4">{{statLongestDistance}}</strong>
+                <strong *ngIf="!statLongestDistanceBetweenFillsLoading; else statLongestDistanceBetweenFillsSpinner" class="h4">
+                  {{statLongestDistanceBetweenFills}}
+                </strong>
+                <ng-template #statLongestDistanceBetweenFillsSpinner>
+                  <i class="fa fa-spinner fa-spin" style="color: rgb(99, 194, 222);"></i>
+                </ng-template>
               </div>
             </div>
 
@@ -64,7 +75,12 @@
               <div class="callout callout-warning">
                 <small class="text-muted">Estimated 100k Date</small>
                 <br/>
-                <strong class="h4">{{statEstimated1kDate}}</strong>
+                <strong *ngIf="!statEstimated1kDateLoading; else statEstimated1kDateSpinner" class="h4">
+                  {{statEstimated1kDate}}
+                </strong>
+                <ng-template #statEstimated1kDateSpinner>
+                  <i class="fa fa-spinner fa-spin" style="color: rgb(99, 194, 222);"></i>
+                </ng-template>
               </div>
             </div>
 

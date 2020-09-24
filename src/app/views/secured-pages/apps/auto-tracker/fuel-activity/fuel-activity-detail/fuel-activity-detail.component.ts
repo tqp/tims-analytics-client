@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { EventService } from '../../../../../../../@tqp/services/event.service';
+import { EventService } from '@tqp/services/event.service';
 import { FuelActivity } from '../../auto-tracker-models/FuelActivity';
 import { FuelActivityService } from '../fuel-activity.service';
 
@@ -36,8 +36,10 @@ export class FuelActivityDetailComponent implements OnInit {
     this.eventService.loadingEvent.emit(true);
     this.fuelActivityService.getFuelActivityDetail(guid).subscribe(
       response => {
-        this.fuelActivity = response;
         // console.log('response', response);
+        this.fuelActivity = response;
+        // console.log('fillDateTime:', this.fuelActivity.fill.fillDateTime);
+        // console.log('fillDate    :', this.fuelActivity.fill.fillDateTime);
         this.eventService.loadingEvent.emit(false);
       },
       error => {

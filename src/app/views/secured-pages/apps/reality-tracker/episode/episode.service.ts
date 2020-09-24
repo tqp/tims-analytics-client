@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpService } from '../../../../../../@tqp/services/http.service';
-import { TokenService } from '../../../../../../@tqp/services/token.service';
+import { HttpService } from '@tqp/services/http.service';
+import { TokenService } from '@tqp/services/token.service';
 import { Observable } from 'rxjs';
 import { Season } from '../season/Season';
 import { environment } from '../../../../../../environments/environment';
