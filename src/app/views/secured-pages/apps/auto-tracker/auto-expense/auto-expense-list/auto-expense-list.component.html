@@ -12,7 +12,7 @@
       </div>
       <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreatePage()">
         <i class="fa fa-plus mr-1"></i>
-        Add Fuel Activity
+        Add Auto Expense
       </button>
     </div>
 
@@ -45,62 +45,32 @@
       <div class="table-container" #tableContainer>
 
         <table mat-table [dataSource]="dataSource"
-               matSort matSortActive="fillOdometer" matSortDirection="desc" matSortDisableClear="true"
+               matSort matSortActive="expenseGuid" matSortDirection="desc" matSortDisableClear="true"
                class="table table-striped">
 
-          <ng-container matColumnDef="fillDate">
+          <ng-container matColumnDef="expenseGuid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>GUID</th>
+            <td mat-cell *matCellDef="let row">{{row.expenseGuid}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="expenseDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-            <td mat-cell *matCellDef="let row">
-              {{row.fillDateTime | date: 'MM/dd/yyyy'}}
-              {{row.fillComments != null ? '*' : ''}}
-            </td>
+            <td mat-cell *matCellDef="let row">{{row.expenseDate}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="stationAffiliation">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Station</th>
-            <td mat-cell *matCellDef="let row">{{row.stationAffiliation}}</td>
+          <ng-container matColumnDef="expenseTypeName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let row">{{row.expenseTypeName}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="stationLocation">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
-            <td mat-cell *matCellDef="let row">{{row.stationLocation}}</td>
+          <ng-container matColumnDef="expenseAmount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+            <td mat-cell *matCellDef="let row">{{row.expenseAmount}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="fillOdometer">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Odometer</th>
-            <td mat-cell *matCellDef="let row">{{row.fillOdometer}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="fillMilesTraveled">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance</th>
-            <td mat-cell *matCellDef="let row">{{row.fillMilesTraveled.toFixed(1)}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="fillGallons">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Gallons</th>
-            <td mat-cell *matCellDef="let row">{{row.fillGallons.toFixed(3)}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="fillCostPerGallon">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>$/Gal.</th>
-            <td mat-cell *matCellDef="let row">{{row.fillCostPerGallon.toFixed(3)}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="fillTotalCost">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Cost</th>
-            <td mat-cell *matCellDef="let row"
-                [ngStyle]="{'color': getTotalCostColor(row.fillGallons, row.fillCostPerGallon, row.fillTotalCost)}">
-              {{row.fillTotalCost.toFixed(2)}}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="fillMilesPerGallon">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>MPG (Car/Calc.)</th>
-            <td mat-cell *matCellDef="let row"
-                [ngStyle]="{'color': getMilesPerGallonColor(row.fillMilesPerGallonCar, row.fillMilesPerGallonCalc)}">
-              {{row.fillMilesPerGallonCar.toFixed(1)}}
-              / {{row.fillMilesPerGallonCalc.toFixed(1)}}
-            </td>
+          <ng-container matColumnDef="expenseComments">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+            <td mat-cell *matCellDef="let row">{{row.expenseComments}}</td>
           </ng-container>
 
           <ng-container matColumnDef="actions">

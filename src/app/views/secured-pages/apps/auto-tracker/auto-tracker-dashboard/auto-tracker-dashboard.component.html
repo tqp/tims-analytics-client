@@ -9,8 +9,16 @@
               Auto Tracker Data <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/auto-tracker/fuel-activity-list']">Fuel
-                Activity</a></li>
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/auto-tracker/fuel-activity-list']">
+                  Fuel Activity
+                </a>
+              </li>
+              <li role="menuitem">
+                <a class="dropdown-item" [routerLink]="['/auto-tracker/auto-expense-list']">
+                  Auto Expenses
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -62,7 +70,8 @@
               <div class="callout callout-info">
                 <small class="text-muted">Farthest Single-Tank Distance</small>
                 <br/>
-                <strong *ngIf="!statLongestDistanceBetweenFillsLoading; else statLongestDistanceBetweenFillsSpinner" class="h4">
+                <strong *ngIf="!statLongestDistanceBetweenFillsLoading; else statLongestDistanceBetweenFillsSpinner"
+                        class="h4">
                   {{statLongestDistanceBetweenFills}}
                 </strong>
                 <ng-template #statLongestDistanceBetweenFillsSpinner>

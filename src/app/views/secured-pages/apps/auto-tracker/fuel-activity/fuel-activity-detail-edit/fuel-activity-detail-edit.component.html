@@ -4,10 +4,10 @@
 
     <div class="col-lg-6 col-sm-12">
       <h1
-        *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notShow">
+        *ngIf="fuelActivity && newRecord && fuelActivityEditForm.get('fill').get('fillDate').value == ''; else notNew">
         New Fuel Activity Record
       </h1>
-      <ng-template #notShow>
+      <ng-template #notNew>
         <h1>
           {{fuelActivityEditForm.get('fill').get('fillDate').value | date: 'MMMM dd, yyyy'}}
         </h1>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BracketComponent } from './bracket/bracket.component';
 
 const routes: Routes = [
   {
@@ -14,14 +15,18 @@ const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       },
-
-      // DASHBOARD
-
       {
         path: 'dashboard',
         component: DashboardComponent,
         data: {
           title: 'Reality Competition Dashboard'
+        }
+      },
+      {
+        path: 'bracket/:guid',
+        component: BracketComponent,
+        data: {
+          title: 'Reality Competition Bracket'
         }
       }
     ]

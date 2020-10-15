@@ -9,22 +9,22 @@ import { Router } from '@angular/router';
 import { ServerSidePaginationResponse } from '@tqp/models/ServerSidePaginationResponse';
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
-import { FuelActivityService } from '../fuel-activity.service';
+import { AutoExpenseService } from '../auto-expense.service';
 
 @Component({
-  selector: 'app-fuel-activity-list',
-  templateUrl: './fuel-activity-list.component.html',
-  styleUrls: ['./fuel-activity-list.component.css']
+  selector: 'app-auto-expense-list',
+  templateUrl: './auto-expense-list.component.html',
+  styleUrls: ['./auto-expense-list.component.css']
 })
-export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AutoExpenseListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('tableContainer', {read: ElementRef, static: true}) public matTableRef: ElementRef;
   @ViewChild('dialogContent', {static: true}) public dialogRef: any;
   @ViewChild('nameSearchElementRef', {static: true}) nameSearchElementRef: ElementRef;
 
-  public listTitle = 'Fuel Activity';
-  private defaultSortColumn = 'FILL_DATE_TIME';
+  public listTitle = 'Auto Expense';
+  private defaultSortColumn = 'EXPENSE_DATE';
   private defaultSortDirection = 'DESC';
   private pageIndex = 0;
   public pageSize = 10;
@@ -32,15 +32,10 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   private searchParams: ServerSidePaginationRequest = new ServerSidePaginationRequest();
 
   public displayedColumns: string[] = [
-    'fillDate',
-    'stationAffiliation',
-    'stationLocation',
-    'fillOdometer',
-    'fillMilesTraveled',
-    'fillGallons',
-    'fillCostPerGallon',
-    'fillTotalCost',
-    'fillMilesPerGallon',
+    'expenseDate',
+    'expenseTypeName',
+    'expenseAmount',
+    'expenseComments',
     'actions'
   ];
 
@@ -58,7 +53,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
 
   public isFilterApplied = false;
 
-  constructor(private fuelActivityService: FuelActivityService,
+  constructor(private autoExpenseService: AutoExpenseService,
               private eventService: EventService,
               private router: Router) {
   }
@@ -73,7 +68,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy(): void {
-    this.fuelActivityService.setFuelActivityListNameSearchValue(this.fuelActivityListNameSearchFormControl.value);
+    this.autoExpenseService.setAutoExpenseListNameSearchValue(this.fuelActivityListNameSearchFormControl.value);
   }
 
   private calculateTableSize(): number {
@@ -92,8 +87,8 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
     this.searchParams.sortColumn = this.defaultSortColumn;
     this.searchParams.sortDirection = this.defaultSortDirection;
 
-    if (this.fuelActivityService.getFuelActivityListNameSearchValue()) {
-      const nameSearchValue = this.fuelActivityService.getFuelActivityListNameSearchValue();
+    if (this.autoExpenseService.getAutoExpenseListNameSearchValue()) {
+      const nameSearchValue = this.autoExpenseService.getAutoExpenseListNameSearchValue();
       this.fuelActivityListNameSearchFormControl.setValue(nameSearchValue);
       this.searchParams.nameFilter = nameSearchValue;
     }
@@ -102,8 +97,8 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   private getPage(searchParams: ServerSidePaginationRequest) {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.fuelActivityService.getFuelActivityList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
-        // console.log('getPage response', response);
+    this.autoExpenseService.getAutoExpenseList_SSP(searchParams).subscribe((response: ServerSidePaginationResponse) => {
+        console.log('getPage response', response);
         response.data.forEach(item => {
           this.records.push(item);
         }, error => {
@@ -119,10 +114,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
         this.pageEnd = pageEnd >= this.totalRecords ? this.totalRecords : pageEnd;
         this.totalNumberOfPages = Math.ceil(this.totalRecords / this.pageSize);
 
-        const flat: any = this.fuelActivityService.flattenFuelActivityObject(this.records);
-        // console.log('flat', flat);
-
-        this.dataSource = flat;
+        this.dataSource = this.records;
         this.isLoading = false;
         this.eventService.loadingEvent.emit(false);
       }, error => {
@@ -168,7 +160,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
           this.searchParams = serverSideSearchParams;
 
           this.isFilterApplied = nameFilter;
-          return this.fuelActivityService.getFuelActivityList_SSP(serverSideSearchParams);
+          return this.autoExpenseService.getAutoExpenseList_SSP(serverSideSearchParams);
         }),
         map((response: ServerSidePaginationResponse) => {
           return response;
@@ -195,10 +187,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
           this.pageEnd = pageEnd >= this.totalRecords ? this.totalRecords : pageEnd;
           this.totalNumberOfPages = Math.ceil(this.totalRecords / this.pageSize);
 
-          const flat: any = this.fuelActivityService.flattenFuelActivityObject(this.records);
-          // console.log('flat', flat);
-
-          this.dataSource = flat;
+          this.dataSource = this.records;
           this.isLoading = false;
           this.eventService.loadingEvent.emit(false);
         },
@@ -234,11 +223,11 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   public openCreatePage(): void {
-    this.router.navigate(['auto-tracker/fuel-activity-create']).then();
+    this.router.navigate(['auto-tracker/auto-expense-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['auto-tracker/fuel-activity-detail', row.fillGuid]).then();
+    this.router.navigate(['auto-tracker/auto-expense-detail', row.expenseGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

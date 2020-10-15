@@ -1,0 +1,156 @@
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="autoExpense">
+
+  <div class="row">
+
+    <div class="col-lg-6 col-sm-12">
+      <h1
+        *ngIf="autoExpense && newRecord && autoExpenseEditForm.get('expenseGuid').value == ''; else notNew">
+        New Auto Expense
+      </h1>
+      <ng-template #notNew>
+        <h1>
+          {{autoExpenseEditForm.get('expenseGuid').value}}
+        </h1>
+      </ng-template>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group float-right">
+        <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;" *ngIf="!newRecord"
+                (click)="delete(autoExpense.expenseGuid)">
+          <!--            [disabled]="authService.allowRoles('ROLE_ADMIN')"-->
+          <u>D</u>elete
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                [disabled]="!autoExpenseEditForm.valid">
+          <u>S</u>ave
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+          <u>C</u>ancel
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <form [formGroup]="autoExpenseEditForm">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user"></i>
+            Auto Expense Info
+          </div>
+          <div class="card-body">
+
+            <div class="row" [hidden]="false">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="expenseGuid">GUID</label>
+                  <input matInput id="expenseGuid" #fillDateInputField type="text" class="form-control"
+                         placeholder="GUID"
+                         formControlName="expenseGuid" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.expenseGuid">
+                    <mat-error class="error-message"
+                               *ngIf="autoExpenseEditForm.get('expenseGuid').hasError(validation.type)
+                                && (autoExpenseEditForm.get('expenseGuid').dirty ||
+                                autoExpenseEditForm.get('expenseGuid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="expenseDate">Date <span
+                    style="font-size: 9px; font-style: italic">(MM/DD/YYYY)</span></label>
+                  <input id="expenseDate" type="text" class="form-control" placeholder="Date"
+                         formControlName="expenseDate">
+                  <mat-error *ngFor="let validation of validationMessages.expenseDate">
+                    <mat-error class="error-message"
+                               *ngIf="autoExpenseEditForm.get('expenseDate').hasError(validation.type)
+                                && (autoExpenseEditForm.get('expenseDate').dirty ||
+                                autoExpenseEditForm.get('expenseDate').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="expenseTypeGuid">Type</label>
+                  <select id="expenseTypeGuid" class="form-control col-md-3" formControlName="expenseTypeGuid">
+                    <option value="" selected>All</option>
+                    <option *ngFor="let expenseType of this.expenseTypeList" [value]="expenseType">
+                      {{expenseType}}
+                    </option>
+                  </select>
+                  <mat-error *ngFor="let validation of validationMessages.expenseTypeGuid">
+                    <mat-error class="error-message"
+                               *ngIf="autoExpenseEditForm.get('expenseTypeGuid').hasError(validation.type)
+                                && (autoExpenseEditForm.get('expenseTypeGuid').dirty ||
+                                autoExpenseEditForm.get('expenseTypeGuid').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="expenseAmount">Amount</label>
+                  <input id="expenseAmount" type="text" class="form-control" placeholder="Amount"
+                         formControlName="expenseAmount">
+                  <mat-error *ngFor="let validation of validationMessages.expenseAmount">
+                    <mat-error class="error-message"
+                               *ngIf="autoExpenseEditForm.get('expenseAmount').hasError(validation.type)
+                                && (autoExpenseEditForm.get('expenseAmount').dirty ||
+                                autoExpenseEditForm.get('expenseAmount').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="expenseComments">Comments</label>
+                  <input matInput id="expenseComments" type="text" class="form-control" placeholder="Comments"
+                         formControlName="expenseComments" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.expenseComments">
+                    <mat-error class="error-message"
+                               *ngIf="autoExpenseEditForm.get('expenseComments').hasError(validation.type)
+                                && (autoExpenseEditForm.get('expenseComments').dirty ||
+                                autoExpenseEditForm.get('expenseComments').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+    </div>
+  </div>
+
+
+</div>

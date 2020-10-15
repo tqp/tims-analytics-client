@@ -19,7 +19,7 @@ export class AutoTrackerDashboardService {
 
   public getLongestTimeBetweenFills(): Observable<KeyValue> {
     const token = this.tokenService.getToken();
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/longest-time-between-fills';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/dashboard/longest-time-between-fills';
     return this.http
       .get<KeyValue>(url,
         {
@@ -37,7 +37,7 @@ export class AutoTrackerDashboardService {
 
   public getLongestDistanceBetweenFills(): Observable<KeyValue> {
     const token = this.tokenService.getToken();
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/longest-distance-between-fills';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/dashboard/longest-distance-between-fills';
     return this.http
       .get<KeyValue>(url,
         {
@@ -55,7 +55,7 @@ export class AutoTrackerDashboardService {
 
   public getEstimated1kDate(): Observable<KeyValue> {
     const token = this.tokenService.getToken();
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/estimated-1k-date';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/dashboard/estimated-1k-date';
     return this.http
       .get<KeyValue>(url,
         {
@@ -73,7 +73,7 @@ export class AutoTrackerDashboardService {
 
   public getOdometerData(): Observable<KeyValueLong> {
     const token = this.tokenService.getToken();
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/odometer';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/dashboard/odometer';
     return this.http
       .get<KeyValueLong>(url,
         {
@@ -91,7 +91,7 @@ export class AutoTrackerDashboardService {
 
   public getMpgData(): Observable<KeyValueLong> {
     const token = this.tokenService.getToken();
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/mpg';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/dashboard/mpg';
     return this.http
       .get<KeyValueLong>(url, {
         headers: this.httpService.setHeadersWithToken(),

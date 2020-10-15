@@ -23,7 +23,7 @@ export class FuelActivityService {
               protected tokenService: TokenService) { }
 
   public createFuelActivity(fuelActivity: FuelActivity): Observable<Fill> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/fuel-activity/';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.post<Fill>(url,
@@ -45,7 +45,7 @@ export class FuelActivityService {
   }
 
   public getFuelActivityList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/ssp';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/fuel-activity/ssp';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.post<ServerSidePaginationResponse>(url,
@@ -67,7 +67,7 @@ export class FuelActivityService {
   }
 
   public getFuelActivityDetail(guid: string) {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/' + guid;
+    const url = environment.apiUrl + '/api/v1/auto-tracker/fuel-activity/' + guid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<FuelActivity>(url,
@@ -88,7 +88,7 @@ export class FuelActivityService {
   }
 
   public updateFuelActivity(fill: Fill): Observable<Fill> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/fuel-activity/';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.put<Fill>(url,
@@ -110,7 +110,7 @@ export class FuelActivityService {
   }
 
   public deleteFuelActivity(fuelActivityGuid: string): Observable<string> {
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/fuel-activity/' + fuelActivityGuid;
+    const url = environment.apiUrl + '/api/v1/auto-tracker/fuel-activity/' + fuelActivityGuid;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.delete<string>(url,
@@ -132,7 +132,7 @@ export class FuelActivityService {
 
   retrieveStationNameOptions(filter: string): Observable<Station> {
     // console.log('FuelActivityService -> retrieveStationNameOptions: filter=', filter);
-    const url = environment.apiUrl + '/api/v1/auto-tracker-api/station/auto-complete/station-name';
+    const url = environment.apiUrl + '/api/v1/auto-tracker/station/auto-complete/station-name';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<any>(url,

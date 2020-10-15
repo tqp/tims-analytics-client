@@ -4,6 +4,9 @@ import { AutoTrackerDashboardComponent } from './auto-tracker-dashboard/auto-tra
 import { FuelActivityListComponent } from './fuel-activity/fuel-activity-list/fuel-activity-list.component';
 import { FuelActivityDetailEditComponent } from './fuel-activity/fuel-activity-detail-edit/fuel-activity-detail-edit.component';
 import { FuelActivityDetailComponent } from './fuel-activity/fuel-activity-detail/fuel-activity-detail.component';
+import { AutoExpenseListComponent } from './auto-expense/auto-expense-list/auto-expense-list.component';
+import { AutoExpenseDetailComponent } from './auto-expense/auto-expense-detail/auto-expense-detail.component';
+import { AutoExpenseDetailEditComponent } from './auto-expense/auto-expense-detail-edit/auto-expense-detail-edit.component';
 
 const routes: Routes = [
 
@@ -23,6 +26,34 @@ const routes: Routes = [
         component: AutoTrackerDashboardComponent,
         data: {
           title: 'Auto Tracker Dashboard'
+        }
+      },
+      {
+        path: 'auto-expense-list',
+        component: AutoExpenseListComponent,
+        data: {
+          title: 'Auto Expenses'
+        }
+      },
+      {
+        path: 'auto-expense-detail/:guid',
+        component: AutoExpenseDetailComponent,
+        data: {
+          title: 'Auto Expense Detail'
+        }
+      },
+      {
+        path: 'auto-expense-detail-edit/:guid',
+        component: AutoExpenseDetailEditComponent,
+        data: {
+          title: 'Edit Auto Expense'
+        }
+      },
+      {
+        path: 'auto-expense-create',
+        component: AutoExpenseDetailEditComponent,
+        data: {
+          title: 'Create Auto Expense'
         }
       },
       {

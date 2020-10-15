@@ -19,7 +19,7 @@ export class AutoTrackerDashboardService {
   public getFillHistory(): Observable<any> {
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get(environment.apiUrl + '/api/v1/auto-tracker-api/dashboard/history', {headers: this.tokenService.setAuthorizationHeader(token)});
+      return this.http.get(environment.apiUrl + '/api/v1/auto-tracker/dashboard/history', {headers: this.tokenService.setAuthorizationHeader(token)});
     } else {
       console.error('No token was present.');
       return null;

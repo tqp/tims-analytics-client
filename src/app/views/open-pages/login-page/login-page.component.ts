@@ -96,13 +96,13 @@ export class LoginPageComponent implements OnInit {
         this.errorMessage = 'That User is currently disabled.';
         break;
       case 'CannotConnectToServer':
-        this.errorMessage = 'Cannot connect to the Timetracker server.';
+        this.errorMessage = 'Cannot connect to the server.';
         // Check again to see if server is back up.
         setTimeout(() => {
           console.log('Checking server connection...');
           this.getGoogleAuthConfig();
           if (this.loginForm.get('generalError').hasError('customValidator')) {
-            console.log('Still cannot connect to the Timetracker server.');
+            console.log('Still cannot connect to the server.');
           }
         }, 5000);
         break;

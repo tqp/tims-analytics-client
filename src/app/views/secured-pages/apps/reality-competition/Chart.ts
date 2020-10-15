@@ -1,5 +1,7 @@
+import { Contestant } from '../reality-tracker/contestant/Contestant';
+
 export class Chart {
-  public contestantKey?: string;
+  public contestant?: Contestant;
   public roundNumber?: number;
   public position?: number;
   public status?: string;

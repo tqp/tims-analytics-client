@@ -18,38 +18,10 @@ export const navItemsUser: INavData[] = [
   },
 
   {
-    name: 'CRUD App',
-    url: '/crud-app',
-    icon: 'fa fa-keyboard-o',
-    children: [
-      {
-        name: 'Client-Side Scroll',
-        url: '/crud-app/crud-master-client-scroll',
-        icon: 'fa fa-keyboard-o'
-      },
-      {
-        name: 'Server-Side Scroll',
-        url: '/crud-app/crud-master-server-scroll',
-        icon: 'fa fa-keyboard-o'
-      },
-      {
-        name: 'Server-Side Paging',
-        url: '/crud-app/crud-master-server-pagination',
-        icon: 'fa fa-keyboard-o'
-      }
-    ]
-  },
-
-  {
     name: 'Reality TV Tracker',
     url: '/reality-tracker',
     icon: 'fa fa-television',
     children: [
-      {
-        name: 'User Dashboard',
-        url: '/reality-tracker/user-dashboard',
-        icon: 'fa fa-bar-chart'
-      },
       {
         name: 'Series List',
         url: '/reality-tracker/series-list',
@@ -73,6 +45,28 @@ export const navItemsUser: INavData[] = [
     name: 'Demo Pages'
   },
   {
+    name: 'CRUD App',
+    url: '/crud-app',
+    icon: 'fa fa-keyboard-o',
+    children: [
+      {
+        name: 'Client-Side Scroll',
+        url: '/crud-app/crud-master-client-scroll',
+        icon: 'fa fa-keyboard-o'
+      },
+      {
+        name: 'Server-Side Scroll',
+        url: '/crud-app/crud-master-server-scroll',
+        icon: 'fa fa-keyboard-o'
+      },
+      {
+        name: 'Server-Side Paging',
+        url: '/crud-app/crud-master-server-pagination',
+        icon: 'fa fa-keyboard-o'
+      }
+    ]
+  },
+  {
     name: 'Geo Heatmap',
     url: '/demo-pages/geo-heatmap',
     icon: 'fa fa-map-o'
@@ -83,34 +77,42 @@ export const navItemsUser: INavData[] = [
     icon: 'fa fa-globe'
   },
   {
-    name: 'Auto-Complete',
-    url: '/demo-pages/auto-complete',
-    icon: 'fa fa-edit'
+    name: 'Components',
+    url: '/components',
+    icon: 'fa fa-wrench',
+    children: [
+      {
+        name: 'Auto-Complete',
+        url: '/demo-pages/auto-complete',
+        icon: 'fa fa-edit'
+      },
+      {
+        name: 'Toastr Popup',
+        url: '/demo-pages/toastr-popup',
+        icon: 'icon-bubble'
+      },
+      {
+        name: 'Database Test Page',
+        url: '/test-pages/basic-database-connection',
+        icon: 'fa fa-database'
+      },
+    ]
+  },
+
+
+  {
+    title: true,
+    name: 'Under Development'
+  },
+  {
+    name: 'Sandbox',
+    url: '/test-pages/test',
+    icon: 'fa fa-rocket'
   },
   {
     name: 'Multi-Timer',
     url: '/demo-pages/multi-timer',
     icon: 'icon-clock'
-  },
-  {
-    name: 'Toastr Popup',
-    url: '/demo-pages/toastr-popup',
-    icon: 'icon-bubble'
-  },
-
-  {
-    title: true,
-    name: 'Test Pages'
-  },
-  {
-    name: 'Test Component',
-    url: '/test-pages/test',
-    icon: 'fa fa-rocket'
-  },
-  {
-    name: 'Database Test Page',
-    url: '/test-pages/basic-database-connection',
-    icon: 'fa fa-database'
   },
 
   {

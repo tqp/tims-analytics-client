@@ -14,6 +14,9 @@ import { ListAddRemoveItemsBasicModule } from '@tqp/components/list-add-remove-i
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { AutoExpenseDetailComponent } from './auto-expense/auto-expense-detail/auto-expense-detail.component';
+import { AutoExpenseListComponent } from './auto-expense/auto-expense-list/auto-expense-list.component';
+import { AutoExpenseDetailEditComponent } from './auto-expense/auto-expense-detail-edit/auto-expense-detail-edit.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     AutoTrackerDashboardComponent,
     FuelActivityListComponent,
     FuelActivityDetailComponent,
-    FuelActivityDetailEditComponent
+    FuelActivityDetailEditComponent,
+    AutoExpenseDetailComponent,
+    AutoExpenseListComponent,
+    AutoExpenseDetailEditComponent
   ],
   imports: [
     CommonModule,

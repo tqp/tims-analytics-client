@@ -10,9 +10,8 @@ import { Fill } from '../../auto-tracker-models/Fill';
 import { Station } from '../../auto-tracker-models/Station';
 import { Observable, of } from 'rxjs';
 import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
-import { customDateValidator, customTimeValidator } from '../../../../../../../@tqp/validators/custom.validators';
+import { customDateValidator, customTimeValidator } from '@tqp/validators/custom.validators';
 import * as moment from 'moment';
-import { Person } from '../../../../../../../@tqp/models/Person';
 
 @Component({
   selector: 'app-fuel-activity-detail-edit',
@@ -327,9 +326,12 @@ export class FuelActivityDetailEditComponent implements OnInit {
   }
 
   public cancel(): void {
-    if (this.fuelActivity.fill.fillGuid) {
+    console.log('fillGuid', this.fuelActivity);
+    if (this.fuelActivity != null) {
+      console.log('h1');
       this.router.navigate(['auto-tracker/fuel-activity-detail', this.fuelActivity.fill.fillGuid]).then();
     } else {
+      console.log('h2');
       this.router.navigate(['auto-tracker/fuel-activity-list']).then();
     }
   }
