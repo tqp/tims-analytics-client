@@ -44,25 +44,34 @@
         <div class="card-header">
           <i class="fa fa-calendar"></i>
           Seasons
+          <i *ngIf="seasonListLoading" class="fa fa-spinner fa-spin"></i>
+          <div class="card-header-actions" [hidden]="authService.allowRoles('ROLE_USER, ROLE_ADMIN')">
+            <small class="tqp-nav-link" (click)="openCreateSeasonDialog();">Create Season</small>
+          </div>
         </div>
         <div class="card-body">
 
           <div class="table-container">
 
-            <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
-                   matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+            <table mat-table [dataSource]="seasonListDataSource" *ngIf="seasonListDataSource && seasonListDataSource.length > 0"
+                   matSort matSortActive="seasonAbbreviation" matSortDirection="asc" matSortDisableClear="true"
                    class="table table-striped">
 
-              <ng-container matColumnDef="name">
+              <ng-container matColumnDef="seasonNumber">
+                <th mat-header-cell *matHeaderCellDef>Series Number</th>
+                <td mat-cell *matCellDef="let row">{{row.seasonNumber}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="seasonName">
                 <th mat-header-cell *matHeaderCellDef>Series Name</th>
                 <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
+              <tr mat-header-row *matHeaderRowDef="seasonListDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: seasonListDisplayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
             </table>
 
-            <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
+            <div class="no-records" *ngIf="seasonListDataSource && seasonListDataSource.length <= 0">
               No records to display.
             </div>
 

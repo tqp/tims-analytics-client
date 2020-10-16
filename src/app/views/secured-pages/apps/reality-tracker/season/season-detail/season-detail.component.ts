@@ -47,7 +47,7 @@ export class SeasonDetailComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       if (params['guid'] !== undefined) {
         const seasonGuid = params['guid'];
-        // console.log('seasonGuid', seasonGuid);
+        console.log('seasonGuid', seasonGuid);
         this.getSeasonDetail(seasonGuid);
         this.getPlayerListBySeasonGuid(seasonGuid);
         this.getEpisodeListBySeasonGuid(seasonGuid);

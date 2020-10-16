@@ -20,6 +20,12 @@ export class SeasonCreateDialogComponent implements OnInit {
     ],
     'seasonName': [
       {type: 'required', message: 'A Season Number is required'}
+    ],
+    'seasonAbbreviation': [
+      {type: 'required', message: 'A Season Abbreviation is required'}
+    ],
+    'seasonNumber': [
+      {type: 'required', message: 'A Season Number is required'}
     ]
   };
 

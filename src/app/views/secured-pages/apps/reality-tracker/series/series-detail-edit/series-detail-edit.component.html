@@ -86,44 +86,8 @@
       </div>
 
       <div class="col-lg-6 col-sm-12">
-
-        <div class="card">
-          <div class="card-header">
-            <div class="float-left" style="line-height: 28px;">
-              <i class="fa fa-calendar"></i>
-              Seasons
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-primary float-right" (click)="openCreateSeasonDialog()"
-                    style="cursor: pointer;">
-              <u>A</u>dd New Season
-            </button>
-          </div>
-          <div class="card-body">
-
-            <div class="table-container">
-
-              <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
-                     class="table table-striped">
-
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef>Series Name</th>
-                  <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
-              </table>
-
-              <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
-                No records to display.
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
       </div>
+
     </div>
 
   </form>

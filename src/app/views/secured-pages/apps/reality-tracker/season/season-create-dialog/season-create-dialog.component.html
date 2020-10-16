@@ -60,6 +60,42 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seasonAbbreviation">Season Abbreviation</label>
+          <input matInput id="seasonAbbreviation" type="text" class="form-control" placeholder="Season Abbreviation"
+                 formControlName="seasonAbbreviation" autocomplete="chrome-off">
+          <mat-error *ngFor="let validation of validationMessages.seasonAbbreviation">
+            <mat-error class="error-message"
+                       *ngIf="seasonEditForm.get('seasonAbbreviation').hasError(validation.type)
+                                && (seasonEditForm.get('seasonAbbreviation').dirty ||
+                                seasonEditForm.get('seasonAbbreviation').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="seasonNumber">Season Number</label>
+          <input matInput id="seasonNumber" type="text" class="form-control" placeholder="Season Number"
+                 formControlName="seasonNumber" autocomplete="chrome-off">
+          <mat-error *ngFor="let validation of validationMessages.seasonNumber">
+            <mat-error class="error-message"
+                       *ngIf="seasonEditForm.get('seasonNumber').hasError(validation.type)
+                                && (seasonEditForm.get('seasonNumber').dirty ||
+                                seasonEditForm.get('seasonNumber').touched)">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+
   </form>
 
 </mat-dialog-content>
