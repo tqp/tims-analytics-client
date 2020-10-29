@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {TokenStorageService} from '@tqp/services/token-storage.service';
 import {navItemsAdmin} from '../../_navAdmin';
 import {navItemsUser} from '../../_navUser';
+import {navItemsGuest} from '../../_navGuest';
 import {EventService} from '@tqp/services/event.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class DefaultLayoutComponent implements OnInit {
   public sidebarMinimized = false;
   public navItems = null;
   public showLoadingIndicator = false;
+  public username: string;
 
   constructor(private http: HttpClient,
               private tokenService: TokenService,
@@ -39,6 +41,16 @@ export class DefaultLayoutComponent implements OnInit {
     // See token-storage.service.ts for the Observable.
     if (this.tokenService.getToken()) {
       this.setMenu(this.authService.getAuthoritiesFromToken());
+      this.authService.getTokenInfo().subscribe(
+        response => {
+          // console.log('response', response);
+          this.username = response.sub;
+        },
+        error => {
+          console.error('Error: ', error);
+          this.authService.errorHandler(error);
+        }
+      );
     } else {
       this.tokenStorageService.tokenObs.subscribe(token => {
         this.setMenu(this.authService.getAuthoritiesFromToken());
@@ -56,6 +68,8 @@ export class DefaultLayoutComponent implements OnInit {
       this.navItems = navItemsAdmin;
     } else if (authorities.indexOf('ROLE_USER') > -1) {
       this.navItems = navItemsUser;
+    } else if (authorities.indexOf('ROLE_GUEST') > -1) {
+      this.navItems = navItemsGuest;
     } else {
       console.log('The authorities presented did not contain a matching role.', authorities);
     }

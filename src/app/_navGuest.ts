@@ -1,6 +1,6 @@
 import { INavData } from '@coreui/angular';
 
-export const navItemsUser: INavData[] = [
+export const navItemsGuest: INavData[] = [
   {
     name: 'About This App',
     url: '/site-admin/about',
@@ -123,11 +123,6 @@ export const navItemsUser: INavData[] = [
     name: 'My Profile',
     url: '/site-admin/my-profile',
     icon: 'fa fa-user'
-  },
-  {
-    name: 'User List',
-    url: '/site-admin/user-list',
-    icon: 'fa fa-users'
   },
   {
     name: 'Logout',

@@ -1,30 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
-
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { AppComponent } from './app.component';
 
 // Import containers
 import { DefaultLayoutComponent } from './containers';
-
-const APP_CONTAINERS = [
-  DefaultLayoutComponent
-];
-
 import {
   AppAsideModule,
   AppBreadcrumbModule,
-  AppHeaderModule,
   AppFooterModule,
+  AppHeaderModule,
   AppSidebarModule,
 } from '@coreui/angular';
 
@@ -35,13 +23,21 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from '@tqp/modules/angular-material.module';
 import { OpenPagesModule } from './views/open-pages/open-pages.module';
 import { SecuredPagesModule } from './views/secured-pages/secured-pages.module';
-import { LoginPageModule } from './views/open-pages/login-page/login-page.module';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from '@tqp/shared.module';
+import { LoginPageModule } from './views/open-pages/login-page/login-page.module';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+const APP_CONTAINERS = [
+  DefaultLayoutComponent
+];
 
 @NgModule({
   imports: [
@@ -75,6 +71,7 @@ import { SharedModule } from '@tqp/shared.module';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LogoutComponent } from './logout/logout.component';
 import { AngularMaterialModule } from '@tqp/modules/angular-material.module';
 import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-dialog.component';
+import { TokenExchangeModule } from './token-exchange/token-exchange.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ConfirmDialogComponent } from '@tqp/components/confirm-dialog/confirm-d
   ],
   imports: [
     CommonModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    TokenExchangeModule
   ],
   exports: [],
   entryComponents: [

@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@tqp/services/auth.service';
 import { TokenService } from '@tqp/services/token.service';
 import { Router } from '@angular/router';
-import {tqpCustomAnimations} from '@tqp/animations/tqpCustomAnimations';
+import { tqpCustomAnimations } from '@tqp/animations/tqpCustomAnimations';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-login-page',
@@ -19,6 +20,7 @@ export class LoginPageComponent implements OnInit {
   public displayLoginSpinner = false;
   public logonFormVisible = false;
   public logonInProcess = false;
+  public csrfToken: string;
 
   constructor(private _formBuilder: FormBuilder,
               private authService: AuthService,
@@ -27,9 +29,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.csrfToken = uuid();
+    this.getGoogleAuthConfig();
+
     this.loginForm = this._formBuilder.group({
-      email: ['user', [Validators.required, Validators.email]],
-      password: ['user1', Validators.required],
+      email: ['guest', [Validators.required, Validators.email]],
+      password: ['guest1', Validators.required],
       generalError: ['']
     }, {});
   }
@@ -39,12 +44,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   public loginApp(): void {
-    // console.log('email   : ' + this.loginForm.value.email);
-    // console.log('password: ' + this.loginForm.value.password);
+    console.log('email   : ' + this.loginForm.value.email);
+    console.log('password: ' + this.loginForm.value.password);
     this.logonInProcess = true;
     this.authService.attemptAuth(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       response => {
-        // console.log('LogonPage -> attemptLogin: ' + JSON.stringify(response));
+        console.log('LogonPage -> attemptLogin: ' + JSON.stringify(response));
         this.tokenService.saveToken(response.token);
         this.router.navigate(['/secured-pages/about']).then();
         this.logonInProcess = false;
