@@ -9,10 +9,6 @@ import { navItemsAdmin } from '../../_navAdmin';
 import { navItemsUser } from '../../_navUser';
 import { navItemsGuest } from '../../_navGuest';
 import { EventService } from '@tqp/services/event.service';
-import { Observable, throwError } from 'rxjs';
-import { User } from '../../../@tqp/models/User';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { Role } from '../../../@tqp/models/Role';
 import { MyProfileService } from '../../views/secured-pages/account/my-profile/my-profile.service';
 
 @Component({
@@ -31,7 +27,7 @@ export class DefaultLayoutComponent implements OnInit {
               private tokenService: TokenService,
               private tokenStorageService: TokenStorageService,
               private myProfileService: MyProfileService,
-              private authService: AuthService,
+              public authService: AuthService,
               private router: Router,
               private eventService: EventService) {
     const test = false;
@@ -64,7 +60,7 @@ export class DefaultLayoutComponent implements OnInit {
   public getTokenInfo(): void {
     this.authService.getTokenInfo().subscribe(
       response => {
-        console.log('response', response);
+        // console.log('response', response);
         this.username = response.sub;
         // this.getMyProfile();
       },

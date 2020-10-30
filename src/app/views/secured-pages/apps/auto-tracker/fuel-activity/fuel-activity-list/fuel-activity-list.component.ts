@@ -10,6 +10,7 @@ import { ServerSidePaginationResponse } from '@tqp/models/ServerSidePaginationRe
 import { merge, of } from 'rxjs';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { FuelActivityService } from '../fuel-activity.service';
+import { AuthService } from '../../../../../../../@tqp/services/auth.service';
 
 @Component({
   selector: 'app-fuel-activity-list',
@@ -60,6 +61,7 @@ export class FuelActivityListComponent implements OnInit, AfterViewInit, OnDestr
 
   constructor(private fuelActivityService: FuelActivityService,
               private eventService: EventService,
+              public authService: AuthService,
               private router: Router) {
   }
 

@@ -229,8 +229,8 @@
         <!--        <i class="icon-compass icons font-2xl d-block mt-2"></i>-->
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>Server Admin</strong></div>
-        <a class="dropdown-item" href="#" (click)="openSwagger();"><i class="fa fa-gears"></i> Swagger UI</a>
+        <div class="dropdown-header text-center" [hidden]="authService.allowRoles('ROLE_ADMIN')"><strong>Server Admin</strong></div>
+        <a class="dropdown-item" href="#" (click)="openSwagger();" [hidden]="authService.allowRoles('ROLE_ADMIN')"><i class="fa fa-gears"></i> Swagger UI</a>
 
         <div class="dropdown-header text-center"><strong>Account</strong></div>
         <!--

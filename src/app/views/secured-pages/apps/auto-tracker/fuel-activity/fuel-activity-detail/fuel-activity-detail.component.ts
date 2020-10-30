@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventService } from '@tqp/services/event.service';
 import { FuelActivity } from '../../auto-tracker-models/FuelActivity';
 import { FuelActivityService } from '../fuel-activity.service';
+import { AuthService } from '../../../../../../../@tqp/services/auth.service';
 
 @Component({
   selector: 'app-fuel-activity-detail',
@@ -17,6 +18,7 @@ export class FuelActivityDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private fuelActivityService: FuelActivityService,
               private eventService: EventService,
+              public authService: AuthService,
               private router: Router) {
   }
 
