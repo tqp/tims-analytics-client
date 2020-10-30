@@ -18,29 +18,6 @@ export const navItemsGuest: INavData[] = [
   },
 
   {
-    name: 'Reality TV Tracker',
-    url: '/reality-tracker',
-    icon: 'fa fa-television',
-    children: [
-      {
-        name: 'Series List',
-        url: '/reality-tracker/series-list',
-        icon: 'fa fa-star'
-      },
-      {
-        name: 'Contestant List',
-        url: '/reality-tracker/contestant-list',
-        icon: 'fa fa-users'
-      },
-      {
-        name: 'Competition',
-        url: '/reality-competition/dashboard',
-        icon: 'fa fa-trophy'
-      }
-    ]
-  },
-
-  {
     title: true,
     name: 'Demo Pages'
   },
@@ -105,14 +82,36 @@ export const navItemsGuest: INavData[] = [
     name: 'Under Development'
   },
   {
-    name: 'Sandbox',
-    url: '/test-pages/test',
-    icon: 'fa fa-rocket'
+    name: 'Reality TV Tracker',
+    url: '/reality-tracker',
+    icon: 'fa fa-television',
+    children: [
+      {
+        name: 'Series List',
+        url: '/reality-tracker/series-list',
+        icon: 'fa fa-star'
+      },
+      {
+        name: 'Contestant List',
+        url: '/reality-tracker/contestant-list',
+        icon: 'fa fa-users'
+      },
+      {
+        name: 'Competition',
+        url: '/reality-competition/dashboard',
+        icon: 'fa fa-trophy'
+      }
+    ]
   },
   {
     name: 'Multi-Timer',
     url: '/demo-pages/multi-timer',
     icon: 'icon-clock'
+  },
+  {
+    name: 'Sandbox',
+    url: '/test-pages/test',
+    icon: 'fa fa-rocket'
   },
 
   {

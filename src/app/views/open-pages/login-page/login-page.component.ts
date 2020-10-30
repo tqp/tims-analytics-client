@@ -44,10 +44,6 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  public toggle1(): void {
-    this.logonFormVisible = !this.logonFormVisible;
-  }
-
   public loginApp(): void {
     // console.log('email   : ' + this.loginForm.value.email);
     // console.log('password: ' + this.loginForm.value.password);
@@ -67,8 +63,10 @@ export class LoginPageComponent implements OnInit {
     );
   }
 
-  public closeForm(): void {
+  public toggleFormPane(): void {
     console.log('closeForm');
+    this.logonFormVisible = !this.logonFormVisible;
+    this.errorMessage = ''; // Reset error message if an error was displayed.
   }
 
   private getGoogleAuthConfig(): void {
@@ -91,13 +89,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   private displayError(error): void {
-    console.log('error: ', error);
+    // console.error('error: ', error);
     switch (error) {
       case 'Bad credentials':
         this.errorMessage = 'Incorrect username or password.';
         break;
       case 'UsernameNotFoundException':
-        this.errorMessage = 'The user you logged in with doesn\'t have access to this site.';
+        this.errorMessage = 'That account doesn\'t have access to this site.';
         break;
       case 'LoggedOut':
         this.errorMessage = 'You have been logged out.';
@@ -121,6 +119,9 @@ export class LoginPageComponent implements OnInit {
     }
     this.loginForm.get('generalError').setErrors({customValidator: true});
     this.loginForm.get('generalError').markAsTouched();
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 5000);
   }
 
   @HostListener('window:keydown', ['$event'])
