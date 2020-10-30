@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@tqp/services/auth.service';
 import { TokenService } from '@tqp/services/token.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { tqpCustomAnimations } from '@tqp/animations/tqpCustomAnimations';
 import { v4 as uuid } from 'uuid';
 
@@ -25,7 +25,8 @@ export class LoginPageComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
               private authService: AuthService,
               protected tokenService: TokenService,
-              protected router: Router) {
+              protected router: Router,
+              protected route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -37,6 +38,10 @@ export class LoginPageComponent implements OnInit {
       password: ['guest1', Validators.required],
       generalError: ['']
     }, {});
+
+    if (this.route.snapshot.queryParamMap.get('error')) {
+      this.displayError(this.route.snapshot.queryParamMap.get('error'));
+    }
   }
 
   public toggle1(): void {
@@ -44,8 +49,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   public loginApp(): void {
-    console.log('email   : ' + this.loginForm.value.email);
-    console.log('password: ' + this.loginForm.value.password);
+    // console.log('email   : ' + this.loginForm.value.email);
+    // console.log('password: ' + this.loginForm.value.password);
     this.logonInProcess = true;
     this.authService.attemptAuth(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       response => {

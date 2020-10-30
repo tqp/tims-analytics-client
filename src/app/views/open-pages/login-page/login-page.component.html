@@ -80,7 +80,12 @@
                   </div>
 
                   <div style="margin-top: 10px; height: 20px;">
+                    <!--
                     <mat-error *ngIf="loginForm.get('generalError').hasError('customValidator')">
+                      {{errorMessage}}
+                    </mat-error>
+                    -->
+                    <mat-error *ngIf="errorMessage">
                       {{errorMessage}}
                     </mat-error>
                   </div>
