@@ -50,7 +50,7 @@ export class LoginPageComponent implements OnInit {
     this.logonInProcess = true;
     this.authService.attemptAuth(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       response => {
-        console.log('LogonPage -> attemptLogin: ' + JSON.stringify(response));
+        // console.log('LogonPage -> attemptLogin: ' + JSON.stringify(response));
         this.tokenService.saveToken(response.token);
         this.router.navigate(['/secured-pages/about']).then();
         this.logonInProcess = false;
@@ -64,7 +64,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   public toggleFormPane(): void {
-    console.log('closeForm');
+    // console.log('closeForm');
     this.logonFormVisible = !this.logonFormVisible;
     this.errorMessage = ''; // Reset error message if an error was displayed.
   }

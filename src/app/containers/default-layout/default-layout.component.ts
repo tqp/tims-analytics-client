@@ -1,14 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {TokenService} from '@tqp/services/token.service';
-import {AuthService} from '@tqp/services/auth.service';
-import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
-import {TokenStorageService} from '@tqp/services/token-storage.service';
-import {navItemsAdmin} from '../../_navAdmin';
-import {navItemsUser} from '../../_navUser';
-import {navItemsGuest} from '../../_navGuest';
-import {EventService} from '@tqp/services/event.service';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { TokenService } from '@tqp/services/token.service';
+import { AuthService } from '@tqp/services/auth.service';
+import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { TokenStorageService } from '@tqp/services/token-storage.service';
+import { navItemsAdmin } from '../../_navAdmin';
+import { navItemsUser } from '../../_navUser';
+import { navItemsGuest } from '../../_navGuest';
+import { EventService } from '@tqp/services/event.service';
+import { Observable, throwError } from 'rxjs';
+import { User } from '../../../@tqp/models/User';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { Role } from '../../../@tqp/models/Role';
+import { MyProfileService } from '../../views/secured-pages/account/my-profile/my-profile.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,10 +25,12 @@ export class DefaultLayoutComponent implements OnInit {
   public navItems = null;
   public showLoadingIndicator = false;
   public username: string;
+  public googlePhotoUrl: string;
 
   constructor(private http: HttpClient,
               private tokenService: TokenService,
               private tokenStorageService: TokenStorageService,
+              private myProfileService: MyProfileService,
               private authService: AuthService,
               private router: Router,
               private eventService: EventService) {
@@ -41,16 +48,8 @@ export class DefaultLayoutComponent implements OnInit {
     // See token-storage.service.ts for the Observable.
     if (this.tokenService.getToken()) {
       this.setMenu(this.authService.getAuthoritiesFromToken());
-      this.authService.getTokenInfo().subscribe(
-        response => {
-          // console.log('response', response);
-          this.username = response.sub;
-        },
-        error => {
-          console.error('Error: ', error);
-          this.authService.errorHandler(error);
-        }
-      );
+      this.getTokenInfo();
+      // this.getMyProfile();
     } else {
       this.tokenStorageService.tokenObs.subscribe(token => {
         this.setMenu(this.authService.getAuthoritiesFromToken());
@@ -60,6 +59,34 @@ export class DefaultLayoutComponent implements OnInit {
     this.eventService.loadingEvent.subscribe((loadingStatus: boolean) => {
       this.showLoadingIndicator = loadingStatus;
     });
+  }
+
+  public getTokenInfo(): void {
+    this.authService.getTokenInfo().subscribe(
+      response => {
+        console.log('response', response);
+        this.username = response.sub;
+        // this.getMyProfile();
+      },
+      error => {
+        console.error('Error: ', error);
+        this.authService.errorHandler(error);
+      }
+    );
+  }
+
+  public getMyProfile(): void {
+    this.myProfileService.getMyUserInfo().subscribe(
+      response => {
+        console.log('response', response);
+        this.username = response.username;
+        this.googlePhotoUrl = response.picture;
+      },
+      error => {
+        console.error('Error: ', error);
+        this.authService.errorHandler(error);
+      }
+    );
   }
 
   private setMenu(authorities: string): void {
