@@ -21,7 +21,7 @@ export class GeoHeatmapComponent implements AfterViewInit {
     this.addScaleLayer();
 
     this.addPolygon_CourtlandPark();
-    this.addMarker_StartingPoint();
+    // this.addMarker_StartingPoint();
     this.addIcon_Arrow();
 
     this.addRunningPath();
