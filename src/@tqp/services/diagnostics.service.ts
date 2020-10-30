@@ -27,6 +27,20 @@ export class DiagnosticsService {
     }
   }
 
+  public getGuestEndpoint(): Observable<any> {
+    // Even though this is an open endpoint, we use the token for auditing the request's username.
+    const token = this.tokenService.getToken();
+    if (token) {
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json; charset=utf-8')
+        .set('Authorization', 'Bearer ' + token);
+      return this.http.get(environment.apiUrl + '/api/v1/diagnostics/endpoint/guest', {headers: headers});
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
   public getUserEndpoint(): Observable<any> {
     const token = this.tokenService.getToken();
     if (token) {

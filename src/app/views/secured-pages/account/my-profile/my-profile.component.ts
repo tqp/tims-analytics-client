@@ -17,6 +17,7 @@ export class MyProfileComponent implements OnInit {
   public decodedToken: Token;
 
   public openTestResult = 'Blocked';
+  public guestTestResult = 'Blocked';
   public userTestResult = 'Blocked';
   public managerTestResult = 'Blocked';
   public adminTestResult = 'Blocked';
@@ -70,6 +71,16 @@ export class MyProfileComponent implements OnInit {
     this.diagnosticsService.getOpenEndpoint().subscribe(
       data => {
         this.openTestResult = data.value;
+      },
+      error => {
+        console.error('Error: ', error);
+        // this.authService.errorHandler(error);
+      }
+    );
+
+    this.diagnosticsService.getGuestEndpoint().subscribe(
+      data => {
+        this.guestTestResult = data.value;
       },
       error => {
         console.error('Error: ', error);

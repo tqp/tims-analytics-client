@@ -47,7 +47,10 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-3">Google Photo URL:</dt>
-            <dd class="col-sm-9"><a href="{{user.picture}}" target="GooglePhoto">{{user.picture}}</a></dd>
+            <dd class="col-sm-9">
+              <span *ngIf="user.picture; else noGooglePhoto;"><a href="{{user.picture}}" target="GooglePhoto">{{user.picture}}</a></span>
+              <ng-template #noGooglePhoto>No Photo on File</ng-template>
+            </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-3">User ID:</dt>
@@ -113,6 +116,14 @@
               <i class="fa fa-info-circle" *ngIf="openTestResult === 'Blocked'"></i>
               <i class="fa fa-info-circle" *ngIf="openTestResult !== 'Blocked'"></i>
               {{openTestResult}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Guest Endpoint Accesss:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-info-circle" *ngIf="guestTestResult === 'Blocked'"></i>
+              <i class="fa fa-info-circle" *ngIf="guestTestResult !== 'Blocked'"></i>
+              {{guestTestResult}}
             </dd>
           </dl>
           <dl class="row">
