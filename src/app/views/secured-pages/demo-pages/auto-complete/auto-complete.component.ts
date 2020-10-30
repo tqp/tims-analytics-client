@@ -86,4 +86,15 @@ export class AutoCompleteComponent implements OnInit {
     this.autoCompleteForm.get('address').get('state').patchValue(option.state);
     this.autoCompleteForm.get('address').get('zipCode').patchValue(option.zipCode);
   }
+
+  public clearFields(): void {
+    // Name Fields
+    this.autoCompleteForm.get('firstName').patchValue('');
+    this.autoCompleteForm.get('lastName').patchValue('');
+    // Address Fields
+    this.autoCompleteForm.get('address').get('street').patchValue('');
+    this.autoCompleteForm.get('address').get('city').patchValue('');
+    this.autoCompleteForm.get('address').get('state').patchValue('');
+    this.autoCompleteForm.get('address').get('zipCode').patchValue('');
+  }
 }

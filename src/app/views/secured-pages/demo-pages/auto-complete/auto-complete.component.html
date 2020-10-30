@@ -1,6 +1,24 @@
 <div class="animated fadeIn">
 
   <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>Auto-Complete Demo
+        </div>
+        <div class="card-body">
+          This is a demo of auto-complete functionality from a database.<br />
+          The "Last Name" and "Street Address" fields, marked in green, are the auto-complete fields.<br />
+          When you begin typing into either of those fields, a drop-down will appear with the first 5 records in the MySQL database where there is a wildcard match.<br />
+          If you click on one of the matches in the drop-down, the related fields will be filled in automatically.<br />
+          <br />
+          Examples to try: Enter an 'r' in the Last Name field and select Leota Ragel. Or, enter the word 'lake' in the Address field and select a record.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
@@ -65,7 +83,7 @@
             </div>
 
             <div class="form-group form-actions">
-              <button type="submit" class="btn btn-sm btn-primary float-right">Submit</button>
+              <button class="btn btn-sm btn-primary float-right" (click)="clearFields()">Clear Fields</button>
             </div>
 
           </form>
