@@ -1,4 +1,127 @@
-<p>test works!</p>
-Environment    : {{environmentName}}
-<br />
-Build Timestamp: {{buildTimestamp}}
+<div class="tqp-crud-detail animated fadeIn">
+  <div class="row">
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-calendar-check-o"></i>
+          Object List<span class="badge badge-secondary ml-2">{{objectListRecords.length}}</span>
+          <i *ngIf="objectListLoading" class="fa fa-spinner fa-spin"></i>
+          <div class="card-header-actions">
+            <div class="container2">
+              <label for="fileDropRef2" class="tqp-nav-link">
+                <small>Upload Object</small>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <input type="file" #fileDropRef2 id="fileDropRef2" multiple
+               style="opacity: 0; position: absolute; z-index: 2; top: 0; left: 0;"
+               (change)="fileBrowseHandler($event.target[files])"/>
+
+        <div class="card-body">
+
+          <div class="table-container">
+
+            <table mat-table [dataSource]="objectListDataSource"
+                   *ngIf="objectListDataSource && objectListDataSource.length > 0" class="table">
+
+              <ng-container matColumnDef="key">
+                <th mat-header-cell *matHeaderCellDef>Key</th>
+                <td mat-cell *matCellDef="let row">
+                  <span class="tqp-nav-link" (click)="viewFileByKey(row.key)">
+                    {{row.key}}
+                  </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="size">
+                <th mat-header-cell *matHeaderCellDef>Size</th>
+                <td mat-cell *matCellDef="let row">
+                  {{formatBytes(row.size, 2)}}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="objectListDisplayedColumns; sticky: true" [hidden]="false"></tr>
+              <tr mat-row *matRowDef="let row; columns: objectListDisplayedColumns;"></tr>
+            </table>
+
+            <div class="no-records" *ngIf="objectListDataSource && objectListDataSource.length <= 0">
+              No Records Found
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-calendar-check-o"></i>
+          Original Upload
+          <i *ngIf="objectListLoading" class="fa fa-spinner fa-spin"></i>
+          <div class="card-header-actions">
+            <small class="tqp-nav-link" (click)="deleteObject(null);">Delete Object</small>
+          </div>
+        </div>
+        <div class="card-body">
+          <h1>Upload,View & Delete File</h1>
+          <input type="file" id="customFile" (change)="selectFile($event)" placeholder="File To Upload">
+          <button class="btn btn-primary" [disabled]="!selectedFiles" (click)="upload()">Save File</button>
+          <br>
+          <br>
+          <br>
+          <label for="file"></label>
+          <input id="file" type="text" placeholder="File to View or Delete" name="image" [(ngModel)]="file">
+          <button class="btn btn-primary" style="margin-left: 10px" (click)="viewFile()">View File</button>
+          <button class="btn btn-primary" style="margin-left: 10px" (click)="deleteFile()">Delete File</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card" *ngIf="selectedObject">
+        <div class="card-header">
+          <i class="fa fa-calendar-check-o"></i>
+          Object Detail
+          <i *ngIf="objectListLoading" class="fa fa-spinner fa-spin"></i>
+          <div class="card-header-actions">
+            <small class="tqp-nav-link" (click)="deleteObject(selectedObject);">Delete Object</small>
+          </div>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Bucket Name:</dt>
+            <dd class="col-sm-8">{{selectedObject.bucketName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Key:</dt>
+            <dd class="col-sm-8">{{selectedObject.key}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">eTag:</dt>
+            <dd class="col-sm-8">{{selectedObject.eTag}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Size:</dt>
+            <dd class="col-sm-8">{{formatBytes(selectedObject.size, 2)}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Last Modified:</dt>
+            <dd class="col-sm-8">{{selectedObject.lastModified | date: 'MM/dd/yyyy hh:mm:ss'}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">URL:</dt>
+            <dd class="col-sm-8">https://{{selectedObject.bucketName}}.s3.amazonaws.com/{{selectedObject.key}}</dd>
+          </dl>
+          <img src="{{imageUrl}}" class="img" alt="image"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
