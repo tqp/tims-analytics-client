@@ -27,14 +27,21 @@
   /* PAGINATION */
 
   ::ng-deep .paginator {
-    background: transparent;
-    position: absolute;
-    min-width: 50px;
+    background: transparent !important;
+    position: absolute !important;
+    min-width: 50px !important;
+  }
+
+  .paginator {
+    background: transparent !important;
+    position: absolute !important;
+    min-width: 50px !important;
   }
 
   .mat-paginator-container {
     padding: 0 !important;
-    min-height: unset !important;
+    min-height: 0 !important;
+    display: block !important;
   }
 
   .mat-paginator-range-label {

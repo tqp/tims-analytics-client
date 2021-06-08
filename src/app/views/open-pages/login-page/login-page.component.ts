@@ -34,8 +34,8 @@ export class LoginPageComponent implements OnInit {
     this.getGoogleAuthConfig();
 
     this.loginForm = this._formBuilder.group({
-      email: ['guest', [Validators.required, Validators.email]],
-      password: ['guest1', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
       generalError: ['']
     }, {});
 
@@ -89,7 +89,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   private displayError(error): void {
-    // console.error('error: ', error);
+    console.error('error: ', error);
     switch (error) {
       case 'Bad credentials':
         this.errorMessage = 'Incorrect username or password.';
@@ -101,6 +101,9 @@ export class LoginPageComponent implements OnInit {
         this.errorMessage = 'You have been logged out.';
         break;
       case 'UserDisabled':
+        this.errorMessage = 'That User is currently disabled.';
+        break;
+      case 'User is disabled':
         this.errorMessage = 'That User is currently disabled.';
         break;
       case 'CannotConnectToServer':

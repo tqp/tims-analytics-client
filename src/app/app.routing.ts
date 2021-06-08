@@ -67,6 +67,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'donor-database',
+        loadChildren: () => import('./views/secured-pages/apps/donor-database/donor-database.module').then(m => m.DonorDatabaseModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
         path: 'crud-app',
         loadChildren: () => import('./views/secured-pages/apps/crud/crud.module').then(m => m.CrudModule),
         resolve: {

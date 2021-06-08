@@ -1,0 +1,176 @@
+<div class="tqp-crud-detail animated fadeIn" *ngIf="alumni">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>
+        <i class="fa fa-user"></i>
+        {{alumni.name}}
+      </h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="openAlumniEditPage()" style="width: 100px;">
+          <u>E</u>dit Record
+        </button>
+      </div>
+      <div class="form-group float-right">
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px;">
+          Return to <u>L</u>ist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>
+          Personal
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <div class="card-header-actions">
+          </div>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">First Name:</dt>
+            <dd class="col-sm-8">{{alumni.firstName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Last Name:</dt>
+            <dd class="col-sm-8">{{alumni.lastName}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-graduation-cap"></i>
+          School Info
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Graduation Year:</dt>
+            <dd class="col-sm-8">{{alumni.gradYear}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Other Info:</dt>
+            <dd class="col-sm-8">{{alumni.gradYearOther}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Current School or Job:</dt>
+            <dd class="col-sm-8">{{alumni.currentSchoolOrJob}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-at"></i>
+          Contact Info
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Phone Number:</dt>
+            <dd class="col-sm-8">{{alumni.phoneNumber}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Email Address:</dt>
+            <dd class="col-sm-8">{{alumni.emailAddress}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-home"></i>
+          Address
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Phone Number:</dt>
+            <dd class="col-sm-8">{{alumni.phoneNumber}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Email Address:</dt>
+            <dd class="col-sm-8">{{alumni.emailAddress}}</dd>
+          </dl>
+          <br />
+          <dl class="row">
+            <dt class="col-sm-4">Address Line 1:</dt>
+            <dd class="col-sm-8">{{alumni.addressLine1}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Address Line 2:</dt>
+            <dd class="col-sm-8">{{alumni.addressLine2}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">City:</dt>
+            <dd class="col-sm-8">{{alumni.city}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">State:</dt>
+            <dd class="col-sm-8">{{alumni.state}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Zip Code:</dt>
+            <dd class="col-sm-8">{{alumni.zipCode}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>
+          General Comments
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dd class="col-sm-12">{{alumni.comments}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-tag"></i>
+          Metadata
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Alumni ID:</dt>
+            <dd class="col-sm-8">{{alumni.alumniId}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Created On (UTC):</dt>
+            <dd class="col-sm-8">{{alumni.createdOn}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Created By:</dt>
+            <dd class="col-sm-8">{{alumni.createdBy}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Updated On (UTC):</dt>
+            <dd class="col-sm-8">{{alumni.updatedOn}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Updated By:</dt>
+            <dd class="col-sm-8">{{alumni.updatedBy}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

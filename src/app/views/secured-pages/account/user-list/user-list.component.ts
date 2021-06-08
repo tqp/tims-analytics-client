@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private calculateTableSize(): number {
     const pixelsAboveTable = 295;
-    const pixelsBelowTable = 80; // 62
+    const pixelsBelowTable = 100; // 62
     const rowHeight = 48;
     this.pageSize = Math.round((window.innerHeight.valueOf() - pixelsAboveTable - pixelsBelowTable) / rowHeight);
     return this.pageSize;
@@ -197,11 +197,11 @@ export class UserListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public openCreateUserPage(): void {
-    this.router.navigate(['reality-tracker/user-create']).then();
+    this.router.navigate(['site-admin/user-create']).then();
   }
 
   public openDetailPage(row: any): void {
-    this.router.navigate(['reality-tracker/user-detail', row.userGuid]).then();
+    this.router.navigate(['site-admin/user-detail', row.userGuid]).then();
   }
 
   @HostListener('window:keydown', ['$event'])

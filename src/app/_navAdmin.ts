@@ -16,6 +16,11 @@ export const navItemsAdmin: INavData[] = [
     url: '/auto-tracker',
     icon: 'icon-speedometer'
   },
+  {
+    name: 'Donor Database',
+    url: '/donor-database',
+    icon: 'fa fa-heart-o'
+  },
 
   {
     title: true,

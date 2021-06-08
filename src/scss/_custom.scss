@@ -28,13 +28,18 @@ td.mat-cell {
   color: rgb(228, 231, 234);
 }
 
+//.no-records {
+//  width: 100%;
+//  padding: 0.75rem;
+//  height: 48px;
+//  border-top: 1px solid #23282c;
+//  border-bottom: 1px solid #23282c;
+//  background-color: rgba(0, 0, 0, 0.05);
+//}
+
 .no-records {
-  width: 100%;
-  padding: 0.75rem;
-  height: 48px;
-  border-top: 1px solid #23282c;
-  border-bottom: 1px solid #23282c;
-  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.75rem !important;
+  margin-top: -10px !important;
 }
 
 // Error Messages on Reactive Forms

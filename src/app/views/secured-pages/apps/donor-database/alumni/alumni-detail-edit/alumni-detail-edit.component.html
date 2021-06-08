@@ -1,0 +1,354 @@
+<div class="tqp-crud-detail-edit animated fadeIn" [hidden]="!alumni">
+  <form [formGroup]="alumniEditForm">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 *ngIf="alumni && newRecord && alumniEditForm.controls['lastName'].value == ''; else notShow">
+          <i class="fa fa-user-o"></i>
+          New Alumni Record
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            <i class="fa fa-user-o"></i>
+            {{alumniEditForm.controls['firstName'].value}} {{alumniEditForm.controls['lastName'].value}}
+          </h1>
+        </ng-template>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button class="btn btn-sm btn-outline-primary ml-3" (click)="save()"
+                  [disabled]="!alumniEditForm.valid" style="width: 100px;">
+            Save
+          </button>
+        </div>
+        <div class="form-group float-right">
+          <button class="btn btn-sm btn-outline-danger ml-3" (click)="delete(alumni.alumniId)"
+                  [hidden]="newRecord" style="width: 100px;">
+            Delete
+          </button>
+        </div>
+        <div class="form-group float-right">
+          <button class="btn btn-sm btn-outline-secondary ml-3" (click)="cancel()" style="width: 100px;">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-info-circle"></i>
+            Personal Information
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="alumniId">Alumni ID*</label>
+                  <input matInput id="alumniId" type="text" class="form-control" placeholder="Alumni ID"
+                         formControlName="alumniId" #defaultInputField>
+                  <mat-error *ngFor="let validation of validationMessages.alumniId">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('alumniId').hasError(validation.type)
+                                && (alumniEditForm.get('alumniId').dirty ||
+                                alumniEditForm.get('alumniId').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="firstName">First Name*</label>
+                  <input matInput id="firstName" type="text" class="form-control" placeholder="First Name"
+                         formControlName="firstName" #defaultInputField>
+                  <mat-error *ngFor="let validation of validationMessages.firstName">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('firstName').hasError(validation.type)
+                                && (alumniEditForm.get('firstName').dirty ||
+                                alumniEditForm.get('firstName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="lastName">Last Name*</label>
+                  <input matInput id="lastName" type="text" class="form-control"
+                         placeholder="Last Name" formControlName="lastName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.lastName">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('lastName').hasError(validation.type)
+                                && (alumniEditForm.get('lastName').dirty ||
+                                alumniEditForm.get('lastName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-graduation-cap"></i>
+            School Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="gradYear">Graduation Year</label>
+                  <input matInput id="gradYear" type="text" class="form-control"
+                         placeholder="Graduation Year" formControlName="gradYear" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.gradYear">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('gradYear').hasError(validation.type)
+                                && (alumniEditForm.get('gradYear').dirty ||
+                                alumniEditForm.get('gradYear').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="gradYearOther">Other Info.</label>
+                  <input matInput id="gradYearOther" type="text" class="form-control"
+                         placeholder="Other Info" formControlName="gradYearOther" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.gradYearOther">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('gradYearOther').hasError(validation.type)
+                                && (alumniEditForm.get('gradYearOther').dirty ||
+                                alumniEditForm.get('gradYearOther').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="currentSchoolOrJob">Current School or Job</label>
+                  <input matInput id="currentSchoolOrJob" type="text" class="form-control"
+                         placeholder="Current School or Job" formControlName="currentSchoolOrJob"
+                         autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.currentSchoolOrJob">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('currentSchoolOrJob').hasError(validation.type)
+                                && (alumniEditForm.get('currentSchoolOrJob').dirty ||
+                                alumniEditForm.get('currentSchoolOrJob').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-at"></i>
+            Contact Info
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input matInput id="phoneNumber" type="text" class="form-control"
+                         placeholder="Phone Number" formControlName="phoneNumber" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.phoneNumber">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('phoneNumber').hasError(validation.type)
+                                && (alumniEditForm.get('phoneNumber').dirty ||
+                                alumniEditForm.get('phoneNumber').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="emailAddress">Email Address</label>
+                  <input matInput id="emailAddress" type="text" class="form-control"
+                         placeholder="Email Address" formControlName="emailAddress" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.emailAddress">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('emailAddress').hasError(validation.type)
+                                && (alumniEditForm.get('emailAddress').dirty ||
+                                alumniEditForm.get('emailAddress').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-home"></i>
+            Address
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="currentSchoolOrJob">Address Line 1</label>
+                  <input matInput id="addressLine1" type="text" class="form-control"
+                         placeholder="Address Line 1" formControlName="addressLine1" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.addressLine1">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('addressLine1').hasError(validation.type)
+                                && (alumniEditForm.get('addressLine1').dirty ||
+                                alumniEditForm.get('addressLine1').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="addressLine2">Address Line 2</label>
+                  <input matInput id="addressLine2" type="text" class="form-control"
+                         placeholder="Address Line 2" formControlName="addressLine2" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.addressLine2">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('addressLine2').hasError(validation.type)
+                                && (alumniEditForm.get('addressLine2').dirty ||
+                                alumniEditForm.get('addressLine2').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input matInput id="city" type="text" class="form-control"
+                         placeholder="City" formControlName="city" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.city">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('city').hasError(validation.type)
+                                && (alumniEditForm.get('city').dirty ||
+                                alumniEditForm.get('city').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input matInput id="state" type="text" class="form-control"
+                         placeholder="State" formControlName="state" autocomplete="chrome-off" maxlength="2">
+                  <mat-error *ngFor="let validation of validationMessages.state">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('state').hasError(validation.type)
+                                && (alumniEditForm.get('state').dirty ||
+                                alumniEditForm.get('state').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="zipCode">Zip Code</label>
+                  <input matInput id="zipCode" type="text" class="form-control"
+                         placeholder="Zip Code" formControlName="zipCode" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.zipCode">
+                    <mat-error class="error-message"
+                               *ngIf="alumniEditForm.get('zipCode').hasError(validation.type)
+                                && (alumniEditForm.get('zipCode').dirty ||
+                                alumniEditForm.get('zipCode').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-at"></i>
+            General Comments
+          </div>
+          <div class="card-body">
+
+            <div class="form-group row">
+              <div class="col-md-12">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control"
+                          placeholder="Comments" formControlName="comments" autocomplete="chrome-off"
+                          maxlength="4000"></textarea>
+                <mat-error *ngFor="let validation of validationMessages.comments">
+                  <mat-error class="error-message"
+                             *ngIf="alumniEditForm.get('comments').hasError(validation.type)
+                                && (alumniEditForm.get('comments').dirty ||
+                                alumniEditForm.get('comments').touched)">
+                    {{validation.message}}
+                  </mat-error>
+                </mat-error>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
