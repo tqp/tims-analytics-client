@@ -125,7 +125,7 @@ export class AutoExpenseDetailEditComponent implements OnInit {
     this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
       disableClose: false
     });
-    this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+    this.confirmDialogRef.componentInstance.dialogMessage = 'Are you sure you want to delete?';
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.autoExpenseService.deleteAutoExpense(autoExpenseGuid).subscribe(
