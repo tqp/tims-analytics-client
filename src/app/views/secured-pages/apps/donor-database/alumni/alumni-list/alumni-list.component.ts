@@ -56,7 +56,7 @@ export class AlumniListComponent implements OnInit {
               this.recordList.push(item);
               this.recordCount = alumniList.length;
             });
-            console.log('alumniList', alumniList);
+            // console.log('alumniList', alumniList);
 
             this.recordList = this.recordList.sort((a, b) => {
               return a.name.toLowerCase() + a.name.toLowerCase()

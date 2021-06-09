@@ -57,3 +57,10 @@ td.mat-cell {
   animation-duration: 200ms !important;
   // animation-fill-mode: both;
 }
+
+// Disable Text Selection
+.disable-text-selection {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

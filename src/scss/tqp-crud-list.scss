@@ -1,0 +1,56 @@
+// THESE SHOULD NOT HAVE ANY COLOR-RELATED SETTINGS
+
+.tqp-crud-list {
+
+  .table-container {
+    height: calc(100vh - 312px);
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .no-records {
+    padding: 0.75rem !important;
+    margin-top: -10px !important;
+  }
+
+  // Remove Angular Material Styling in favor of CoreUi Styling
+  table {
+    &.table-sm {
+      tr.mat-row, tr.mat-footer-row {
+        height: unset !important;
+      }
+    }
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+      padding: 0.75rem !important;
+      vertical-align: middle;
+    }
+  }
+
+  th.mat-header-cell {
+    //padding: 0.75rem !important;
+  }
+
+  th {
+    border-top: 0 !important; /* Fixes issue where row text pixels appear above header when using 'table' class . */
+  }
+
+  /* PAGINATION */
+
+  .paginator {
+    position: absolute;
+    min-width: 50px;
+  }
+
+  .mat-paginator-container {
+    //padding: 0 !important;
+    min-height: unset !important;
+  }
+
+  .mat-paginator-range-label {
+    display: none !important;
+  }
+
+}

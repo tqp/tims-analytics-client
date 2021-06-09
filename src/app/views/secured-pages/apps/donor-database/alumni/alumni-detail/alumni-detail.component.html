@@ -149,6 +149,57 @@
         </div>
       </div>
 
+      <div class="card tqp-crud-detail-list">
+        <div class="card-header disable-text-selection" (click)="toggleAlumniContactListIsCollapsed($event)">
+          <i class="fa fa-calendar-check-o"></i>
+          Alumni Contacts<span class="badge badge-secondary ml-2">{{alumniContactListDataSource.length}}</span>
+          <div class="card-header-actions">
+            <small class="tqp-nav-link" (click)="openAlumniContactCreateDialog(this.alumni.alumniId);">
+              Add Student AlumniContact
+            </small>
+            <i class="fa fa-bars ml-2" [@rotateIcon]="alumniContactListIsCollapsed ? 'default' : 'rotated'"></i>
+          </div>
+        </div>
+        <div class="card-body" [collapse]="alumniContactListIsCollapsed">
+          <div class="table-container">
+
+            <table mat-table class="table table-sm" [dataSource]="alumniContactListDataSource"
+                   *ngIf="alumniContactListDataSource && alumniContactListDataSource.length > 0">
+
+              <ng-container matColumnDef="alumniContactId">
+                <th mat-header-cell *matHeaderCellDef>AlumniContact ID</th>
+                <td mat-cell *matCellDef="let row">{{row.alumniContactId}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="alumniContactDate">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let row">
+                  <a [routerLink]="['/alumniContacts/alumniContact-detail', row.alumniContactId]">
+                    {{row.alumniContactDate | date: 'dd-MMM-yyyy' | uppercase}}
+                  </a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="caseManagerName">
+                <th mat-header-cell *matHeaderCellDef>Case Manager</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row.caseManagerGivenName}} {{row.caseManagerSurname}}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="alumniContactListDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: alumniContactListDisplayedColumns;"></tr>
+            </table>
+
+            <div class="no-records" *ngIf="alumniContactListDataSource && alumniContactListDataSource.length <= 0">
+              No Records Found
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <i class="fa fa-tag"></i>

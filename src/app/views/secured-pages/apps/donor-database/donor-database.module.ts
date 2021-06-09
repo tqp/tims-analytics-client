@@ -9,16 +9,20 @@ import { AlumniDetailComponent } from './alumni/alumni-detail/alumni-detail.comp
 import { AlumniDetailEditComponent } from './alumni/alumni-detail-edit/alumni-detail-edit.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AlumniListDeletedComponent } from './alumni/alumni-list-deleted/alumni-list-deleted.component';
+import { AlumniContactEditDialogComponent } from './alumni/alumni-contact-edit-dialog/alumni-contact-edit-dialog.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
     AlumniListComponent,
     AlumniDetailComponent,
     AlumniDetailEditComponent,
-    AlumniListDeletedComponent
+    AlumniListDeletedComponent,
+    AlumniContactEditDialogComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
