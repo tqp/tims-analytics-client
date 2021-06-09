@@ -8,13 +8,18 @@
       </h1>
     </div>
     <div class="col-sm-6">
-      <div class="form-group float-right">
-        <button class="btn btn-sm btn-outline-primary ml-3" (click)="openAlumniEditPage()" style="width: 100px;">
+      <div class="form-group float-right" [hidden]="alumni.status === 'D'">
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="openAlumniEditPage()" style="min-width: 100px;">
           <u>E</u>dit Record
         </button>
       </div>
+      <div class="form-group float-right" [hidden]="alumni.status !== 'D'">
+        <button class="btn btn-sm btn-primary ml-3" (click)="undeleteAlumni(alumni)" style="min-width: 100px;">
+          Recover Record
+        </button>
+      </div>
       <div class="form-group float-right">
-        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px;">
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="min-width: 100px;">
           Return to <u>L</u>ist
         </button>
       </div>
@@ -33,6 +38,10 @@
           </div>
         </div>
         <div class="card-body">
+          <dl class="row" [hidden]="alumni.status != 'D'">
+            <dt class="col-sm-4">Status:</dt>
+            <dd class="col-sm-8 text-danger">DELETED</dd>
+          </dl>
           <dl class="row">
             <dt class="col-sm-4">First Name:</dt>
             <dd class="col-sm-8">{{alumni.firstName}}</dd>

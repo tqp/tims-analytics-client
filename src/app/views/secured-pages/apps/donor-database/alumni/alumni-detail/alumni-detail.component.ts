@@ -36,7 +36,7 @@ export class AlumniDetailComponent implements OnInit {
     this.loading = true;
     this.alumniService.getAlumniDetail(id).subscribe(
       (response: Alumni) => {
-        // console.log('response', response);
+        console.log('response', response);
         this.alumni = response;
         this.cleanAlumniData(this.alumni);
         this.loading = false;
@@ -44,6 +44,20 @@ export class AlumniDetailComponent implements OnInit {
       },
       error => {
         console.error('Error: ', error);
+      }
+    );
+  }
+
+  public undeleteAlumni(alumni: Alumni): void {
+    this.alumniService.undeleteAlumni(alumni).subscribe(
+      response => {
+        console.log('response: ', response);
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['donor-database/alumni-detail', response.alumniId]).then();
+      },
+      error => {
+        console.error('Error: ' + error.message);
       }
     );
   }

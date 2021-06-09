@@ -2,18 +2,18 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { Alumni } from '../../models/alumni.model';
+import { EventService } from '@tqp/services/event.service';
 import { AlumniService } from '../../services/alumni.service';
+import { Router } from '@angular/router';
 import { merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { EventService } from '@tqp/services/event.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-alumni-list',
-  templateUrl: './alumni-list.component.html',
-  styleUrls: ['./alumni-list.component.css']
+  selector: 'app-alumni-list-deleted',
+  templateUrl: './alumni-list-deleted.component.html',
+  styleUrls: ['./alumni-list-deleted.component.css']
 })
-export class AlumniListComponent implements OnInit {
+export class AlumniListDeletedComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('searchElementRef', { static: true }) searchElementRef: ElementRef;
   public searchFormControl = new FormControl();
@@ -38,13 +38,13 @@ export class AlumniListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAlumniList();
+    this.getAlumniListDeleted();
   }
 
-  public getAlumniList(): void {
+  public getAlumniListDeleted(): void {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.alumniService.getAlumniList().subscribe(
+    this.alumniService.getAlumniListDeleted().subscribe(
       (response: any | null) => {
         // console.log('response', response);
         if (response) {

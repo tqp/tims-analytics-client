@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AlumniListComponent } from './alumni/alumni-list/alumni-list.component';
 import { AlumniDetailComponent } from './alumni/alumni-detail/alumni-detail.component';
 import { AlumniDetailEditComponent } from './alumni/alumni-detail-edit/alumni-detail-edit.component';
+import { AlumniListDeletedComponent } from './alumni/alumni-list-deleted/alumni-list-deleted.component';
 
 const routes: Routes = [
 
@@ -29,6 +30,13 @@ const routes: Routes = [
         component: AlumniListComponent,
         data: {
           title: 'Alumni List'
+        }
+      },
+      {
+        path: 'alumni-list-deleted',
+        component: AlumniListDeletedComponent,
+        data: {
+          title: 'Deleted Alumni Records'
         }
       },
       {

@@ -7,14 +7,18 @@ import { AngularMaterialModule } from '@tqp/modules/angular-material.module';
 import { AlumniListComponent } from './alumni/alumni-list/alumni-list.component';
 import { AlumniDetailComponent } from './alumni/alumni-detail/alumni-detail.component';
 import { AlumniDetailEditComponent } from './alumni/alumni-detail-edit/alumni-detail-edit.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AlumniListDeletedComponent } from './alumni/alumni-list-deleted/alumni-list-deleted.component';
 
 @NgModule({
   declarations: [
     AlumniListComponent,
     AlumniDetailComponent,
-    AlumniDetailEditComponent
+    AlumniDetailEditComponent,
+    AlumniListDeletedComponent
   ],
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

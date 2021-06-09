@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
 import { Fill } from '../auto-tracker-models/Fill';
-import { KeyValue } from '../../../../../../@tqp/models/KeyValue';
+import { KeyValue } from '@tqp/models/KeyValue';
 import { AutoTrackerDashboardService } from './auto-tracker-dashboard.service';
 
 @Component({

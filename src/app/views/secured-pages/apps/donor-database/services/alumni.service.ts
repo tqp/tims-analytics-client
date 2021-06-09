@@ -59,6 +59,26 @@ export class AlumniService {
     }
   }
 
+  public getAlumniListDeleted(): Observable<Alumni[] | null> {
+    const token = this.tokenService.getToken();
+    // console.log('token', token);
+    if (token === null) {
+      return throwError(new Error('No token was found.'));
+    } else {
+      const url = environment.apiUrl + '/api/v1/donor-database/alumni/deleted';
+      return this.http.get<Alumni[]>(url, {
+        headers: this.httpService.setHeadersWithToken(),
+        observe: 'response',
+        params: {}
+      })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    }
+  }
+
   public getAlumniDetail(id: number) {
     const token = this.tokenService.getToken();
     if (token === null) {
@@ -106,6 +126,29 @@ export class AlumniService {
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.delete<string>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public undeleteAlumni(alumni: Alumni): Observable<Alumni> {
+    console.log('undeleteAlumni', alumni);
+    const url = environment.apiUrl + '/api/v1/donor-database/alumni/undelete';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<Alumni>(url,
+        alumni,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
