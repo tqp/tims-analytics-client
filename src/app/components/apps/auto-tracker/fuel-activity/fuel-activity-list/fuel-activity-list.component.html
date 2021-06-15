@@ -1,0 +1,137 @@
+<div class="tqp-crud-server-pagination-list animated fadeIn">
+
+  <div class="card">
+
+    <div class="card-header">
+      <div class="float-left" style="line-height: 28px;">
+        <i class="fa fa-users mr-2"></i>
+        {{listTitle}}
+        <span class="badge badge-info ml-2" *ngIf="loadedFirstPage">
+          Displaying {{pageStart}} to {{pageEnd}} of {{totalRecords}} records</span>
+        <span class="badge badge-warning ml-2" style="cursor: pointer" *ngIf="isFilterApplied" (click)="clearFilters()">Clear Filters</span>
+      </div>
+      <button class="btn btn-sm btn-outline-primary float-right" (click)="openCreatePage()" [disabled]="authService.allowRoles('ROLE_ADMIN', 'Add Fuel Activity')">
+        <i class="fa fa-plus mr-1"></i>
+        Add Fuel Activity
+      </button>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row mb-3">
+
+        <div class="col-md-5">
+          <mat-paginator class="paginator"
+                         [length]="totalRecords" [pageSize]="pageSize" [hidePageSize]="true"
+                         [showFirstLastButtons]="true"></mat-paginator>
+        </div>
+
+        <div class="col-md-5 offset-md-7">
+
+          <div class="input-group">
+
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fa fa-search"></i></div>
+            </div>
+            <label for="nameSearchFieldId" *ngIf="false"></label>
+            <input id="nameSearchFieldId" type="text" class="form-control" placeholder="Search by Something"
+                   [formControl]="fuelActivityListNameSearchFormControl" #nameSearchElementRef autocomplete="off"/>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="table-container" #tableContainer>
+
+        <table mat-table [dataSource]="dataSource"
+               matSort matSortActive="fillOdometer" matSortDirection="desc" matSortDisableClear="true"
+               class="table table-striped">
+
+          <ng-container matColumnDef="fillDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+            <td mat-cell *matCellDef="let row">
+              {{row.fillDateTime | date: 'MM/dd/yyyy'}}
+              {{row.fillComments != null ? '*' : ''}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="stationAffiliation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Station</th>
+            <td mat-cell *matCellDef="let row">{{row.stationAffiliation}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="stationLocation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+            <td mat-cell *matCellDef="let row">{{row.stationLocation}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillOdometer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Odometer</th>
+            <td mat-cell *matCellDef="let row">{{row.fillOdometer}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillMilesTraveled">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance</th>
+            <td mat-cell *matCellDef="let row">{{row.fillMilesTraveled.toFixed(1)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillGallons">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Gallons</th>
+            <td mat-cell *matCellDef="let row">{{row.fillGallons.toFixed(3)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillCostPerGallon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>$/Gal.</th>
+            <td mat-cell *matCellDef="let row">{{row.fillCostPerGallon.toFixed(3)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillTotalCost">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Cost</th>
+            <td mat-cell *matCellDef="let row"
+                [ngStyle]="{'color': getTotalCostColor(row.fillGallons, row.fillCostPerGallon, row.fillTotalCost)}">
+              {{row.fillTotalCost.toFixed(2)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fillMilesPerGallon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>MPG (Car/Calc.)</th>
+            <td mat-cell *matCellDef="let row"
+                [ngStyle]="{'color': getMilesPerGallonColor(row.fillMilesPerGallonCar, row.fillMilesPerGallonCalc)}">
+              {{row.fillMilesPerGallonCar.toFixed(1)}}
+              / {{row.fillMilesPerGallonCalc.toFixed(1)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let row">
+              <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-transparent p-0" dropdownToggle>
+                  <i class="icon-options-vertical"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                  <a class="dropdown-item" (click)="openDetailPage(row)">View Detail</a>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-card class="spinner-container" *ngIf="isLoading">
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate">
+          </mat-progress-spinner>
+        </mat-card>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

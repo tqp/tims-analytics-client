@@ -1,0 +1,86 @@
+<div class="tqp-crud-detail animated fadeIn" *ngIf="series">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>{{series.seriesName}}</h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group float-right">
+        <button class="btn btn-sm btn-outline-info" (click)="openEditPage()" style="width: 100px">
+          <u>E</u>dit
+        </button>
+        <button class="btn btn-sm btn-outline-primary ml-3" (click)="returnToList()" style="width: 100px">
+          Return to <u>L</u>ist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-star"></i>
+          Series
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Series Name:</dt>
+            <dd class="col-sm-9">{{series.seriesName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Abbreviation:</dt>
+            <dd class="col-sm-9">{{series.seriesAbbreviation}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-calendar"></i>
+          Seasons
+          <i *ngIf="seasonListLoading" class="fa fa-spinner fa-spin"></i>
+          <div class="card-header-actions" [hidden]="authService.allowRoles('ROLE_USER, ROLE_ADMIN', 'Series Detail: Create Season')">
+            <small class="tqp-nav-link" (click)="openCreateSeasonDialog();">Create Season</small>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <div class="table-container">
+
+            <table mat-table [dataSource]="seasonListDataSource" *ngIf="seasonListDataSource && seasonListDataSource.length > 0"
+                   matSort matSortActive="seasonAbbreviation" matSortDirection="asc" matSortDisableClear="true"
+                   class="table table-striped">
+
+              <ng-container matColumnDef="seasonNumber">
+                <th mat-header-cell *matHeaderCellDef>Series Number</th>
+                <td mat-cell *matCellDef="let row">{{row.seasonNumber}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="seasonName">
+                <th mat-header-cell *matHeaderCellDef>Series Name</th>
+                <td mat-cell *matCellDef="let row">{{row.seriesName}} {{row.seasonName}}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="seasonListDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: seasonListDisplayedColumns;" (click)="openSeasonDetailPage(row);"></tr>
+            </table>
+
+            <div class="no-records" *ngIf="seasonListDataSource && seasonListDataSource.length <= 0">
+              No records to display.
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

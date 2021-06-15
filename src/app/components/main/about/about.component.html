@@ -1,0 +1,53 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>About This App
+          <div class="float-right" *ngIf="clientBuildTimestamp && serverBuildTimestamp">
+            <span class="badge badge-info mr-1" *ngIf="environmentName">Environment: {{environmentName.toUpperCase()}}</span>
+            <span class="badge badge-info mr-1" *ngIf="clientBuildTimestamp">Client Built: {{clientBuildTimestamp}}</span>
+            <span class="badge badge-info mr-1" *ngIf="serverBuildTimestamp">Server Built: {{serverBuildTimestamp}}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>Overview</h4>
+          Welcome to Tim's Analytics.<br />
+          I put this page together as a place to organize the various software development projects that I've been thinking about or working on.<br />
+          This site is definitely a work in progress.<br />
+          Source code for both the client and server is available at <a href="https://github.com/tqp" target="github">https://github.com/tqp</a>.
+
+          <br /><br />
+          <h4>Angular Front-End</h4>
+          The basic front-end framework of this app is a modified version of the CoreUI Angular template (https://coreui.io/). I mean, why re-invent the wheel?<br />
+          I installed Angular Material Components on top of the framework, so most custom forms and screen components use Angular Material Components.
+
+          <br /><br />
+          <h4>Java/Spring Back-End</h4>
+          The basic framework of this app is a modified version of the CoreUI Angular template (https://coreui.io/).<br />
+          I installed Angular Material Components on top of the framework, so most custom forms and screen components use Angular Material Components.
+
+          <br /><br />
+          <h4>Authentication</h4>
+          Authentication is performed through a custom developed Spring security implementation using JSON Web Tokens (JWT).
+          Usernames and passwords are sent securely to the server via a REST call. The data provided is validated against a mySQL database.
+          A token is generated and passed back to the client. This token is then used to perform any subsequent calls to the server.
+          Spring blocks any calls to the server that do not include a valid and authenticated token.
+
+          <br /><br />
+          <h4>Data Source</h4>
+          This app uses an AWS-based mySQL database for authentication and other data-related pages through a basic JDBC connection.
+
+          <br /><br />
+          <h4>Hosting</h4>
+          The client side of this app is hosted on AWS through the Amplify Service.
+          Amplify is very convenient to work with because AWS will automatically build and deploy the front end any time changes are committed to GitHub.
+          <br />
+          The server side of this app is hosted on AWS through the Elastic Beanstalk service.
+
+
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+</div>

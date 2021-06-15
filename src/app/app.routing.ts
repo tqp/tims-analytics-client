@@ -4,23 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
 
-import { P404Component } from './views/open-pages/error/404.component';
-import { P500Component } from './views/open-pages/error/500.component';
-import { LoginPageComponent } from './views/open-pages/login-page/login-page.component';
-import { LogoutComponent } from './views/open-pages/logout/logout.component';
-import { SecuredPageResolverService } from '@tqp/services/secured-page-resolver.service';
-import { TokenExchangeComponent } from './views/open-pages/token-exchange/token-exchange.component';
+import { P404Component } from '../@tqp/error-pages/404.component';
+import { P500Component } from '../@tqp/error-pages/500.component';
+import { SecuredPageResolverService } from '@tqp/authentication/services/secured-page-resolver.service';
+import { TokenExchangeComponent } from '../@tqp/authentication/token-exchange/token-exchange.component';
+import { LogoutComponent } from '../@tqp/authentication/logout/logout.component';
+import { LoginComponent } from '../@tqp/authentication/login/login.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/secured-pages/about',
+    redirectTo: 'main/about',
     pathMatch: 'full',
   },
-
   {
     path: 'login-page',
-    component: LoginPageComponent,
+    component: LoginComponent,
     data: {
       title: 'Login Page'
     }
@@ -60,64 +59,69 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: '',
+        redirectTo: 'main',
+        pathMatch: 'full',
+      },
+      {
+        path: 'main',
+        loadChildren: () => import('./components/main/main.module').then(m => m.MainModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('../@tqp/authentication/authentication.module').then(m => m.AuthenticationModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('../@tqp/authentication/authentication.module').then(m => m.AuthenticationModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
         path: 'auto-tracker',
-        loadChildren: () => import('./views/secured-pages/apps/auto-tracker/auto-tracker.module').then(m => m.AutoTrackerModule),
+        loadChildren: () => import('./components/apps/auto-tracker/auto-tracker.module').then(m => m.AutoTrackerModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }
       },
       {
         path: 'donor-database',
-        loadChildren: () => import('./views/secured-pages/apps/donor-database/donor-database.module').then(m => m.DonorDatabaseModule),
+        loadChildren: () => import('./components/apps/donor-database/donor-database.module').then(m => m.DonorDatabaseModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }
       },
       {
         path: 'crud-app',
-        loadChildren: () => import('./views/secured-pages/apps/crud/crud.module').then(m => m.CrudModule),
+        loadChildren: () => import('./components/demo-pages/crud-app/crud.module').then(m => m.CrudModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }
       },
       {
         path: 'demo-pages',
-        loadChildren: () => import('./views/secured-pages/demo-pages/demo-pages.module').then(m => m.DemoPagesModule),
+        loadChildren: () => import('./components/demo-pages/demo-pages.module').then(m => m.DemoPagesModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }
       },
       {
         path: 'reality-tracker',
-        loadChildren: () => import('./views/secured-pages/apps/reality-tracker/reality-tracker.module').then(m => m.RealityTrackerModule),
+        loadChildren: () => import('./components/apps/reality-tracker/reality-tracker.module').then(m => m.RealityTrackerModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }
       },
       {
         path: 'reality-competition',
-        loadChildren: () => import('./views/secured-pages/apps/reality-competition/reality-competition.module').then(m => m.RealityCompetitionModule),
-        resolve: {
-          securedPageResolver: SecuredPageResolverService
-        }
-      },
-      {
-        path: 'secured-pages',
-        loadChildren: () => import('./views/secured-pages/secured-pages.module').then(m => m.SecuredPagesModule),
-        resolve: {
-          securedPageResolver: SecuredPageResolverService
-        }
-      },
-      {
-        path: 'site-admin',
-        loadChildren: () => import('./views/secured-pages/account/account.module').then(m => m.AccountModule),
-        resolve: {
-          securedPageResolver: SecuredPageResolverService
-        }
-      },
-      {
-        path: 'test-pages',
-        loadChildren: () => import('./views/secured-pages/test-pages/test-pages.module').then(m => m.TestPagesModule),
+        loadChildren: () => import('./components/apps/reality-competition/reality-competition.module').then(m => m.RealityCompetitionModule),
         resolve: {
           securedPageResolver: SecuredPageResolverService
         }

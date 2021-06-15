@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { AppComponent } from './app.component';
@@ -25,11 +25,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularMaterialModule } from '@tqp/modules/angular-material.module';
-import { OpenPagesModule } from './views/open-pages/open-pages.module';
-import { SecuredPagesModule } from './views/secured-pages/secured-pages.module';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from '@tqp/shared.module';
-import { LoginPageModule } from './views/open-pages/login-page/login-page.module';
+import { AuthenticationModule } from '../@tqp/authentication/authentication.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -54,10 +52,8 @@ const APP_CONTAINERS = [
     TabsModule.forRoot(),
     ChartsModule,
     // CUSTOM IMPORTS
-    LoginPageModule,
+    AuthenticationModule,
     SharedModule,
-    OpenPagesModule,
-    SecuredPagesModule,
     // CUSTOM ADD-ONS
     AngularMaterialModule,
     HttpClientModule,

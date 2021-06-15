@@ -1,0 +1,318 @@
+<div class="animated fadeIn" *ngIf="person">
+
+  <form [formGroup]="crudEditForm">
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <h1 *ngIf="person && newRecord && crudEditForm.controls['lastName'].value == ''; else notShow">
+          New Person
+        </h1>
+        <ng-template #notShow>
+          <h1>
+            {{crudEditForm.controls['lastName'].value}}, {{crudEditForm.controls['firstName'].value}}
+          </h1>
+        </ng-template>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group float-right">
+          <button type="button" class="btn btn-sm btn-outline-danger" style="width: 100px;"
+                  (click)="delete(person.guid)"
+                  [disabled]="authService.allowRoles('ROLE_ADMIN', 'Crud Detail Edit Page: Delete')">
+            Delete
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-success" style="width: 100px;" (click)="save()"
+                  [disabled]="!crudEditForm.valid">Save
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-info ml-3" style="width: 100px;" (click)="cancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-user-circle"></i>Person
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input matInput id="lastName" type="text" class="form-control" placeholder="Last Name"
+                         formControlName="lastName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.lastName">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('lastName').hasError(validation.type)
+                                && (crudEditForm.get('lastName').dirty ||
+                                crudEditForm.get('lastName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input matInput id="firstName" type="text" class="form-control" placeholder="First Name"
+                         formControlName="firstName">
+                  <mat-error *ngFor="let validation of validationMessages.firstName">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('firstName').hasError(validation.type)
+                                && (crudEditForm.get('firstName').dirty ||
+                                crudEditForm.get('firstName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-home"></i>Address
+          </div>
+          <div class="card-body">
+            <div formGroupName="address">
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="street">Street</label>
+                    <input matInput id="street" type="text" class="form-control" placeholder="Street"
+                           formControlName="street" autocomplete="chrome-off">
+                    <mat-error *ngFor="let validation of validationMessages.street">
+                      <mat-error class="error-message"
+                                 *ngIf="crudEditForm.get('address').get('street').hasError(validation.type)
+                                  && (crudEditForm.get('address').get('street').dirty ||
+                                  crudEditForm.get('address').get('street').touched)">
+                        {{validation.message}}
+                      </mat-error>
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input matInput id="city" type="text" class="form-control" placeholder="City"
+                           formControlName="city">
+                    <mat-error *ngFor="let validation of validationMessages.city">
+                      <mat-error class="error-message"
+                                 *ngIf="crudEditForm.get('address').get('city').hasError(validation.type)
+                                  && (crudEditForm.get('address').get('city').dirty ||
+                                  crudEditForm.get('address').get('city').touched)">
+                        {{validation.message}}
+                      </mat-error>
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input matInput id="state" type="text" class="form-control" placeholder="State"
+                           formControlName="state" maxlength="2">
+                    <mat-error *ngFor="let validation of validationMessages.state">
+                      <mat-error class="error-message"
+                                 *ngIf="crudEditForm.get('address').get('state').hasError(validation.type)
+                                  && (crudEditForm.get('address').get('state').dirty ||
+                                  crudEditForm.get('address').get('state').touched)">
+                        {{validation.message}}
+                      </mat-error>
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="zipCode">Zip Code</label>
+                    <input matInput id="zipCode" type="text" class="form-control" placeholder="Zip Code"
+                           formControlName="zipCode" maxlength="5">
+                    <mat-error *ngFor="let validation of validationMessages.zipCode">
+                      <mat-error class="error-message"
+                                 *ngIf="crudEditForm.get('address').get('zipCode').hasError(validation.type)
+                                  && (crudEditForm.get('address').get('zipCode').dirty ||
+                                  crudEditForm.get('address').get('zipCode').touched)">
+                        {{validation.message}}
+                      </mat-error>
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-phone"></i>Contact
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="homePhone">Home Phone</label>
+                  <input matInput id="homePhone" type="text" class="form-control" placeholder="Home Phone"
+                         formControlName="homePhone" autocomplete="chrome-off" [textMask]="{mask: phoneMask}">
+                  <mat-error *ngFor="let validation of validationMessages.homePhone">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('homePhone').hasError(validation.type)
+                                && (crudEditForm.get('homePhone').dirty ||
+                                crudEditForm.get('homePhone').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="mobilePhone">Mobile Phone</label>
+                  <input matInput id="mobilePhone" type="text" class="form-control" placeholder="Mobile Phone"
+                         formControlName="mobilePhone" [textMask]="{mask: phoneMask}">
+                  <mat-error *ngFor="let validation of validationMessages.mobilePhone">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('mobilePhone').hasError(validation.type)
+                                && (crudEditForm.get('mobilePhone').dirty ||
+                                crudEditForm.get('mobilePhone').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-institution"></i>Company
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="companyName">Name</label>
+                  <input matInput id="companyName" type="text" class="form-control" placeholder="Company Name"
+                         formControlName="companyName" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.companyName">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('companyName').hasError(validation.type)
+                                && (crudEditForm.get('companyName').dirty ||
+                                crudEditForm.get('companyName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="companyWebsite">Website</label>
+                  <input matInput id="companyWebsite" type="text" class="form-control" placeholder="Company Website"
+                         formControlName="companyWebsite">
+                  <mat-error *ngFor="let validation of validationMessages.companyWebsite">
+                    <mat-error class="error-message"
+                               *ngIf="crudEditForm.get('companyWebsite').hasError(validation.type)
+                                && (crudEditForm.get('companyWebsite').dirty ||
+                                crudEditForm.get('companyWebsite').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="float-left" style="line-height: 28px;">
+              <i class="fa fa-group mr-2"></i>
+              Friends
+            </div>
+            <button type="button" class="btn btn-sm btn-primary float-right" (click)="openFriendsEditPage()"
+                    style="cursor: pointer; margin-left: 10px;">
+              Edit in Page
+            </button>
+            <button type="button" class="btn btn-sm btn-primary float-right" (click)="openFriendsEditDialog()"
+                    style="cursor: pointer;">
+              Edit in Popup
+            </button>
+          </div>
+          <div class="card-body">
+
+            <div class="table-container" #contentPlaceholder>
+
+              <table mat-table [dataSource]="dataSource" *ngIf="dataSource && dataSource.length > 0"
+                     matSort matSortActive="lastName" matSortDirection="asc" matSortDisableClear="true"
+                     class="table table-striped">
+
+                <ng-container matColumnDef="guid">
+                  <th mat-header-cell *matHeaderCellDef>GUID</th>
+                  <td mat-cell *matCellDef="let row">{{row.guid}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Name</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.lastName}}, {{row.firstName}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                  <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                  <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef>First Name</th>
+                  <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" [hidden]="true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+              <div class="no-records" *ngIf="dataSource && dataSource.length <= 0">
+                No records to display.
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+</div>

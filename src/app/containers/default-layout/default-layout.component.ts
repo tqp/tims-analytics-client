@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TokenService } from '@tqp/services/token.service';
-import { AuthService } from '@tqp/services/auth.service';
+import { TokenService } from '@tqp/authentication/services/token.service';
+import { AuthService } from '@tqp/authentication/services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { TokenStorageService } from '@tqp/services/token-storage.service';
-import { navItemsAdmin } from '../../_navAdmin';
-import { navItemsUser } from '../../_navUser';
-import { navItemsGuest } from '../../_navGuest';
+import { TokenStorageService } from '@tqp/authentication/services/token-storage.service';
 import { EventService } from '@tqp/services/event.service';
-import { MyProfileService } from '../../views/secured-pages/account/my-profile/my-profile.service';
+import { navItemsWithRoles } from '../../navigation/_navWithRoles';
+import { UserService } from '../../../@tqp/authentication/services/user.service';
+import { User } from '../../../@tqp/models/User';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PasswordChangeDialogComponent } from '../../../@tqp/authentication/user/password-change-dialog/password-change-dialog.component';
+import { NotificationService } from '../../../@tqp/services/notification.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,16 +26,14 @@ export class DefaultLayoutComponent implements OnInit {
   public googlePhotoUrl: string;
 
   constructor(private http: HttpClient,
+              private userService: UserService,
               private tokenService: TokenService,
               private tokenStorageService: TokenStorageService,
-              private myProfileService: MyProfileService,
+              private notificationService: NotificationService,
               public authService: AuthService,
               private router: Router,
-              private eventService: EventService) {
-    const test = false;
-    if (test) {
-      this.navItems = navItemsAdmin;
-    }
+              private eventService: EventService,
+              public _matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -43,12 +43,37 @@ export class DefaultLayoutComponent implements OnInit {
     // watch for changes to the token Observable. When we have a token, load the data.
     // See token-storage.service.ts for the Observable.
     if (this.tokenService.getToken()) {
-      this.setMenu(this.authService.getAuthoritiesFromToken());
-      this.getTokenInfo();
-      // this.getMyProfile();
+      this.setMenuByAuthorities(this.authService.getAuthoritiesFromToken());
+
+      this.authService.getTokenInfo().subscribe(
+        response => {
+          // console.log('response', response);
+          this.username = response.sub;
+        },
+        error => {
+          console.error('Error: ', error);
+          this.authService.errorHandler(error);
+        }
+      );
+
+      this.userService.getUserDetailByUsername(this.username).subscribe(
+        (response: User) => {
+          // console.log('response', response);
+          if (response.passwordReset === 1) {
+            console.log('NEED TO RESET PASSWORD');
+            this.openChangePasswordDialog(response.userId);
+          }
+        },
+        error => {
+          console.log('j1');
+          console.error('Error: ', error);
+          this.authService.errorHandler(error);
+        }
+      );
+
     } else {
       this.tokenStorageService.tokenObs.subscribe(token => {
-        this.setMenu(this.authService.getAuthoritiesFromToken());
+        this.setMenuByAuthorities(this.authService.getAuthoritiesFromToken());
       });
     }
 
@@ -72,7 +97,7 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   public getMyProfile(): void {
-    this.myProfileService.getMyUserInfo().subscribe(
+    this.userService.getMyUserInfo().subscribe(
       response => {
         console.log('response', response);
         this.username = response.username;
@@ -85,17 +110,52 @@ export class DefaultLayoutComponent implements OnInit {
     );
   }
 
-  private setMenu(authorities: string): void {
-    // console.log('authorities', authorities);
-    if (authorities.indexOf('ROLE_ADMIN') > -1) {
-      this.navItems = navItemsAdmin;
-    } else if (authorities.indexOf('ROLE_USER') > -1) {
-      this.navItems = navItemsUser;
-    } else if (authorities.indexOf('ROLE_GUEST') > -1) {
-      this.navItems = navItemsGuest;
-    } else {
-      console.log('The authorities presented did not contain a matching role.', authorities);
-    }
+  private setMenuByAuthorities(authorities: string): void {
+    const authoritiesArray = authorities.split(',');
+    this.navItems = navItemsWithRoles;
+    this.navItems = this.navItems.filter(item => {
+      if (item.allow) {
+        const allowArray = item.allow.split(' ').join('').split(',');
+        const overlap = allowArray.filter(element => authoritiesArray.includes(element));
+        return overlap.length > 0;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  public openChangePasswordDialog(userId: number): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '40%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      userId: userId,
+    };
+    dialogConfig.autoFocus = false;
+    const dialogRef = this._matDialog.open(PasswordChangeDialogComponent, dialogConfig);
+    dialogRef.componentInstance.hideCancelButton = true;
+    dialogRef.componentInstance.dialogMessage = 'Your password has been reset by a manager.\nPlease create a new password.';
+
+    dialogRef.afterClosed().subscribe(dialogData => {
+      if (dialogData) {
+        const user: User = new User();
+        user.userId = dialogData.userId;
+        user.password = dialogData.newPassword;
+        this.userService.updatePassword(user).subscribe(
+          response => {
+            console.log('response', response);
+            this.notificationService.showSuccess('Your password has been changed.', 'Password Changed');
+          },
+          error => {
+            console.error('Error: ', error);
+          },
+          () => {
+            console.log('Password Reset.');
+          }
+        );
+      }
+    });
   }
 
   toggleMinimize(e) {
@@ -103,9 +163,10 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   public logout(): void {
+    console.log('logout');
     this.tokenService.clearToken();
     this.authService.clearTokenInfo();
-    this.router.navigateByUrl('/open-pages/login').then();
+    this.router.navigateByUrl('/login-page').then();
   }
 
   public openSwagger(): void {
