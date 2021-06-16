@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
-import { User } from '../../../models/User';
+import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { EventService } from '../../../services/event.service';
 import { AuthService } from '../../services/auth.service';

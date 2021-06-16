@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from '../authentication/services/token.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -73,6 +73,7 @@ export class DiagnosticsService {
       const headers = new HttpHeaders()
         .set('Content-Type', 'application/json; charset=utf-8')
         .set('Authorization', 'Bearer ' + token);
+      throwError('1');
       return this.http.get(environment.apiUrl + '/api/v1/diagnostics/endpoint/admin', {headers: headers});
     } else {
       console.error('No token was present.');

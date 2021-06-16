@@ -5,7 +5,9 @@
       <i class="fa fa-user mr-2"></i>{{user.surname}}, {{user.givenName}}
     </div>
     <div>
+      <!--
       <button class="btn btn btn-dark mr-2" (click)="returnToList()">Return to User List</button>
+      -->
 
       <div class="float-right">
         <div class="btn-group" dropdown [placement]="'right'">
@@ -29,13 +31,8 @@
         <div class="card-header">
           <i class="fa fa-info-circle"></i>
           User Information
-          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <i *ngIf="userInfoLoading" class="fa fa-spinner fa-spin ml-1"></i>
           <div class="card-header-actions">
-            <small class="tqp-nav-link"
-                   [hidden]="authService.allowRoles('ROLE_ADMIN','Add CSI Record')"
-                   (click)="openUserEditPage(this.user.userId);">
-              Edit User Info
-            </small>
           </div>
         </div>
         <div class="card-body">
@@ -58,7 +55,7 @@
         <div class="card-header">
           <i class="fa fa-file-photo-o"></i>
           Photo
-          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <i *ngIf="userInfoLoading" class="fa fa-spinner fa-spin ml-1"></i>
         </div>
         <div class="card-body">
           <img src="{{user.picture}}" alt="user" *ngIf="user.picture"/>
@@ -70,7 +67,7 @@
         <div class="card-header">
           <i class="fa fa-info-circle"></i>
           Login Information
-          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <i *ngIf="userInfoLoading" class="fa fa-spinner fa-spin ml-1"></i>
         </div>
         <div class="card-body">
           <dl class="row">
@@ -79,7 +76,7 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Last Login:</dt>
-            <dd class="col-sm-8">{{user.lastLogin}}</dd>
+            <dd class="col-sm-8">{{user.lastLogin | date: 'dd-MMM-yyyy'}}</dd>
           </dl>
         </div>
       </div>
@@ -88,7 +85,7 @@
         <div class="card-header">
           <i class="fa fa-tag"></i>
           Metadata
-          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <i *ngIf="userInfoLoading" class="fa fa-spinner fa-spin ml-1"></i>
         </div>
         <div class="card-body">
           <dl class="row">
@@ -128,11 +125,6 @@
           User-Roles<span class="badge badge-secondary ml-2">{{userRoleListDataSource.length}}</span>
           <i *ngIf="userRoleListLoading" class="fa fa-spinner fa-spin ml-1"></i>
           <div class="card-header-actions">
-            <small class="tqp-nav-link"
-                   [hidden]="authService.allowRoles('ROLE_ADMIN','Add CSI Record')"
-                   (click)="openUserRoleCreateDialog(this.user.userId);">
-              Add User Role
-            </small>
             <i class="fa fa-bars ml-2" [@rotateIcon]="userRoleListIsCollapsed ? 'default' : 'rotated'"></i>
           </div>
         </div>
@@ -145,20 +137,12 @@
 
               <ng-container matColumnDef="roleName">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let row">
-                  <a [routerLink]="['/admin/role-detail', row.roleId]">
-                    {{row.roleName}}
-                  </a>
-                </td>
+                <td mat-cell *matCellDef="let row">{{row.roleName}}</td>
               </ng-container>
 
               <ng-container matColumnDef="updatedOn">
                 <th mat-header-cell *matHeaderCellDef>Updated On</th>
-                <td mat-cell *matCellDef="let row">
-                  <a [routerLink]="['/admin/user-role-detail', row.userRoleId]">
-                    {{row.updatedOn}}
-                  </a>
-                </td>
+                <td mat-cell *matCellDef="let row">{{row.updatedOn}}</td>
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="userRoleListDisplayedColumns; sticky: true" [hidden]="true"></tr>
@@ -172,6 +156,88 @@
 
           </div>
 
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-tag"></i>
+          Token Info
+          <i *ngIf="tokenInfoLoading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Subject:</dt>
+            <dd class="col-sm-9">{{decodedToken.sub}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Issued At:</dt>
+            <dd class="col-sm-9">{{decodedToken.iatText}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Expiration:</dt>
+            <dd class="col-sm-9">{{decodedToken.expText}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Authorities:</dt>
+            <dd class="col-sm-9">{{decodedToken.authorities}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Raw Token:</dt>
+            <dd class="col-sm-9">
+              {{decodedToken.rawToken}}
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-tag"></i>
+          Endpoint Diagnostics
+          <i *ngIf="numberOfEndpointTests > 0" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-3">Open:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-times-circle text-danger" *ngIf="openTestResult === 'Blocked'"></i>
+              <i class="fa fa-check-circle text-success" *ngIf="openTestResult !== 'Blocked'"></i>
+              {{openTestResult}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Guest Role:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-times-circle text-danger" *ngIf="guestTestResult === 'Blocked'"></i>
+              <i class="fa fa-check-circle text-success" *ngIf="guestTestResult !== 'Blocked'"></i>
+              {{guestTestResult}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">User Role:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-times-circle text-danger" *ngIf="userTestResult === 'Blocked'"></i>
+              <i class="fa fa-check-circle text-success" *ngIf="userTestResult !== 'Blocked'"></i>
+              {{userTestResult}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Manager Role:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-times-circle text-danger" *ngIf="managerTestResult === 'Blocked'"></i>
+              <i class="fa fa-check-circle text-success" *ngIf="managerTestResult !== 'Blocked'"></i>
+              {{managerTestResult}}
+            </dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-3">Admin Role:</dt>
+            <dd class="col-sm-9">
+              <i class="fa fa-times-circle text-danger" *ngIf="adminTestResult === 'Blocked'"></i>
+              <i class="fa fa-check-circle text-success" *ngIf="adminTestResult !== 'Blocked'"></i>
+              {{adminTestResult}}
+            </dd>
+          </dl>
         </div>
       </div>
 

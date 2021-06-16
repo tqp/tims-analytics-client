@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Role } from '../models/Role';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { Router } from '@angular/router';
 import { TokenService } from './token.service';
-import { Role } from '../models/Role';
+import { UserRole } from '../models/UserRole';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RoleService {
+export class UserRoleService {
 
   constructor(private http: HttpClient,
               private httpService: HttpService,
               private router: Router,
-              private tokenService: TokenService) {
-  }
+              private tokenService: TokenService) { }
 
-  public getRoleList() {
-    const url = environment.apiUrl + '/api/v1/role';
+  public getUserRoleListByUser(userId: number) {
+    const url = environment.apiUrl + '/api/v1/user-role/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get<Role[]>(url,
+      return this.http.get<UserRole[]>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
@@ -39,11 +39,11 @@ export class RoleService {
     }
   }
 
-  public getRoleDetail(roleId: string) {
-    const url = environment.apiUrl + '/api/v1/role/' + roleId;
+  public getUserRoleListByRole(roleId: number) {
+    const url = environment.apiUrl + '/api/v1/user-role/role/' + roleId;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get<Role>(url,
+      return this.http.get<UserRole[]>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
@@ -59,5 +59,4 @@ export class RoleService {
       return null;
     }
   }
-
 }

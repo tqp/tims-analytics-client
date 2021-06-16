@@ -5,6 +5,7 @@ import { TqpDetailTemplateComponent } from '../../../../@tqp/components/template
 import { PersonListComponent } from './person/person-list/person-list.component';
 import { PersonDetailComponent } from './person/person-detail/person-detail.component';
 import { PersonDetailEditComponent } from './person/person-detail-edit/person-detail-edit.component';
+import { CharterSauceRoutingModule } from './charter-sauce-routing.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PersonDetailEditComponent } from './person/person-detail-edit/person-de
     PersonDetailEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    CharterSauceRoutingModule
   ]
 })
 export class CharterSauceModule {

@@ -92,6 +92,13 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'charter-sauce',
+        loadChildren: () => import('./components/apps/charter-sauce/charter-sauce.module').then(m => m.CharterSauceModule),
+        resolve: {
+          securedPageResolver: SecuredPageResolverService
+        }
+      },
+      {
         path: 'donor-database',
         loadChildren: () => import('./components/apps/donor-database/donor-database.module').then(m => m.DonorDatabaseModule),
         resolve: {

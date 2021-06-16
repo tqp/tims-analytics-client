@@ -2,7 +2,6 @@ import { Role } from './Role';
 
 export class User {
   public userId: number;
-  public userGuid: string;
 
   public name: string;
   public username: string;

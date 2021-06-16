@@ -7,7 +7,7 @@ import { UserDetailEditComponent } from './user/user-detail-edit/user-detail-edi
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { RoleDetailComponent } from './role/role-detail/role-detail.component';
 import { RoleDetailEditComponent } from './role/role-detail-edit/role-detail-edit.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UserProfileOrigComponent } from './user/user-profile-orig/user-profile-orig.component';
 import { AngularMaterialModule } from '../modules/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -22,22 +22,18 @@ import { TokenExchangeComponent } from './token-exchange/token-exchange.componen
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { UserModule } from './user/user.module';
+import { RoleModule } from './role/role.module';
+import { UserRoleDetailComponent } from './user-role/user-role-detail/user-role-detail.component';
+import { UserRoleModule } from './user-role/user-role.module';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     LogoutComponent,
-    RoleDetailComponent,
-    RoleDetailEditComponent,
-    RoleListComponent,
     TokenExchangeComponent,
-    PasswordChangeDialogComponent,
-    PasswordResetDialogComponent,
-    UserDetailComponent,
-    UserDetailEditComponent,
-    UserProfileComponent,
-    UserListComponent,
+    UserRoleDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +49,9 @@ import { UserListComponent } from './user/user-list/user-list.component';
     ListAddRemoveItemsBasicModule,
     FlexLayoutModule,
     // Custom Modules
+    UserModule,
+    RoleModule,
+    UserRoleModule,
     // Routing
     AuthenticationRoutingModule
   ]

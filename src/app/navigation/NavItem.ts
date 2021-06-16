@@ -7,7 +7,7 @@ import {
 } from '@coreui/angular/lib/sidebar/app-sidebar-nav';
 import { INavData } from '@coreui/angular';
 
-export interface INavDataTqp {
+export interface NavItem {
   name?: string;
   url?: string | any[];
   href?: string;

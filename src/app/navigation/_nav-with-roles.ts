@@ -1,6 +1,6 @@
-import { INavDataTqp } from './INavDataTqp';
+import { NavItem } from './NavItem';
 
-export const navItemsWithRoles: INavDataTqp[] = [
+export const navItemsWithRoles: NavItem[] = [
   {
     name: 'About This App',
     url: '/main/about',
@@ -23,13 +23,13 @@ export const navItemsWithRoles: INavDataTqp[] = [
     name: 'Donor Database',
     url: '/donor-database',
     icon: 'fa fa-heart-o',
-    allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
+    allow: 'ROLE_ADMIN, ROLE_DONOR_DATABASE'
   },
   {
     name: 'Charter Sauce',
     url: '/charter-sauce',
     icon: 'fa fa-ship',
-    allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
+    allow: 'ROLE_ADMIN, ROLE_CHARTER_SAUCE'
   },
 
   {
@@ -140,6 +140,12 @@ export const navItemsWithRoles: INavDataTqp[] = [
   {
     title: true,
     name: 'Account Management',
+    allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
+  },
+  {
+    name: 'My Profile (Orig)',
+    url: '/account/my-profile-orig',
+    icon: 'fa fa-user',
     allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
   },
   {

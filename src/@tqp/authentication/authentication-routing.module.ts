@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import { UserListComponent } from './user/user-list/user-list.component';
-import { UserDetailComponent } from './user/user-detail/user-detail.component';
-import { UserDetailEditComponent } from './user/user-detail-edit/user-detail-edit.component';
+import { UserProfileOrigComponent } from './user/user-profile-orig/user-profile-orig.component';
+import { UserProfileNewComponent } from './user/user-profile/user-profile-new.component';
 
 const routes: Routes = [
 
@@ -14,36 +12,17 @@ const routes: Routes = [
     },
     children: [
       {
-        path: '',
-        redirectTo: 'user-list',
-        pathMatch: 'full'
-      },
-      {
-        path: 'user-list',
-        component: UserListComponent,
-        data: {
-          title: 'User List'
-        }
-      },
-      {
-        path: 'user-detail/:id',
-        component: UserDetailComponent,
-        data: {
-          title: 'User Profile'
-        }
-      },
-      {
-        path: 'user-detail-edit/:id',
-        component: UserDetailEditComponent,
-        data: {
-          title: 'User Detail Edit'
-        }
-      },
-      {
         path: 'my-profile',
-        component: UserProfileComponent,
+        component: UserProfileNewComponent,
         data: {
           title: 'My Profile'
+        }
+      },
+      {
+        path: 'my-profile-orig',
+        component: UserProfileOrigComponent,
+        data: {
+          title: 'My Profile (Orig)'
         }
       }
     ]

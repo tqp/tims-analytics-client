@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
-import { User } from '../../models/User';
+import { User } from '../models/User';
 import { UserService } from './user.service';
 
 @Injectable({

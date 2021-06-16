@@ -1,1 +1,138 @@
-<p>role-detail works!</p>
+<div class="tqp-crud-detail animated fadeIn" *ngIf="role">
+
+  <nav class="navbar navbar-dark bg-dark bg-gray-700 mb-3 justify-content-between">
+    <div class="navbar-brand">
+      <i class="fa fa-user mr-2"></i>{{role.roleName}}
+    </div>
+    <div>
+      <button class="btn btn btn-dark mr-2" (click)="returnToList()">Role List</button>
+
+      <div class="float-right">
+        <div class="btn-group" dropdown [placement]="'right'">
+          <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle">
+            Actions<span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem"><a class="dropdown-item">Reset Password</a></li>
+            <li role="menuitem"><a class="dropdown-item">Disable User</a></li>
+            <li role="menuitem"><a class="dropdown-item">Enable User</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i>
+          Role Information
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+          <div class="card-header-actions">
+            <small class="tqp-nav-link"
+                   [hidden]="authService.allowRoles('ROLE_ADMIN','Edit Role Info')"
+                   (click)="openRoleEditPage(this.role.roleId);">
+              Edit Role Info
+            </small>
+          </div>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">Role Name:</dt>
+            <dd class="col-sm-8">{{role.roleName}}</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-tag"></i>
+          Metadata
+          <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-4">ID:</dt>
+            <dd class="col-sm-8">{{role.roleId}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Created On:</dt>
+            <dd class="col-sm-8">{{role.createdOn}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Created By:</dt>
+            <dd class="col-sm-8">{{role.createdBy}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Updated On:</dt>
+            <dd class="col-sm-8">{{role.updatedOn}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Updated By:</dt>
+            <dd class="col-sm-8">{{role.updatedBy}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col-sm-4">Status:</dt>
+            <dd class="col-sm-8">{{role.status}}</dd>
+          </dl>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+      <div class="card tqp-crud-detail-list">
+        <div class="card-header disable-text-selection" (click)="toggleUserRoleListIsCollapsed($event)">
+          <i class="fa fa-key"></i>
+          User List<span class="badge badge-secondary ml-2">{{userRoleListDataSource.length}}</span>
+          <i *ngIf="userRoleListLoading" class="fa fa-spinner fa-spin ml-1"></i>
+          <div class="card-header-actions">
+            <i class="fa fa-bars ml-2" [@rotateIcon]="userRoleListIsCollapsed ? 'default' : 'rotated'"></i>
+          </div>
+        </div>
+        <div class="card-body" [collapse]="userRoleListIsCollapsed">
+
+          <div class="table-container">
+
+            <table mat-table class="table" [dataSource]="userRoleListDataSource"
+                   *ngIf="userRoleListDataSource && userRoleListDataSource.length > 0">
+
+              <ng-container matColumnDef="userName">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let row">
+                  <a [routerLink]="['/admin/user-detail', row.userId]">
+                    {{row.userName}}
+                  </a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="updatedOn">
+                <th mat-header-cell *matHeaderCellDef>Updated On</th>
+                <td mat-cell *matCellDef="let row">
+                  <a [routerLink]="['/admin/user-role-detail', row.userRoleId]">
+                    {{row.updatedOn}}
+                  </a>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="userRoleListDisplayedColumns; sticky: true" [hidden]="true"></tr>
+              <tr mat-row *matRowDef="let row; columns: userRoleListDisplayedColumns;"></tr>
+            </table>
+
+            <div class="no-records"
+                 *ngIf="!userRoleListLoading && userRoleListDataSource && userRoleListDataSource.length <= 0">
+              No Records Found
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

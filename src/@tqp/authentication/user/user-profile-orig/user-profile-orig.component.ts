@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../models/User';
+import { User } from '../../models/User';
 import { Token } from '../../../models/Token';
 import { AuthService } from '../../services/auth.service';
 import { DiagnosticsService } from '../../../services/diagnostics.service';
@@ -8,11 +8,11 @@ import * as moment from 'moment';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-user-profile-orig',
+  templateUrl: './user-profile-orig.component.html',
+  styleUrls: ['./user-profile-orig.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileOrigComponent implements OnInit {
   public user: User;
   public decodedToken: Token;
 

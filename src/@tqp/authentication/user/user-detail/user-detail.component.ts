@@ -1,12 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { User } from '../../../models/User';
-import { Role } from '../../../models/Role';
+import { User } from '../../models/User';
+import { Role } from '../../models/Role';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { EventService } from '../../../services/event.service';
 import { RoleService } from '../../services/role.service';
 import { AuthService } from '../../services/auth.service';
 import { authenticationAnimations } from '../../authentication.animations';
+import { UserRoleService } from '../../services/user-role.service';
+import { UserRole } from '../../models/UserRole';
 
 @Component({
   selector: 'app-user-detail',
@@ -33,7 +35,7 @@ export class UserDetailComponent implements OnInit {
               private router: Router,
               private eventService: EventService,
               private userService: UserService,
-              private roleService: RoleService,
+              private userRoleService: UserRoleService,
               public authService: AuthService) {
   }
 
@@ -49,14 +51,14 @@ export class UserDetailComponent implements OnInit {
     }).then();
   }
 
-  private getUserDetail(id: string): void {
+  private getUserDetail(userId: string): void {
     this.eventService.loadingEvent.emit(true);
     this.loading = true;
-    this.userService.getUserDetail(id).subscribe(
+    this.userService.getUserDetail(userId).subscribe(
       response => {
         this.user = response;
-        // console.log('user', this.user);
-        this.getUserRoleListByUserGuid(this.user.userGuid);
+        console.log('user', this.user);
+        this.getUserRoleListByUserId(this.user.userId);
         this.loading = false;
         this.eventService.loadingEvent.emit(false);
       },
@@ -66,15 +68,15 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  public getUserRoleListByUserGuid(userGuid: string): void {
+  public getUserRoleListByUserId(userId: number): void {
     this.userRoleListLoading = true;
-    this.roleService.getUserRoleListByUserGuid(userGuid).subscribe(
-      (roleList: Role[] | null) => {
-        if (roleList) {
-          // console.log('roleList', roleList);
-          roleList.forEach((item: Role) => {
+    this.userRoleService.getUserRoleListByUser(userId).subscribe(
+      (userRoleList: UserRole[] | null) => {
+        if (userRoleList) {
+          console.log('userRoleList', userRoleList);
+          userRoleList.forEach((item: UserRole) => {
             this.userRoleListRecords.push(item);
-            this.userRoleRecordCount = roleList.length;
+            this.userRoleRecordCount = userRoleList.length;
           });
 
           this.userRoleListRecords = this.userRoleListRecords.sort((a, b) => {
@@ -95,12 +97,12 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  public openUserRoleCreateDialog(userGuid: string): void {
-    console.log('openUserRoleCreateDialog', userGuid);
+  public openUserRoleCreateDialog(userId: number): void {
+    console.log('openUserRoleCreateDialog', userId);
   }
 
-  public openUserEditPage(userGuid: string): void {
-    console.log('openUserEditPage', userGuid);
+  public openUserEditPage(userId: number): void {
+    console.log('openUserEditPage', userId);
   }
 
   public returnToList(): void {

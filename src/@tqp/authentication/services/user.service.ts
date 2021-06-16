@@ -7,8 +7,8 @@ import { ServerSidePaginationResponse } from '../../models/ServerSidePaginationR
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { TokenService } from './token.service';
-import { User } from '../../models/User';
-import { Role } from '../../models/Role';
+import { User } from '../models/User';
+import { Role } from '../models/Role';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -73,51 +73,8 @@ export class UserService {
     }
   }
 
-  public getUserList_SSP(serverSideSearchParams: ServerSidePaginationRequest): Observable<ServerSidePaginationResponse> {
-    const url = environment.apiUrl + '/api/v1/user/ssp';
-    const token = this.tokenService.getToken();
-    if (token) {
-      return this.http.post<ServerSidePaginationResponse>(url,
-        serverSideSearchParams,
-        {
-          headers: this.httpService.setHeadersWithToken(),
-          observe: 'response',
-          params: {}
-        })
-        .pipe(
-          map(res => {
-            return res.body;
-          })
-        );
-    } else {
-      console.error('No token was present.');
-      return null;
-    }
-  }
-
-  public getUserDetail(guid: string) {
-    const url = environment.apiUrl + '/api/v1/user/' + guid;
-    const token = this.tokenService.getToken();
-    if (token) {
-      return this.http.get<User>(url,
-        {
-          headers: this.httpService.setHeadersWithToken(),
-          observe: 'response',
-          params: {}
-        })
-        .pipe(
-          map(res => {
-            return res.body;
-          })
-        );
-    } else {
-      console.error('No token was present.');
-      return null;
-    }
-  }
-
-  public getUserDetailByUsername(username: string) {
-    const url = environment.apiUrl + '/api/v1/user/username/' + username;
+  public getUserDetail(userId: string) {
+    const url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<User>(url,
@@ -159,11 +116,53 @@ export class UserService {
     }
   }
 
-  public deleteUser(userGuid: string): Observable<string> {
-    const url = environment.apiUrl + '/api/v1/user/' + userGuid;
+  public deleteUser(userId: string): Observable<string> {
+    const url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.delete<string>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getUserListByRole(roleId: number) {
+    const url = environment.apiUrl + '/api/v1/user/role/' + roleId;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<User[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getUserDetailByUsername(username: string) {
+    const url = environment.apiUrl + '/api/v1/user/username/' + username;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<User>(url,
         {
           headers: this.httpService.setHeadersWithToken(),
           observe: 'response',
