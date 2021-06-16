@@ -4,7 +4,6 @@ import { Role } from '../../models/Role';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { EventService } from '../../../services/event.service';
-import { RoleService } from '../../services/role.service';
 import { AuthService } from '../../services/auth.service';
 import { authenticationAnimations } from '../../authentication.animations';
 import { UserRoleService } from '../../services/user-role.service';
@@ -19,6 +18,7 @@ import { UserRole } from '../../models/UserRole';
 export class UserDetailComponent implements OnInit {
   public user: User;
   public loading: boolean = false;
+  public translateStatus = {'a': 'Active', 'd': 'Deleted'};
 
   // User-Role List
   public userRoleListLoading: boolean = false;

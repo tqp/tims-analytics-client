@@ -18,6 +18,7 @@ import { UserRoleService } from '../../services/user-role.service';
 export class RoleDetailComponent implements OnInit {
   public role: Role;
   public loading: boolean = false;
+  public translateStatus = {'a': 'Active', 'd': 'Deleted'};
 
   // User-Role List
   public userRoleListLoading: boolean = false;

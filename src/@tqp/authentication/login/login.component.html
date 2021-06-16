@@ -29,7 +29,8 @@
                         <!--
                         <input type="hidden" name="login_hint" value="tim@timsanalytics.com">
                         -->
-                        <button type="submit" class="btn btn-brand btn-google-plus btn-block" [disabled]="!googleClientId">
+                        <button type="submit" class="btn btn-brand btn-google-plus btn-block"
+                                [disabled]="!googleClientId">
                           <i class="fa fa-google-plus float-left"></i>
                           Login With Google
                         </button>
@@ -39,7 +40,8 @@
 
                   <div class="row" [@hideCredentialsButton]="logonFormVisible ? 'hidden' : 'visible'">
                     <div class="col-12">
-                      <button type="button" class="btn btn-brand btn-github btn-block" (click)="toggleFormPane()">
+                      <button type="button" class="btn btn-brand btn-github btn-block" [disabled]="!googleClientId"
+                              (click)="toggleFormPane()">
                         <i class="fa fa-key float-left"></i>
                         <span>Log On With Credentials</span>
                       </button>
