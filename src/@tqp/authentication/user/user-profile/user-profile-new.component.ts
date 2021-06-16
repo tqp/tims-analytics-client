@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { Role } from '../../models/Role';
 import { authenticationAnimations } from '../../authentication.animations';
 import { RoleService } from '../../services/role.service';
+import { UserRoleService } from '../../services/user-role.service';
+import { UserRole } from '../../models/UserRole';
 
 @Component({
   selector: 'app-user-profile-new',
@@ -28,8 +30,8 @@ export class UserProfileNewComponent implements OnInit {
   // User-Role List
   public userRoleListLoading: boolean = false;
   public userRoleListIsCollapsed: boolean = false;
-  public userRoleListRecords: Role[] = [];
-  public userRoleListDataSource: Role[] = [];
+  public userRoleListRecords: UserRole[] = [];
+  public userRoleListDataSource: UserRole[] = [];
   public userRoleListDisplayedColumns: string[] = [
     'roleName',
     'updatedOn'
@@ -44,6 +46,7 @@ export class UserProfileNewComponent implements OnInit {
 
   constructor(private userService: UserService,
               private roleService: RoleService,
+              private userRoleService: UserRoleService,
               private authService: AuthService,
               private diagnosticsService: DiagnosticsService,
               protected tokenService: TokenService) {
@@ -64,7 +67,7 @@ export class UserProfileNewComponent implements OnInit {
         this.user.createdOn = moment(this.user.createdOn).format('DD-MMM-YYYY h:mm:ss a').toUpperCase();
         this.user.updatedOn = moment(this.user.updatedOn).format('DD-MMM-YYYY h:mm:ss a').toUpperCase();
         this.userInfoLoading = false;
-        this.getUserRoleListByUserId(this.user.userId);
+        this.getUserRoleListByUser(this.user.userId);
       },
       error => {
         console.error('Error: ', error);
@@ -73,13 +76,13 @@ export class UserProfileNewComponent implements OnInit {
     );
   }
 
-  public getUserRoleListByUserId(userId: number): void {
+  public getUserRoleListByUser(userId: number): void {
     this.userRoleListLoading = true;
-    this.roleService.getUserRoleListByUserId(userId).subscribe(
-      (roleList: Role[] | null) => {
+    this.userRoleService.getUserRoleListByUser(userId).subscribe(
+      (roleList: UserRole[] | null) => {
         if (roleList) {
           console.log('roleList', roleList);
-          roleList.forEach((item: Role) => {
+          roleList.forEach((item: UserRole) => {
             this.userRoleListRecords.push(item);
           });
 

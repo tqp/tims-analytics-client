@@ -73,7 +73,7 @@ export class UserService {
     }
   }
 
-  public getUserDetail(userId: string) {
+  public getUserDetail(userId: number) {
     const url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
@@ -116,7 +116,7 @@ export class UserService {
     }
   }
 
-  public deleteUser(userId: string): Observable<string> {
+  public deleteUser(userId: number): Observable<string> {
     const url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
@@ -137,24 +137,34 @@ export class UserService {
     }
   }
 
-  public getUserListByRole(roleId: number) {
-    const url = environment.apiUrl + '/api/v1/user/role/' + roleId;
+  public getUserDetailWithRoleList(userId: number): Observable<User> {
+    const user_url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
     if (token) {
-      return this.http.get<User[]>(url,
-        {
-          headers: this.httpService.setHeadersWithToken(),
-          observe: 'response',
-          params: {}
-        })
-        .pipe(
-          map(res => {
-            return res.body;
+      return this.http.get<User>(user_url, {
+        headers: this.httpService.setHeaders(token)
+      }).pipe(
+        switchMap(user => {
+          // console.log('user', user);
+          const user_role_url = environment.apiUrl + '/api/v1/role/user/' + userId;
+          return this.http.get<Role[]>(user_role_url, {
+            headers: this.httpService.setHeaders(token),
           })
-        );
+            .pipe(
+              map(roles => {
+                user.roles = roles;
+                return user;
+              }),
+              catchError(e => {
+                console.error('Error getting your UserModel and Role information: ' + e);
+                return throwError(e);
+              })
+            );
+        })
+      );
     } else {
-      console.error('No token was present.');
-      return null;
+      console.error('No Token was present.');
+      this.router.navigate(['/login-page']).then();
     }
   }
 

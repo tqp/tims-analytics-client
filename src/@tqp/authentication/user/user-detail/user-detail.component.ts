@@ -24,8 +24,8 @@ export class UserDetailComponent implements OnInit {
   public userRoleListLoading: boolean = false;
   public userRoleListIsCollapsed: boolean = false;
   public userRoleRecordCount: number;
-  public userRoleListRecords: Role[] = [];
-  public userRoleListDataSource: Role[] = [];
+  public userRoleListRecords: UserRole[] = [];
+  public userRoleListDataSource: UserRole[] = [];
   public userRoleListDisplayedColumns: string[] = [
     'roleName',
     'updatedOn'
@@ -51,14 +51,14 @@ export class UserDetailComponent implements OnInit {
     }).then();
   }
 
-  private getUserDetail(userId: string): void {
+  private getUserDetail(userId: number): void {
     this.eventService.loadingEvent.emit(true);
     this.loading = true;
     this.userService.getUserDetail(userId).subscribe(
       response => {
         this.user = response;
-        console.log('user', this.user);
-        this.getUserRoleListByUserId(this.user.userId);
+        // console.log('user', this.user);
+        this.getUserRoleListByUser(this.user.userId);
         this.loading = false;
         this.eventService.loadingEvent.emit(false);
       },
@@ -68,12 +68,12 @@ export class UserDetailComponent implements OnInit {
     );
   }
 
-  public getUserRoleListByUserId(userId: number): void {
+  public getUserRoleListByUser(userId: number): void {
     this.userRoleListLoading = true;
     this.userRoleService.getUserRoleListByUser(userId).subscribe(
       (userRoleList: UserRole[] | null) => {
         if (userRoleList) {
-          console.log('userRoleList', userRoleList);
+          // console.log('userRoleList', userRoleList);
           userRoleList.forEach((item: UserRole) => {
             this.userRoleListRecords.push(item);
             this.userRoleRecordCount = userRoleList.length;
@@ -102,7 +102,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   public openUserEditPage(userId: number): void {
-    console.log('openUserEditPage', userId);
+    this.router.navigate(['admin/user-detail-edit', this.user.userId]).then();
   }
 
   public returnToList(): void {

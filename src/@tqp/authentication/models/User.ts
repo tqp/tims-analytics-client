@@ -18,9 +18,12 @@ export class User {
   public theme: string;
   public picture: string;
   public roles: Role[];
+  public rolesString: string;
+
   public status: string;
   public createdOn: string;
   public createdBy: string;
   public updatedOn: string;
   public updatedBy: string;
+
 }
