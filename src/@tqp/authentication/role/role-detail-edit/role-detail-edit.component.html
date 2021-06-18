@@ -1,1 +1,94 @@
-<p>role-detail-edit works!</p>
+<div class="tqp-crud-detail-edit animated fadeIn" *ngIf="role">
+
+  <form [formGroup]="roleEditForm">
+
+    <nav class="navbar navbar-dark bg-dark bg-gray-700 mb-3 justify-content-between">
+      <div class="navbar-brand">
+        <i class="fa fa-user mr-2"></i>{{role.roleName}}
+      </div>
+      <div>
+        <div class="float-right">
+          <div class="btn-group" dropdown [placement]="'right'">
+            <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle">
+              Actions<span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+              <li role="menuitem"><a class="dropdown-item">Reset Password</a></li>
+              <li role="menuitem"><a class="dropdown-item">Disable User</a></li>
+              <li role="menuitem"><a class="dropdown-item">Enable User</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-info-circle"></i>
+            Role Information
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="roleName">Role Name*</label>
+                  <input matInput id="roleName" type="text" class="form-control" placeholder="Role Name"
+                         formControlName="roleName" #defaultInputField>
+                  <mat-error *ngFor="let validation of validationMessages.roleName">
+                    <mat-error class="error-message"
+                               *ngIf="roleEditForm.get('roleName').hasError(validation.type)
+                                && (roleEditForm.get('roleName').dirty ||
+                                roleEditForm.get('roleName').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="roleDescription">Role Description</label>
+                  <input matInput id="roleDescription" type="text" class="form-control" placeholder="Description"
+                         formControlName="roleDescription" autocomplete="chrome-off">
+                  <mat-error *ngFor="let validation of validationMessages.roleDescription">
+                    <mat-error class="error-message"
+                               *ngIf="roleEditForm.get('roleDescription').hasError(validation.type)
+                                && (roleEditForm.get('roleDescription').dirty ||
+                                roleEditForm.get('roleDescription').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary float-right" (click)="save()"
+                    [disabled]="!roleEditForm.valid">
+              <i class="fa fa-save mr-2"></i>Save
+            </button>
+            <button type="button" class="btn btn-secondary float-left mr-1" (click)="cancel()">
+              <i class="fa fa-ban mr-2"></i>Cancel
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

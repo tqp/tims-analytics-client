@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { ServerSidePaginationRequest } from '../../models/ServerSidePaginationRequest';
-import { ServerSidePaginationResponse } from '../../models/ServerSidePaginationResponse';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { TokenService } from './token.service';
@@ -21,14 +19,6 @@ export class UserService {
               private httpService: HttpService,
               private router: Router,
               private tokenService: TokenService) { }
-
-  public setUserListNameSearchValue(val) {
-    this.userListNameSearchValue = val;
-  }
-
-  public getUserListNameSearchValue() {
-    return this.userListNameSearchValue;
-  }
 
   public createUser(user: User): Observable<User> {
     const url = environment.apiUrl + '/api/v1/user/';
@@ -156,7 +146,7 @@ export class UserService {
                 return user;
               }),
               catchError(e => {
-                console.error('Error getting your UserModel and Role information: ' + e);
+                console.error('Error getting your User and Role information: ' + e);
                 return throwError(e);
               })
             );

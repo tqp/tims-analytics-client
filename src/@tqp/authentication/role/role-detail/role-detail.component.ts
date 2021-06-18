@@ -52,7 +52,7 @@ export class RoleDetailComponent implements OnInit {
     }).then();
   }
 
-  private getRoleDetail(roleId: string): void {
+  private getRoleDetail(roleId: number): void {
     this.eventService.loadingEvent.emit(true);
     this.loading = true;
     this.roleService.getRoleDetail(roleId).subscribe(
@@ -74,7 +74,7 @@ export class RoleDetailComponent implements OnInit {
     this.userRoleService.getUserRoleListByRole(roleId).subscribe(
       (userRoleList: UserRole[] | null) => {
         if (userRoleList) {
-          console.log('userRoleList', userRoleList);
+          // console.log('userRoleList', userRoleList);
           userRoleList.forEach((item: UserRole) => {
             item.userName = item.userSurname + ', ' + item.userGivenName;
             this.userRoleListRecords.push(item);
@@ -100,8 +100,8 @@ export class RoleDetailComponent implements OnInit {
     );
   }
 
-  public openRoleEditPage(userId: number): void {
-    console.log('openRoleEditPage', userId);
+  public openRoleEditPage(roleId: number): void {
+    this.router.navigate(['admin/role-detail-edit', roleId]).then();
   }
 
   public returnToList(): void {

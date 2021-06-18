@@ -161,6 +161,12 @@ export const navItemsWithRoles: NavItem[] = [
     allow: 'ROLE_ADMIN'
   },
   {
+    name: 'Role List',
+    url: '/admin/role-list',
+    icon: 'fa fa-id-badge',
+    allow: 'ROLE_ADMIN'
+  },
+  {
     name: 'Logout',
     url: '/logout',
     icon: 'icon-logout',

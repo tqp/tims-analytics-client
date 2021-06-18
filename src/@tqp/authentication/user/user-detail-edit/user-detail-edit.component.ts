@@ -35,19 +35,18 @@ export class UserDetailEditComponent implements OnInit {
     'userId': [
       {type: 'required', message: 'An ID is required.'}
     ],
-    'username': [
-      {type: 'required', message: 'A Username is required.'}
-    ],
     'surname': [
       {type: 'required', message: 'A Surname is required.'}
     ],
     'givenName': [
       {type: 'required', message: 'A Given Name is required.'}
     ],
+    'username': [
+      {type: 'required', message: 'A Username is required.'}
+    ],
     'roleCheckboxes': [
       {type: 'minSelectedCheckboxes', message: 'At least one Role must be selected.'}
-    ],
-    'caseManagerNumberOfStudents': []
+    ]
   };
 
   constructor(private route: ActivatedRoute,
@@ -80,12 +79,10 @@ export class UserDetailEditComponent implements OnInit {
 
   private initializeForm(): void {
     this.userEditForm = this.formBuilder.group({
-      userId: new FormControl(''),
+      userId: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
       givenName: new FormControl('', Validators.required),
-      positionId: new FormControl('', Validators.required),
-      caseManagerNumberOfStudents: new FormControl({value: '', disabled: false}),
       roles: new FormControl(''),
       roleCheckboxes: new FormArray([],
         [minSelectedCheckboxes(1)]),
@@ -116,7 +113,10 @@ export class UserDetailEditComponent implements OnInit {
       const roleCheckboxArray = this.user.roles;
       // console.log('roleCheckboxArray', roleCheckboxArray);
       this.roleList.forEach((role, index) => {
-        if (roleCheckboxArray.findIndex(x => x.roleId === role.roleId) > -1) {
+        if (roleCheckboxArray.findIndex(x => {
+          // console.log('x', x, 'roleId', role.roleId);
+          return x.roleId === role.roleId;
+        }) > -1) {
           this.roleCheckboxFormArray.controls[index].setValue(true);
         }
       });
@@ -139,7 +139,6 @@ export class UserDetailEditComponent implements OnInit {
   }
 
   public updateCheckboxFormValue(): void {
-    this.userEditForm.controls['positionId'].patchValue(5); // Custom
     this.setCheckboxFormValue();
   }
 
@@ -161,7 +160,7 @@ export class UserDetailEditComponent implements OnInit {
     this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
       disableClose: false
     });
-    this.confirmDialogRef.componentInstance.dialogTitle = 'Delete UserModel';
+    this.confirmDialogRef.componentInstance.dialogTitle = 'Delete User';
     this.confirmDialogRef.componentInstance.dialogMessage = 'Are you sure you want to delete this user?';
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -194,8 +193,8 @@ export class UserDetailEditComponent implements OnInit {
     if (this.newRecord) {
       this.userService.createUser(user).subscribe(
         response => {
-          // console.log('response: ', response);
-          this.router.navigate(['users/user-detail', response.userId]).then();
+          console.log('createUser: ', response);
+          this.router.navigate(['admin/user-detail', response.userId]).then();
         },
         error => {
           console.error('Error: ' + error.message);
@@ -204,8 +203,7 @@ export class UserDetailEditComponent implements OnInit {
     } else {
       this.userService.updateUser(user).subscribe(
         response => {
-          // console.log('response: ', response);
-          this.router.navigate(['users/user-detail', response.userId]).then();
+          this.router.navigate(['admin/user-detail', response.userId]).then();
         },
         error => {
           console.error('Error: ' + error.message);
@@ -236,7 +234,7 @@ export class UserDetailEditComponent implements OnInit {
     //
     // dialogRef.afterClosed().subscribe(dialogData => {
     //   if (dialogData) {
-    //     const user: UserModel = new UserModel();
+    //     const user: User = new User();
     //     user.userId = dialogData.userId;
     //     user.password = dialogData.newPassword;
     //     this.userService.resetPassword(user).subscribe(
