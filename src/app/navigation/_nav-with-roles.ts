@@ -142,12 +142,12 @@ export const navItemsWithRoles: NavItem[] = [
     name: 'Account Management',
     allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
   },
-  {
-    name: 'My Profile (Orig)',
-    url: '/account/my-profile-orig',
-    icon: 'fa fa-user',
-    allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
-  },
+  // {
+  //   name: 'My Profile (Orig)',
+  //   url: '/account/my-profile-orig',
+  //   icon: 'fa fa-user',
+  //   allow: 'ROLE_ADMIN, ROLE_USER, ROLE_GUEST'
+  // },
   {
     name: 'My Profile',
     url: '/account/my-profile',

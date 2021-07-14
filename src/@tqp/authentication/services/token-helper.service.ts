@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Token } from '../models/Token';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,7 @@ export class TokenHelperService {
     return TokenHelperService.b64DecodeUnicode(output);
   }
 
-  public decodeToken(token: string = this.tokenGetter()): any {
+  public decodeToken(token: string = this.tokenGetter()): Token {
     if (token === null) {
       return null;
     }

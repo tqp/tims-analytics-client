@@ -11,6 +11,7 @@ export class ConfirmDialogComponent implements OnInit {
   public dialogMessage: string = 'Click OK to continue.';
   public mainButtonText: string = 'Confirm';
   public hideCancelButton: boolean = false;
+  public buttonColorClass: string = 'btn-danger';
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) { }
 

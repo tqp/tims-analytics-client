@@ -50,8 +50,8 @@ export class AuthService {
     });
   }
 
-  public getTokenInfo(): Observable<any> {
-    return new Observable((observer: Observer<any>) => {
+  public getTokenInfo(): Observable<Token> {
+    return new Observable((observer: Observer<Token>) => {
       const token = this.tokenService.getToken();
       if (token) {
         const decodedToken = this.tokenHelperService.decodeToken(token);

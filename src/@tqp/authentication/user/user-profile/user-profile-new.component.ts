@@ -6,7 +6,6 @@ import { Token } from '../../../models/Token';
 import { DiagnosticsService } from '../../../services/diagnostics.service';
 import { TokenService } from '../../services/token.service';
 import * as moment from 'moment';
-import { Role } from '../../models/Role';
 import { authenticationAnimations } from '../../authentication.animations';
 import { RoleService } from '../../services/role.service';
 import { UserRoleService } from '../../services/user-role.service';

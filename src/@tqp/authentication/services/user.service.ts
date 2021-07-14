@@ -18,7 +18,8 @@ export class UserService {
   constructor(private http: HttpClient,
               private httpService: HttpService,
               private router: Router,
-              private tokenService: TokenService) { }
+              private tokenService: TokenService) {
+  }
 
   public createUser(user: User): Observable<User> {
     const url = environment.apiUrl + '/api/v1/user/';
@@ -44,6 +45,27 @@ export class UserService {
 
   public getUserList() {
     const url = environment.apiUrl + '/api/v1/user';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<User[]>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
+  public getDeletedUserList() {
+    const url = environment.apiUrl + '/api/v1/user/deleted';
     const token = this.tokenService.getToken();
     if (token) {
       return this.http.get<User[]>(url,
@@ -127,6 +149,30 @@ export class UserService {
     }
   }
 
+  // NON-CRUD
+
+  public restoreDeletedUser(userId: number): Observable<User> {
+    const url = environment.apiUrl + '/api/v1/user/restore/' + userId;
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.put<User>(url,
+        null,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No token was present.');
+      return null;
+    }
+  }
+
   public getUserDetailWithRoleList(userId: number): Observable<User> {
     const user_url = environment.apiUrl + '/api/v1/user/' + userId;
     const token = this.tokenService.getToken();
@@ -158,6 +204,8 @@ export class UserService {
     }
   }
 
+  // FILTERED
+
   public getUserDetailByUsername(username: string) {
     const url = environment.apiUrl + '/api/v1/user/username/' + username;
     const token = this.tokenService.getToken();
@@ -176,6 +224,29 @@ export class UserService {
     } else {
       console.error('No token was present.');
       return null;
+    }
+  }
+
+  // MY PROFILE
+
+  public getMyUserId(): Observable<number> {
+    const url = environment.apiUrl + '/api/v1/my-profile/user-id';
+    const token = this.tokenService.getToken();
+    if (token) {
+      return this.http.get<number>(url,
+        {
+          headers: this.httpService.setHeadersWithToken(),
+          observe: 'response',
+          params: {}
+        })
+        .pipe(
+          map(res => {
+            return res.body;
+          })
+        );
+    } else {
+      console.error('No Token was present.');
+      this.router.navigate(['/login-page']).then();
     }
   }
 

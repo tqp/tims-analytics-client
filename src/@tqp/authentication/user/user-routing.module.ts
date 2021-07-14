@@ -4,6 +4,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailEditComponent } from './user-detail-edit/user-detail-edit.component';
 import { UserProfileOrigComponent } from './user-profile-orig/user-profile-orig.component';
+import { UserListDeletedComponent } from './user-list-deleted/user-list-deleted.component';
 
 const routes: Routes = [
 
@@ -19,10 +20,24 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'user-create',
+        component: UserDetailEditComponent,
+        data: {
+          title: 'Create User'
+        }
+      },
+      {
         path: 'user-list',
         component: UserListComponent,
         data: {
           title: 'User List'
+        }
+      },
+      {
+        path: 'user-list-deleted',
+        component: UserListDeletedComponent,
+        data: {
+          title: 'Deleted User List'
         }
       },
       {

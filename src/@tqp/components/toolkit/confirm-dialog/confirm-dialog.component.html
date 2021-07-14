@@ -11,7 +11,7 @@
     Cancel
   </button>
   <div fxFlex></div>
-  <button mat-raised-button class="btn btn-danger" style="width: 100px;" (click)="dialogRef.close(true)">
+  <button mat-raised-button class="btn" [ngClass]="buttonColorClass" (click)="dialogRef.close(true)">
     {{mainButtonText}}
   </button>
 </mat-dialog-actions>

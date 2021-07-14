@@ -18,6 +18,13 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'role-create',
+        component: RoleDetailEditComponent,
+        data: {
+          title: 'Create Role'
+        }
+      },
+      {
         path: 'role-list',
         component: RoleListComponent,
         data: {

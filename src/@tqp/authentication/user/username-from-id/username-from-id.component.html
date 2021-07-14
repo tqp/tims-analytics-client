@@ -1,0 +1,6 @@
+<span *ngIf="!loading; else showSpinner">
+  {{username}}
+</span>
+<ng-template #showSpinner>
+  <i class="fa fa-circle-o-notch fa-spin"></i>
+</ng-template>

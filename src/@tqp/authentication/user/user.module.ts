@@ -17,6 +17,8 @@ import { ListAddRemoveItemsBasicModule } from '../../components/toolkit/list-add
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserRoutingModule } from './user-routing.module';
 import { UserProfileNewComponent } from './user-profile/user-profile-new.component';
+import { UserListDeletedComponent } from './user-list-deleted/user-list-deleted.component';
+import { UsernameFromIdComponent } from './username-from-id/username-from-id.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { UserProfileNewComponent } from './user-profile/user-profile-new.compone
     UserProfileNewComponent,
     UserListComponent,
     PasswordChangeDialogComponent,
-    PasswordResetDialogComponent
+    PasswordResetDialogComponent,
+    UserListDeletedComponent,
+    UsernameFromIdComponent
   ],
   imports: [
     CommonModule,

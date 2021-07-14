@@ -4,28 +4,18 @@
 
     <div class="card-header">
 
-      <div class="navbar-brand">
-        <i class="fa fa-group mr-2"></i>Users
+      <div class="navbar-brand text-danger">
+        <i class="fa fa-user-times mr-2"></i>Deleted Users
       </div>
 
       <div class="card-header-actions">
 
         <div class="float-right">
           <div class="btn-group" dropdown [placement]="'right'">
-            <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle">
+            <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle" disabled>
               Actions<span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-              <li role="menuitem">
-                <a class="dropdown-item" (click)="this.router.navigate(['admin/user-create']).then();">
-                  Add User
-                </a>
-              </li>
-              <li role="menuitem">
-                <a class="dropdown-item" (click)="this.router.navigate(['admin/user-list-deleted']).then();">
-                  View Deleted Users
-                </a>
-              </li>
               <!--<li class="divider dropdown-divider"></li>-->
             </ul>
           </div>

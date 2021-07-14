@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  tims-analytics-client:
+    container_name: tims-analytics-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    environment:
+      - NODE_ENV=production

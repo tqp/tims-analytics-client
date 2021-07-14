@@ -56,7 +56,7 @@ export class RoleListComponent implements OnInit {
     this.roleService.getRoleList().subscribe(
       (roleList: Role[] | null) => {
         if (roleList) {
-          // console.log('roleList', roleList);
+          console.log('roleList', roleList);
           roleList.forEach((item: Role) => {
             this.recordList.push(item);
             this.recordCount = roleList.length;
@@ -129,8 +129,8 @@ export class RoleListComponent implements OnInit {
     this.searchFormControl.setValue('');
   }
 
-  public openCreateStudentPage(): void {
-    this.router.navigate(['students/student-create']).then();
+  public openCreateRolePage(): void {
+    this.router.navigate(['admin/role-create']).then();
   }
 
   @HostListener('window:resize', ['$event'])

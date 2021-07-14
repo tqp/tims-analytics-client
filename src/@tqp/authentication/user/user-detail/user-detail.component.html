@@ -1,11 +1,20 @@
 <div class="tqp-crud-detail animated fadeIn" *ngIf="user">
 
   <nav class="navbar navbar-dark bg-dark bg-gray-700 mb-3 justify-content-between">
-    <div class="navbar-brand">
-      <i class="fa fa-user mr-2"></i>{{user.surname}}, {{user.givenName}}
+    <div class="navbar-brand" [ngClass]="user.status == 'd' ? 'text-danger' : ''">
+      <i class="fa fa-user mr-2" *ngIf="user.status != 'd'"></i>
+      <i class="fa fa-user-times mr-2" *ngIf="user.status == 'd'"></i>
+      <span>{{user.surname}}, {{user.givenName}}</span>
     </div>
     <div>
-      <button class="btn btn btn-dark mr-2" (click)="returnToList()">Return to User List</button>
+      <button class="btn btn btn-dark mr-2" *ngIf="user.status != 'd'"
+              (click)="this.router.navigate(['admin/user-list']).then();">
+        Return to User List
+      </button>
+      <button class="btn btn btn-dark mr-2" *ngIf="user.status == 'd'"
+              (click)="this.router.navigate(['admin/user-list-deleted']).then();">
+        Return to Deleted User List
+      </button>
 
       <div class="float-right">
         <div class="btn-group" dropdown [placement]="'right'">
@@ -13,9 +22,16 @@
             Actions<span class="caret"></span>
           </button>
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-            <li role="menuitem"><a class="dropdown-item">Reset Password</a></li>
-            <li role="menuitem"><a class="dropdown-item">Disable User</a></li>
-            <li role="menuitem"><a class="dropdown-item">Enable User</a></li>
+            <li role="menuitem" *ngIf="user.status == 'a'">
+              <a class="dropdown-item text-danger" (click)="deleteUser()">
+                <i class="fa fa-user-times text-danger"></i>Delete User
+              </a>
+            </li>
+            <li role="menuitem" *ngIf="user.status == 'd'">
+              <a class="dropdown-item" (click)="restoreDeletedUser()">
+                <i class="fa fa-user-plus"></i>Un-Delete User
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -33,12 +49,18 @@
           <div class="card-header-actions">
             <small class="tqp-nav-link"
                    [hidden]="authService.allowRoles('ROLE_ADMIN','Edit User')"
-                   (click)="openUserEditPage(this.user.userId);">
+                   (click)="openUserEditPage();">
               Edit User
             </small>
           </div>
         </div>
         <div class="card-body">
+          <dl class="row" [hidden]="user.status == 'a'">
+            <dt class="col-sm-4">Status:</dt>
+            <dd class="col-sm-8" [ngClass]="user.status == 'd' ? 'text-danger' : ''">
+              {{translateStatus[user.status]}}
+            </dd>
+          </dl>
           <dl class="row">
             <dt class="col-sm-4">Username:</dt>
             <dd class="col-sm-8">{{user.username}}</dd>
@@ -79,7 +101,8 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Last Login:</dt>
-            <dd class="col-sm-8">{{user.lastLogin}}</dd>
+            <dd class="col-sm-8" *ngIf="user.lastLogin">{{user.lastLogin}}</dd>
+            <dd class="col-sm-8 text-danger" *ngIf="!user.lastLogin">Never Logged In</dd>
           </dl>
         </div>
       </div>
@@ -101,7 +124,9 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Created By:</dt>
-            <dd class="col-sm-8">{{user.createdBy}}</dd>
+            <dd class="col-sm-8">
+              <app-username-from-id [userId]="user.createdBy"></app-username-from-id>
+            </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Updated On:</dt>
@@ -109,7 +134,9 @@
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Updated By:</dt>
-            <dd class="col-sm-8">{{user.updatedBy}}</dd>
+            <dd class="col-sm-8">
+              <app-username-from-id [userId]="user.updatedBy"></app-username-from-id>
+            </dd>
           </dl>
           <dl class="row">
             <dt class="col-sm-4">Status:</dt>
@@ -130,7 +157,7 @@
           <div class="card-header-actions">
             <small class="tqp-nav-link"
                    [hidden]="authService.allowRoles('ROLE_ADMIN','Edit Roles')"
-                   (click)="openUserEditPage(this.user.userId);">
+                   (click)="openUserEditPage();">
               Edit Roles
             </small>
             <i class="fa fa-bars ml-2" [@rotateIcon]="userRoleListIsCollapsed ? 'default' : 'rotated'"></i>

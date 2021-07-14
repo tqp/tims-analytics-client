@@ -10,11 +10,11 @@ import { merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  selector: 'app-user-list-deleted',
+  templateUrl: './user-list-deleted.component.html',
+  styleUrls: ['./user-list-deleted.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListDeletedComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('searchElementRef', {static: true}) searchElementRef: ElementRef;
   public windowWidth: number = window.innerWidth;
@@ -36,11 +36,11 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService,
               private eventService: EventService,
               public authService: AuthService,
-              public router: Router) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.getUserList();
+    this.getDeletedUserList();
   }
 
   public getDisplayedColumns(): string[] {
@@ -50,17 +50,17 @@ export class UserListComponent implements OnInit {
       .map(cd => cd.col);
   }
 
-  public getUserList(): void {
+  public getDeletedUserList(): void {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.userService.getUserList().subscribe(
-      (userList: User[] | null) => {
-        if (userList) {
-          // console.log('userList', userList);
-          userList.forEach((item: User) => {
+    this.userService.getDeletedUserList().subscribe(
+      (deletedUserList: User[] | null) => {
+        if (deletedUserList) {
+          // console.log('deletedUserList', deletedUserList);
+          deletedUserList.forEach((item: User) => {
             item.name = item.surname + ', ' + item.givenName;
             this.recordList.push(item);
-            this.recordCount = userList.length;
+            this.recordCount = deletedUserList.length;
           });
 
           this.recordList = this.recordList.sort((a, b) => {
