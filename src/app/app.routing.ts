@@ -10,6 +10,7 @@ import { SecuredPageResolverService } from '@tqp/authentication/services/secured
 import { TokenExchangeComponent } from '../@tqp/authentication/token-exchange/token-exchange.component';
 import { LogoutComponent } from '../@tqp/authentication/logout/logout.component';
 import { LoginComponent } from '../@tqp/authentication/login/login.component';
+import { Cyc202201ExumasComponent } from './components/apps/charter-sauce/splash/cyc202201-exumas/cyc202201-exumas.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,14 @@ export const routes: Routes = [
     component: P500Component,
     data: {
       title: 'Page 500'
+    }
+  },
+
+  {
+    path: 'new-years-exumas',
+    component: Cyc202201ExumasComponent,
+    data: {
+      title: 'Exumas New Years 2022'
     }
   },
 

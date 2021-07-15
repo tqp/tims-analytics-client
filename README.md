@@ -83,3 +83,7 @@ max - maximum point intensity, 1.0 by default
 radius - radius of each "point" of the heatmap, 25 by default  
 blur - amount of blur, 15 by default  
 gradient - color gradient config, e.g. {0.4: 'blue', 0.65: 'lime', 1: 'red'} 
+
+#### Angular Component Name Regex
+/^[a-zA-Z][.0-9a-zA-Z]*(:?-[a-zA-Z][.0-9a-zA-Z]*)*$/
+REF: https://stackoverflow.com/questions/53231588/angular-component-naming-limitations-selector-your-component-name-is-invali

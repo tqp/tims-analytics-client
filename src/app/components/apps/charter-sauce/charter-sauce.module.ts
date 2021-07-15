@@ -6,6 +6,7 @@ import { PersonListComponent } from './person/person-list/person-list.component'
 import { PersonDetailComponent } from './person/person-detail/person-detail.component';
 import { PersonDetailEditComponent } from './person/person-detail-edit/person-detail-edit.component';
 import { CharterSauceRoutingModule } from './charter-sauce-routing.module';
+import { Cyc202201ExumasComponent } from './splash/cyc202201-exumas/cyc202201-exumas.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CharterSauceRoutingModule } from './charter-sauce-routing.module';
     TqpDetailTemplateComponent,
     PersonListComponent,
     PersonDetailComponent,
-    PersonDetailEditComponent
+    PersonDetailEditComponent,
+    Cyc202201ExumasComponent
   ],
   imports: [
     CommonModule,
