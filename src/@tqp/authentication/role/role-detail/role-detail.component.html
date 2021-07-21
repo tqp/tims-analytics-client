@@ -1,11 +1,24 @@
 <div class="tqp-crud-detail animated fadeIn" *ngIf="role">
 
   <nav class="navbar navbar-dark bg-dark bg-gray-700 mb-3 justify-content-between">
-    <div class="navbar-brand">
-      <i class="fa fa-user mr-2"></i>{{role.roleName}}
+    <div class="navbar-brand" [ngClass]="role.status == 'd' ? 'text-danger' : ''">
+      <i class="fa fa-user mr-2" *ngIf="role.status != 'd'"></i>
+      <i class="fa fa-user-times mr-2" *ngIf="role.status == 'd'"></i>
+      <span>{{role.roleName}}</span>
     </div>
     <div>
-      <button class="btn btn btn-dark mr-2" (click)="returnToList()">Role List</button>
+      <button class="btn btn btn-dark mr-2" *ngIf="role.status != 'd'"
+              (click)="this.router.navigate(['admin/role-list']).then();">
+        Return to Role List
+      </button>
+      <button class="btn btn btn-dark mr-2" *ngIf="role.status == 'd'"
+              (click)="this.router.navigate(['admin/role-list-deleted']).then();">
+        Return to Deleted Role List
+      </button>
+
+      <button class="btn btn btn-dark mr-2" (click)="this.router.navigate(['admin/role-list']).then();">
+        Role List
+      </button>
 
       <div class="float-right">
         <div class="btn-group" dropdown [placement]="'right'">
@@ -13,9 +26,21 @@
             Actions<span class="caret"></span>
           </button>
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-            <li role="menuitem"><a class="dropdown-item">Reset Password</a></li>
-            <li role="menuitem"><a class="dropdown-item">Disable User</a></li>
-            <li role="menuitem"><a class="dropdown-item">Enable User</a></li>
+            <li role="menuitem" *ngIf="role.status == 'a'">
+              <a class="dropdown-item text-danger" (click)="deleteRole()">
+                <i class="fa fa-user-times text-danger"></i>Delete This Role
+              </a>
+            </li>
+            <li role="menuitem" *ngIf="role.status == 'd'">
+              <a class="dropdown-item" (click)="restoreDeletedRole()">
+                <i class="fa fa-user-plus"></i>Un-Delete Role
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="this.router.navigate(['admin/role-create']).then();">
+                <i class="fa fa-id-badge"></i>Add New Role
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -33,7 +58,7 @@
           <div class="card-header-actions">
             <small class="tqp-nav-link"
                    [hidden]="authService.allowRoles('ROLE_ADMIN','Edit Role Info')"
-                   (click)="openRoleEditPage(this.role.roleId);">
+                   (click)="this.router.navigate(['admin/role-detail-edit', this.role.roleId]).then();">
               Edit Role Info
             </small>
           </div>
@@ -57,6 +82,12 @@
           <i *ngIf="loading" class="fa fa-spinner fa-spin ml-1"></i>
         </div>
         <div class="card-body">
+          <dl class="row" [hidden]="role.status == 'a'">
+            <dt class="col-sm-4">Status:</dt>
+            <dd class="col-sm-8" [ngClass]="role.status == 'd' ? 'text-danger' : ''">
+              {{translateStatus[role.status]}}
+            </dd>
+          </dl>
           <dl class="row">
             <dt class="col-sm-4">ID:</dt>
             <dd class="col-sm-8">{{role.roleId}}</dd>

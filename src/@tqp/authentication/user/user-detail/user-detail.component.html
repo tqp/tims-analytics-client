@@ -16,6 +16,10 @@
         Return to Deleted User List
       </button>
 
+      <button class="btn btn btn-dark mr-2" (click)="this.router.navigate(['admin/user-list']).then();">
+        User List
+      </button>
+
       <div class="float-right">
         <div class="btn-group" dropdown [placement]="'right'">
           <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle">
@@ -24,12 +28,17 @@
           <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
             <li role="menuitem" *ngIf="user.status == 'a'">
               <a class="dropdown-item text-danger" (click)="deleteUser()">
-                <i class="fa fa-user-times text-danger"></i>Delete User
+                <i class="fa fa-user-times text-danger"></i>Delete This User
               </a>
             </li>
             <li role="menuitem" *ngIf="user.status == 'd'">
               <a class="dropdown-item" (click)="restoreDeletedUser()">
                 <i class="fa fa-user-plus"></i>Un-Delete User
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="this.router.navigate(['admin/user-create']).then();">
+                <i class="fa fa-id-badge"></i>Add New User
               </a>
             </li>
           </ul>
@@ -50,7 +59,7 @@
             <small class="tqp-nav-link"
                    [hidden]="authService.allowRoles('ROLE_ADMIN','Edit User')"
                    (click)="openUserEditPage();">
-              Edit User
+              Edit User Info
             </small>
           </div>
         </div>

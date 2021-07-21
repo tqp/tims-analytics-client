@@ -10,11 +10,11 @@ import { merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-role-list',
-  templateUrl: './role-list.component.html',
-  styleUrls: ['./role-list.component.css']
+  selector: 'app-role-list-deleted',
+  templateUrl: './role-list-deleted.component.html',
+  styleUrls: ['./role-list-deleted.component.css']
 })
-export class RoleListComponent implements OnInit {
+export class RoleListDeletedComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild('searchElementRef', {static: true}) searchElementRef: ElementRef;
   public windowWidth: number = window.innerWidth;
@@ -40,7 +40,7 @@ export class RoleListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRoleList();
+    this.getDeletedRoleList();
   }
 
   public getDisplayedColumns(): string[] {
@@ -50,10 +50,10 @@ export class RoleListComponent implements OnInit {
       .map(cd => cd.col);
   }
 
-  public getRoleList(): void {
+  public getDeletedRoleList(): void {
     this.isLoading = true;
     this.eventService.loadingEvent.emit(true);
-    this.roleService.getRoleList().subscribe(
+    this.roleService.getDeletedRoleList().subscribe(
       (roleList: Role[] | null) => {
         if (roleList) {
           // console.log('roleList', roleList);

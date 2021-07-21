@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
 import { authenticationAnimations } from '../../authentication.animations';
 import { UserRole } from '../../models/UserRole';
 import { UserRoleService } from '../../services/user-role.service';
+import { DialogPosition, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../components/toolkit/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-role-detail',
@@ -19,6 +21,7 @@ export class RoleDetailComponent implements OnInit {
   public role: Role;
   public loading: boolean = false;
   public translateStatus = {'a': 'Active', 'd': 'Deleted'};
+  public confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   // User-Role List
   public userRoleListLoading: boolean = false;
@@ -32,12 +35,13 @@ export class RoleDetailComponent implements OnInit {
   ];
 
   constructor(private activatedRoute: ActivatedRoute,
-              private router: Router,
+              public router: Router,
               private eventService: EventService,
               private userService: UserService,
               private roleService: RoleService,
               private userRoleService: UserRoleService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public _matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -100,12 +104,70 @@ export class RoleDetailComponent implements OnInit {
     );
   }
 
-  public openRoleEditPage(roleId: number): void {
-    this.router.navigate(['admin/role-detail-edit', roleId]).then();
+  public deleteRole(): void {
+    // Don't delete Roles that have Users associated with them.
+    // const token = this.tokenService.getToken();
+    // if (token && this.user.userId === this.tokenHelperService.decodeToken(token).userId) {
+    //   this.openDeleteSelfMessage();
+    //   return;
+    // }
+
+    const dialogPosition: DialogPosition = {
+      top: '25%',
+      left: '43%'
+    };
+    this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
+      disableClose: false,
+      position: dialogPosition,
+      minWidth: '400px'
+    });
+    this.confirmDialogRef.componentInstance.dialogTitle = 'Confirm Role Delete';
+    this.confirmDialogRef.componentInstance.dialogMessage = 'Are you sure you want to delete this Role?';
+    this.confirmDialogRef.componentInstance.mainButtonText = 'Delete Role';
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.roleService.deleteRole(this.role.roleId).subscribe(
+          response => {
+            // console.log('response: ', response);
+            this.router.navigate(['admin/role-list']).then();
+          },
+          error => {
+            console.error('Error: ' + error.message);
+          }
+        );
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
-  public returnToList(): void {
-    this.router.navigate(['admin/role-list']).then();
+  // BUTTONS
+
+  public restoreDeletedRole(): void {
+    const dialogPosition: DialogPosition = {
+      top: '25%',
+      left: '50%'
+    };
+    this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
+      disableClose: false,
+      position: dialogPosition
+    });
+    this.confirmDialogRef.componentInstance.dialogTitle = 'Restore Deleted Role';
+    this.confirmDialogRef.componentInstance.dialogMessage = 'Are you sure you want to restore this deleted Role?';
+    this.confirmDialogRef.componentInstance.mainButtonText = 'Restore Role';
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.roleService.restoreDeletedRole(this.role.roleId).subscribe(
+          response => {
+            // console.log('response: ', response);
+            this.router.navigate(['admin/role-list']).then();
+          },
+          error => {
+            console.error('Error: ' + error.message);
+          }
+        );
+      }
+      this.confirmDialogRef = null;
+    });
   }
 
   public toggleUserRoleListIsCollapsed(event) {

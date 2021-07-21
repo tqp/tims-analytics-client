@@ -4,7 +4,9 @@
 
     <nav class="navbar navbar-dark bg-dark bg-gray-700 mb-3 justify-content-between">
       <div class="navbar-brand">
-        <i class="fa fa-user mr-2"></i>{{role.roleName}}
+        <i class="fa fa-user mr-2"></i>
+        <span *ngIf="!newRecord">{{role.roleName}}</span>
+        <span *ngIf="newRecord">{{roleEditForm.controls['roleName'].value}}</span>
       </div>
       <div>
         <div class="float-right">
@@ -31,6 +33,26 @@
             Role Information
           </div>
           <div class="card-body">
+
+            <!--
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="roleId">Role ID*</label>
+                  <input matInput id="roleId" type="text" class="form-control" placeholder="Role ID"
+                         formControlName="roleId">
+                  <mat-error *ngFor="let validation of validationMessages.roleId">
+                    <mat-error class="error-message"
+                               *ngIf="roleEditForm.get('roleId').hasError(validation.type)
+                                && (roleEditForm.get('roleId').dirty ||
+                                roleEditForm.get('roleId').touched)">
+                      {{validation.message}}
+                    </mat-error>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            -->
 
             <div class="row">
               <div class="col-sm-12">

@@ -16,7 +16,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./user-detail-edit.component.css']
 })
 export class UserDetailEditComponent implements OnInit {
-  @ViewChild('userSurnameInputField', {static: false}) userSurnameInputField: ElementRef;
+  @ViewChild('defaultInputField', {static: false}) defaultInputField: ElementRef;
   public pageSource: string;
   public newRecord: boolean;
   public user: User;
@@ -67,7 +67,7 @@ export class UserDetailEditComponent implements OnInit {
         this.user = new User();
         this.user.userId = null;
         setTimeout(() => {
-          this.userSurnameInputField.nativeElement.focus();
+          this.defaultInputField.nativeElement.focus();
         }, 0);
       }
     }).then();

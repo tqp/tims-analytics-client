@@ -66,7 +66,7 @@ export class RoleDetailEditComponent implements OnInit {
 
   private initializeForm(): void {
     this.roleEditForm = this.formBuilder.group({
-      roleId: new FormControl('', Validators.required),
+      roleId: new FormControl(''),
       roleName: new FormControl('', Validators.required),
       roleDescription: new FormControl('')
     });

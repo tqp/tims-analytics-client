@@ -13,6 +13,7 @@ import { LaddaModule } from 'angular2-ladda';
 import { ListAddRemoveItemsBasicModule } from '../../components/toolkit/list-add-remove-items-basic/list-add-remove-items-basic.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoleRoutingModule } from './role-routing.module';
+import { RoleListDeletedComponent } from './role-list-deleted/role-list-deleted.component';
 
 
 
@@ -21,6 +22,7 @@ import { RoleRoutingModule } from './role-routing.module';
     RoleDetailComponent,
     RoleDetailEditComponent,
     RoleListComponent,
+    RoleListDeletedComponent,
   ],
   imports: [
     CommonModule,

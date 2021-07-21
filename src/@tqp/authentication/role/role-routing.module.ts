@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoleListComponent } from './role-list/role-list.component';
 import { RoleDetailComponent } from './role-detail/role-detail.component';
 import { RoleDetailEditComponent } from './role-detail-edit/role-detail-edit.component';
+import { UserListDeletedComponent } from '../user/user-list-deleted/user-list-deleted.component';
+import { RoleListDeletedComponent } from './role-list-deleted/role-list-deleted.component';
 
 const routes: Routes = [
 
@@ -29,6 +31,13 @@ const routes: Routes = [
         component: RoleListComponent,
         data: {
           title: 'Role List'
+        }
+      },
+      {
+        path: 'role-list-deleted',
+        component: RoleListDeletedComponent,
+        data: {
+          title: 'Deleted Role List'
         }
       },
       {
